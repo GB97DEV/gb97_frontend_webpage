@@ -19,7 +19,7 @@ const AboutUs = () => {
         <div className="spacer ">
             <Container className="feature30">
                 <Row>
-                    <Col lg="10">
+                    <Col lg="8">
                     <Image
                         src={about}
                         className="rounded img-responsive"
