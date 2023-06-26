@@ -33,9 +33,9 @@ const Footer = () => {
                 <a className="link">  informacion@gb97.ec</a>
               </Link>
               <br />
-              Call Center:
-              <Link href={""}>
-                <a className="link">  callcentre@gb97.ec</a>
+              Call Center: <br/>
+              <Link href={"mailto:callcentre@gb97.ec"}>
+                <a className="link">callcentre@gb97.ec</a>
               </Link>
             </p>
           </Col>
