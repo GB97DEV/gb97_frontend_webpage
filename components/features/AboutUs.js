@@ -11,7 +11,7 @@ import { Row,
     CarouselCaption 
 } from "reactstrap";
 import Image from "next/image";
-import bannerAbout from "../../assets/images/aboutUs/about.jpg";
+import about from "../../assets/images/about/about.png";
 
 
 const AboutUs = () => {
@@ -21,20 +21,10 @@ const AboutUs = () => {
                 <Row>
                     <Col lg="10">
                     <Image
-                        src={bannerAbout}
+                        src={about}
                         className="rounded img-responsive"
                         alt="Socializacion"
                     />
-                    {/* <Carousel activeIndex={activeIndex} next={next}>
-                        {items.map((item, index) => {
-                            return (
-                            <CarouselItem key={index}>
-                                <Image src={item.src} className="rounded img-responsive" alt={item.altText} height={1000}/>
-                            </CarouselItem>
-                            );
-                        })}
-                    </Carousel> */}
-
                     </Col>
                     <Col lg="5" md="7" className="text-center wrap-feature30-box">
                     <Card className="card-shadow">

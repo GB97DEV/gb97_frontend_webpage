@@ -10,7 +10,7 @@ export default function Home() {
           name="description"
           content="Página WEB de GB97 Ecuador"
         />
-        <link rel="icon" href="/logo.ico" />
+        <link rel="icon" href="/logo.ico"/>
       </Head>
       <Build />
     </div>

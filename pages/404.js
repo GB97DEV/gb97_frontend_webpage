@@ -11,7 +11,7 @@ const ErrorPage = () => {
           name="description"
           content="La pagina que estas buscando no existe"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.ico"/>
       </Head>
       <Container>
         <Row className="justify-content-center">
@@ -21,7 +21,7 @@ const ErrorPage = () => {
               La pagina que buscas aun esta en consturcción
               <br /> regresa mas tarde
             </h4>
-            <Link href="/">
+            <Link href="/" passHref>
               <Button className="btn btn-md m-t-30 btn-info-gradiant font-14">
                 Inicio
               </Button>

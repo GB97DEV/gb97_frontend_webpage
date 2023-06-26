@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import Image from "next/image";
 
-import iso from "../../assets/images/landingpage/iso.png"
+import iso from "../../assets/images/landingpage/iso.png";
 import home from "../../assets/images/landingpage/home.png";
 
 

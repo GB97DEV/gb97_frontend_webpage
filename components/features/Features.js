@@ -33,6 +33,7 @@ const Features = () => {
                     data-toggle="collapse"
                     href='https://play.google.com/store/apps/details?id=com.alexandertubon.pedidosgb97' 
                     target="_blank"
+                    rel="noreferrer"
                   >
                     <span>
                         Pedidos GB97
@@ -59,6 +60,7 @@ const Features = () => {
                     data-toggle="collapse"
                     href='https://play.google.com/store/apps/details?id=com.alexandertubon.gb97textil_workspace' 
                     target="_blank"
+                    rel="noreferrer"
                   >
                     <span>
                         GB97 Textil Workspace
