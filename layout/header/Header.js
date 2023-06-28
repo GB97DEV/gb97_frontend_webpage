@@ -21,7 +21,7 @@ const Header = () => {
       <div className="header1 po-relative bg-primary">
         <Container>
           <Navbar className="navbar-expand-lg h2-nav">
-            <NavbarBrand href="#">
+            <NavbarBrand href="/#">
               <Image src={logo2} alt="wrapkit" width={70} height={70} />
             </NavbarBrand>
             <NavbarToggler onClick={toggle}>
@@ -30,13 +30,13 @@ const Header = () => {
             <Collapse isOpen={isOpen} navbar id="header1">
               <Nav navbar className="ml-auto mt-2 mt-lg-0">
                 <NavItem className="active">
-                  <NavLink href="#">Inicio</NavLink>
+                  <NavLink href="/#">Inicio</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="#About">Sobre Nosotros</NavLink>
+                  <NavLink href="/#About">Sobre Nosotros</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="#Features">Nuestros Servicios</NavLink>
+                  <NavLink href="/#Features">Nuestros Servicios</NavLink>
                 </NavItem>
                 <NavItem>
                   <a className="btn btn-info" href="https://main.d3b5i26s5vbmmp.amplifyapp.com/">

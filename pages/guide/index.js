@@ -1,9 +1,10 @@
+//@ts-ignore
 import Head from "next/head";
 import Script from "next/script";
+import GuideBuild from "../../components/custom/GuideBuild";
 
-import Build from "../components/custom/Build";
 
-export default function Home() {
+const VideoGuide = () => {
   return (
     <div>
       <Script
@@ -25,11 +26,13 @@ export default function Home() {
         <title>GB97 - Ecuador</title>
         <meta
           name="description"
-          content="Página WEB de GB97 Ecuador"
+          content="Página WEB de GB97 Ecuador" 
         />
-        <link rel="icon" href="/logo.ico"/>
+        <link rel="icon" href="/logo.ico"/>  
       </Head>
-      <Build />
+      <GuideBuild />
     </div>
-  );
+  )
 }
+
+export default VideoGuide

@@ -5,6 +5,7 @@ import AboutUs from '../features/AboutUs'
 import FloatingButton from '../basic/FloatingButton'  
 import UpButton from '../basic/UpButton'  
 import LandBot from '../basic/LandBot'
+import Track from '../features/Track'
 
 const Build = () => {
   return (
@@ -12,6 +13,9 @@ const Build = () => {
         <Banner2 />
         <section id='About'>
           <AboutUs />
+        </section>
+        <section id='Track'>
+          <Track />
         </section>
         <section id='Features'>
           <Features />

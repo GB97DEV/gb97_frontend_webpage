@@ -234,6 +234,13 @@ Floating Button
   border: none;
   border-radius: 50px;
 
+  opacity: 0;
+  transition: opacity 2s ease-out;
+
+  &.aparecer {
+    opacity: 1;
+  }
+
   &:hover {
     background-color: $dark-green;
     width: 45px;
@@ -268,6 +275,55 @@ Up Button
   }
 }
 
+/******************* 
+Video
+*******************/
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* Proporción de aspecto 16:9 (para un video de 16:9) */
+  overflow: hidden;
+}
+
+.video-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/******************* 
+Card Background
+*******************/
+.card-bg{
+  background-image: linear-gradient(20deg, $primary 0%, $secondary 40%, $tertiary 100%);
+}
+.card-title{
+  color: #fff;
+}
+
+/******************* 
+Image Card
+*******************/
+.image-card{
+  cursor: pointer;
+}
+
+/******************* 
+Vertical Line
+*******************/
+.vertical-line{
+  width: 2px;
+  height: 100%;
+  background-color: $line-color;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translateX(-50%);
+}
 /******************* 
 Listing
 *******************/

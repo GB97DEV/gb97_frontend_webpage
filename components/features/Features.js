@@ -28,18 +28,32 @@ const Features = () => {
                   Pedidos GB97, registra productos y clientes, y genera ordenes y cotizaciones de forma rápida y sencilla con nuestra plataforma dedicada. 
                   Simplifica tu proceso de ventas.
                   </p>
-                  <a
-                    className='btn btn-primary btn-md btn-arrow m-t-20'
-                    data-toggle="collapse"
-                    href='https://play.google.com/store/apps/details?id=com.alexandertubon.pedidosgb97' 
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <span>
-                        Pedidos GB97
-                        <i className="ti-arrow-right"></i>
-                    </span>
-                  </a>
+                  <div className='d-flex justify-content-around mr-5'>
+                    <a
+                      className='btn btn-primary btn-md btn-arrow m-t-20'
+                      data-toggle="collapse"
+                      href='https://play.google.com/store/apps/details?id=com.alexandertubon.pedidosgb97' 
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <span>
+                          Pedidos GB97
+                          <i className="ti-arrow-right"></i>
+                      </span>
+                    </a>
+
+                    <a
+                      className='btn btn-primary btn-md btn-arrow m-t-20'
+                      data-toggle="collapse"
+                      href='/guide#Pedido'
+                      rel="noreferrer"
+                    >
+                      <span>
+                          Video Guia
+                          <i className="ti-arrow-right"></i>
+                      </span>
+                    </a>
+                  </div>
                 </CardBody>
               </Card>
             </Col>
@@ -55,18 +69,32 @@ const Features = () => {
                     accesible directamente desde tu dispositivo móvil. Además, 
                     proporcionamos un servicio completo de reportería que te permite visualizar de manera global o detallada el desempeño de tu negocio.
                   </p>
-                  <a
-                    className='btn btn-primary btn-md btn-arrow m-t-20'
-                    data-toggle="collapse"
-                    href='https://play.google.com/store/apps/details?id=com.alexandertubon.gb97textil_workspace' 
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <span>
-                        GB97 Textil Workspace
-                        <i className="ti-arrow-right"></i>
-                    </span>
-                  </a>
+                  <div className='d-flex justify-content-around'>
+                    <a
+                      className='btn btn-primary btn-md btn-arrow m-t-20'
+                      data-toggle="collapse"
+                      href='https://play.google.com/store/apps/details?id=com.alexandertubon.gb97textil_workspace' 
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <span>
+                          GB97 Textil Workspace
+                          <i className="ti-arrow-right"></i>
+                      </span>
+                    </a>
+
+                    <a
+                      className='btn btn-primary btn-md btn-arrow m-t-20'
+                      data-toggle="collapse"
+                      href='/guide#Textil'
+                      rel="noreferrer"
+                    >
+                      <span>
+                          Video Guia
+                          <i className="ti-arrow-right"></i>
+                      </span>
+                    </a>
+                  </div>
                 </CardBody>
               </Card>
             </Col>
