@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import { Row, Col, Container, Card, CardBody, Button } from "reactstrap";
 
 
@@ -42,17 +43,21 @@ const Features = () => {
                       </span>
                     </a>
 
-                    <a
+                    <div
                       className='btn btn-primary btn-md btn-arrow m-t-20'
                       data-toggle="collapse"
-                      href='/guide#Pedido'
-                      rel="noreferrer"
                     >
-                      <span>
-                          Video Guia
-                          <i className="ti-arrow-right"></i>
-                      </span>
-                    </a>
+                      <Link
+                        href='/guide'
+                        rel="noreferrer"
+                        passHref
+                      >
+                        <span>
+                            Video Guia
+                            <i className="ti-arrow-right"></i>
+                        </span>
+                      </Link>
+                    </div>
                   </div>
                 </CardBody>
               </Card>
@@ -83,17 +88,21 @@ const Features = () => {
                       </span>
                     </a>
 
-                    <a
-                      className='btn btn-primary btn-md btn-arrow m-t-20'
+                    <div
+                      className='a btn btn-primary btn-md btn-arrow m-t-20'
                       data-toggle="collapse"
-                      href='/guide#Textil'
-                      rel="noreferrer"
                     >
-                      <span>
-                          Video Guia
-                          <i className="ti-arrow-right"></i>
-                      </span>
-                    </a>
+                      <Link 
+                        href='/guide#Textil'
+                        rel="noreferrer"
+                        passHref
+                      >
+                        <span>
+                            Video Guia
+                            <i className="ti-arrow-right"></i>
+                        </span>
+                      </Link>
+                    </div>
                   </div>
                 </CardBody>
               </Card>
