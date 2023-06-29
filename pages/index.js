@@ -4,7 +4,6 @@ import Script from "next/script";
 import Build from "../components/custom/Build";
 
 export default function Home() {
-  const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS;
   return (
     <div>
       <Head>
@@ -15,20 +14,6 @@ export default function Home() {
         />
         <link rel="icon" href="/logo.ico"/>
       </Head>
-      <Script
-        async
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-      />
-
-      <Script id='google-analytics-guide'>
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-        
-          gtag('config', '${GA_MEASUREMENT_ID}');
-        `}
-      </Script>
       <Build />
     </div>
   );
