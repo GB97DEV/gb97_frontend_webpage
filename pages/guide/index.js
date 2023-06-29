@@ -16,19 +16,18 @@ const VideoGuide = () => {
         <link rel="icon" href="/logo.ico"/>  
       </Head>
       <Script
-        strategy="lazyOnload"
+        async
         src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
       />
 
-      <Script id='google-analytics-guide' strategy="lazyOnload">
+      <Script id='google-analytics-guide'>
         {`
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
-                    gtag('js', new Date());
-                    gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
-                    page_path: window.location.pathname,
-                    });
-                `}
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
+        `}
       </Script>
       <GuideBuild />
     </div>
