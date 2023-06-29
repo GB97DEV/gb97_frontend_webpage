@@ -1,6 +1,4 @@
-//@ts-ignore
 import Head from "next/head";
-import Script from "next/script";
 import GuideBuild from "../../components/custom/GuideBuild";
 
 
@@ -14,7 +12,7 @@ const VideoGuide = () => {
           content="Página WEB de GB97 Ecuador" 
         />
         <link rel="icon" href="/logo.ico"/>  
-      </Head>
+      </Head> 
       <GuideBuild />
     </div>
   )

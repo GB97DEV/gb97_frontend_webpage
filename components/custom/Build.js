@@ -14,9 +14,9 @@ const Build = () => {
         <section id='About'>
           <AboutUs />
         </section>
-        <section id='Track'>
+        {/* <section id='Track' className='bg-light'>
           <Track />
-        </section>
+        </section> */}
         <section id='Features'>
           <Features />
         </section>
