@@ -21,7 +21,7 @@ const Features = () => {
               <Card>
                 <CardBody>
                   <div className="icon-round bg-light-info">
-                    <i className="fa fa-star"></i>
+                    <i className="fa fa-pencil-square-o ml-2"></i>
                   </div>
                   <h5 className="font-medium">Pedidos GB97</h5>
                   <p className="m-t-20">
@@ -66,7 +66,7 @@ const Features = () => {
               <Card>
                 <CardBody>
                   <div className="icon-round bg-light-info">
-                    <i className="fa fa-bars"></i>
+                    <i className="fa fa-tasks"></i>
                   </div>
                   <h5 className="font-medium">GB97 Textil Workspace</h5>
                   <p className="m-t-20">
@@ -103,6 +103,37 @@ const Features = () => {
                         </span>
                       </Link>
                     </div>
+                  </div>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+          <Row className="m-t-40">
+            <Col md="6" className="wrap-feature4-box">
+              <Card>
+                <CardBody>
+                  <div className="icon-round bg-light-info">
+                    <i className="fa fa-handshake-o"></i>
+                  </div>
+                  <h5 className="font-medium">Alianza Común</h5>
+                  <p className="m-t-20">
+                    GB97 ofrece la plataforma integral para tus necesidades inmobiliarias y laborales. 
+                    Ya sea que estés buscando publicar, comprar o alquilar bienes raíces u oferta laboral, Alianza Común es tu aliado confiable. 
+                    Con una interfaz intuitiva y poderosas herramientas de búsqueda, nuestra aplicación te conecta con una amplia variedad de propiedades y oportunidades laborales.
+                  </p>
+                  <div className='mr-5 ml-4'>
+                    <a
+                      className='btn btn-primary btn-md btn-arrow m-t-20'
+                      data-toggle="collapse"
+                      href='https://play.google.com/store/apps/details?id=com.gb97.smartandsafe.com.co' 
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <span>
+                          Alianza Común
+                          <i className="ti-arrow-right"></i>
+                      </span>
+                    </a>
                   </div>
                 </CardBody>
               </Card>
