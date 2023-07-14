@@ -75,6 +75,30 @@ Header 6
     color: $white;
     line-height: 30px;
   }
+
+  @media (max-width: 900px) {
+    .title{
+      color: $white;
+      font-weight: 700;
+      font-size: 32px;
+      line-height: 54px;
+      margin-bottom: 30px;
+      margin-left: 20px;
+    }
+    .subtitle{
+      color: $white;
+      line-height: 30px;
+      font-size: 18px;
+      margin-bottom: 30px;
+      margin-left: 20px;
+    }
+    .image-iso{
+      width: 100%;
+      justify-content: center !important;
+      display: flex !important;
+      margin-bottom: 20px;
+    }
+  }
 }
 
 .image-home{
@@ -305,6 +329,23 @@ Card Background
   color: #fff;
 }
 
+.title-container{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 40px;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+}
+
+.img-title{
+  padding: 0 10px;
+  width: 100%;
+  color:rgba(255, 255, 255, 1);
+}
+
 /******************* 
 Image Card
 *******************/
@@ -324,6 +365,107 @@ Vertical Line
   top: 0;
   transform: translateX(-50%);
 }
+
+/******************* 
+Logo Feature
+*******************/
+
+.scrollable-row {
+  display: flex;
+  overflow-x: hidden;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+}
+
+.scroll-arrows {
+  display: flex;
+  width: 100%;
+}
+.buttons-container{
+  display: flex;
+  justify-content: center;
+}
+.arrow-button{
+  border: none;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.arrow-icon{
+  color: rgba(99, 98, 98, 0.8);
+}
+
+.scroll-arrow {
+  width: 40px;
+  height: 40px;
+  background-color: #ccc;
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.scroll-arrow:hover {
+  background-color: #888;
+}
+
+.client-text{
+  display: flex;
+  align-items: center;
+}
+
+/******************* 
+Feature Logo
+*******************/
+.feature-logo{
+  cursor: pointer;
+  width: 80px;
+  height: 80px;
+}
+
+
+/******************* 
+Listing
+*******************/
+.more-button{
+  background-color: transparent;
+  border: 0;
+  &:hover{
+    .more-text{
+      font-size: 16px;
+      margin-right: 10px;
+    }
+    .more-icon{
+      font-size: 16px;
+    }
+  }
+}
+.more-text{
+  color: rgb(1, 128, 212);
+  font-size: 15px;
+  
+}
+.more-icon {
+  color: rgb(1, 128, 212);
+  margin-left: 5px;
+  font-size: 15px;
+}
+.pdf-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 75%; /* Establece la relación de aspecto, por ejemplo, 1:1 para un cuadrado */
+}
+
+.pdf-embed {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 /******************* 
 Listing
 *******************/
@@ -385,10 +527,10 @@ Image shadow
 
 .icon-round {
   width: 80px;
+  height: 80px;
   line-height: 80px;
   text-align: center;
   border-radius: 100%;
-  display: inline-block;
 }
 
 .no-shrink {

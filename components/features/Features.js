@@ -1,6 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image';
 import { Row, Col, Container, Card, CardBody, Button } from "reactstrap";
+import MoreButton from '../basic/MoreButton';
 
 
 const Features = () => {
@@ -113,7 +115,11 @@ const Features = () => {
               <Card>
                 <CardBody>
                   <div className="icon-round bg-light-info">
-                    <i className="fa fa-handshake-o"></i>
+                  <Image
+                    className='feature-logo'
+                    src={require(`../../assets/images/logos/gb97-alianza_comun.webp`)}
+                    alt={"logo track"}
+                  />
                   </div>
                   <h5 className="font-medium">Alianza Común</h5>
                   <p className="m-t-20">
@@ -131,6 +137,40 @@ const Features = () => {
                     >
                       <span>
                           Alianza Común
+                          <i className="ti-arrow-right"></i>
+                      </span>
+                    </a>
+                  </div>
+                </CardBody>
+              </Card>
+            </Col>
+            <Col md="6" className="wrap-feature4-box">
+              <Card>
+                <CardBody>
+                <div className="icon-round bg-light-info">
+                  <Image
+                    className='feature-logo'
+                    src={require(`../../assets/images/logos/gb97-track.png`)}
+                    alt={"logo track"}
+                  />
+                </div>
+                  <h5 className="font-medium">GB97 Track</h5>
+                  <p className="m-t-20">
+                    GB97 Ecuador cuenta con lo último en tecnologi en rastreo vehicular con los mas altos estandares de monitoreo y seguridad para su vehiculo,
+                    contamos con Control de rutas y velocidad, Bloqueo de Encendido, Botón de panico para señales de emergencia, entre muchas mas funcionalidades que ayudar a que usted y su vehiculo esten seguros en las carretas del país.
+                  </p>
+                  
+                  <MoreButton file='gb97-track.pdf' />
+                  <div className='mr-5 ml-4'>
+                    <a
+                      className='btn btn-primary btn-md btn-arrow m-t-20'
+                      data-toggle="collapse"
+                      href='https://play.google.com/store/apps/details?id=com.tracking.gb97' 
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <span>
+                          GB97 Track
                           <i className="ti-arrow-right"></i>
                       </span>
                     </a>
