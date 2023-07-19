@@ -76,6 +76,8 @@ const Features = () => {
                     accesible directamente desde tu dispositivo móvil. Además, 
                     proporcionamos un servicio completo de reportería que te permite visualizar de manera global o detallada el desempeño de tu negocio.
                   </p>
+                  <MoreButton file='textil-workspace.pdf' />
+
                   <div className='d-flex justify-content-around'>
                     <a
                       className='btn btn-primary btn-md btn-arrow m-t-20'
