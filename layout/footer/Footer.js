@@ -8,16 +8,7 @@ const Footer = () => {
     <div className="footer4 b-t spacer">
       <Container>
         <Row>
-          <Col lg="3" md="6" className="m-b-30">
-            <h5 className="m-b-20">Nos econtramos en:</h5>
-            <a href={'https://goo.gl/maps/z2Zj9y7vyKSVgRHz7'} target="_blank">
-              Edificio Milicentro
-              <br/>
-              Direccion: Ave Diego de Almagro &, Quito 170517.
-              <br/>
-              Quito - Ecuador
-            </a>
-          </Col>
+          
           <Col lg="3" md="6" className="m-b-30">
             <h5 className="m-b-20">Telefono</h5>
             <p>
@@ -40,7 +31,7 @@ const Footer = () => {
             </p>
           </Col>
           <Col lg="3" md="6">
-            <h5 className="m-b-20">Social</h5>
+            <h5 className="m-b-20">Redes Sociales</h5>
             <div className="round-social light">
               <Link href="https://www.facebook.com/GB97ECUADOR">
                 <a className="link">
