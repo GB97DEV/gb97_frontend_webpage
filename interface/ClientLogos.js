@@ -1,4 +1,4 @@
-export const ClientsLogos = [
+const ClientsLogos = [
    {
       logo: '0491512059001',
       name: 'Asociación de economía solidaria los pastos'
@@ -33,7 +33,8 @@ export const ClientsLogos = [
    },
    {
       logo: '1715770879001',
-      name: 'Limones Lopez Aida Maria'
+      name: 'Limones Lopez Aida Maria',
+      products: ['IMG-01','IMG-02','IMG-03','IMG-04']
    },
    {
       logo: '1717598708001',
@@ -118,7 +119,15 @@ export const ClientsLogos = [
    },
 ]
 
+const compareByName = (a, b) => {
+   if (a.name < b.name) return -1;
+   if (a.name > b.name) return 1;
+   return 0;
+ };
 
+ClientsLogos.sort(compareByName);
+
+export default ClientsLogos;
 
 
 
