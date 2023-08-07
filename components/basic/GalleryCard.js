@@ -10,9 +10,12 @@ const GalleryCard = ({image= '', alt = 'imagen', title = ''}) => {
 			<Card className="card-shadow img-ho" inverse>
 				<Image
 						className="image-card card-img-top"
-						src={require(`../../assets/images/gallery/${image}`)}
+						src={`https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/gallery/${image}`}
 						alt={alt}
 						onClick={toggle}
+						width={200}
+						height={250}
+						loading='lazy'
 				/>
 
 				<div className='title-container'>
@@ -30,12 +33,14 @@ const GalleryCard = ({image= '', alt = 'imagen', title = ''}) => {
 						<h3>{title}</h3>
 					</ModalHeader>
 					<ModalBody>
-							<div className='video-container'>
+							<div className='video-container position-relative'>
 									<Image
 											className="image-card card-img-top"
-											src={require(`../../assets/images/gallery/${image}`)}
+											src={`https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/gallery/${image}`}
 											alt={alt}
 											onClick={toggle}
+											layout='fill'
+											loading='lazy'
 									/>
 							</div>
 					</ModalBody>

@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { Col, Row, Container} from 'reactstrap'
 import ClientCard from '../basic/ClientCard'
-import { ClientsLogos } from '../../interface/ClientLogos'
+import ClientsLogos from '../../interface/ClientLogos'
 
 
 const Clients = () => {
@@ -16,27 +16,25 @@ const Clients = () => {
 
 	useEffect(() => {
 		handleResize(); // Llamada inicial al cargar el componente
-		handleArray();
-  
-		window.addEventListener('resize', handleResize);
-  
-		return () => {
-		  window.removeEventListener('resize', handleResize);
-		};
-	}, []);
-
-	const handleArray = () => {
+	
 		const longitud = ClientsLogos.length;
 		const parte = Math.floor(longitud / 3);
-
-		setPrimerArray(ClientsLogos.slice(0, parte))
-		setSegundoArray(ClientsLogos.slice(parte, parte * 2))
-		setTercerArray(ClientsLogos.slice(parte * 2))
-
+	
+		setPrimerArray(ClientsLogos.slice(0, parte));
+		setSegundoArray(ClientsLogos.slice(parte, parte * 2));
+		setTercerArray(ClientsLogos.slice(parte * 2));
+	
+		// Agregar el último elemento de segundoArray a primerArray si la longitud es impar
 		if (longitud % 2 !== 0 && primerArray.length > 0) {
-			primerArray.push(segundoArray.shift());
+			setPrimerArray((prevArray) => [...prevArray, segundoArray.pop()]);
 		}
-	}
+	
+		window.addEventListener('resize', handleResize);
+	
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
 
 	const handleResize = () => {
 		const windowWidth = window.innerWidth;
@@ -87,7 +85,7 @@ const Clients = () => {
 							primerArray && primerArray.map((client) => {
 								return(
 									<Col lg='3' md="4" sm="6" xs="6" key={client.name}>
-										<ClientCard image={client.logo} name={client.name}/>
+										<ClientCard image={client.logo} name={client.name} products={client.products} />
 									</Col>
 								)
 							})
@@ -100,7 +98,7 @@ const Clients = () => {
 							segundoArray && segundoArray.map((client) => {
 								return(
 									<Col lg='3' md="4" sm="6" xs="6" key={client.name}>
-										<ClientCard image={client.logo} name={client.name}/>
+										<ClientCard image={client.logo} name={client.name} products={client.products} />
 									</Col>
 								)
 							})
@@ -113,7 +111,7 @@ const Clients = () => {
 							tercerArray && tercerArray.map((client) => {
 								return(
 									<Col lg='3' md="4" sm="6" xs="6" key={client.name}>
-										<ClientCard image={client.logo} name={client.name}/>
+										<ClientCard image={client.logo} name={client.name} products={client.products} />
 									</Col>
 								)
 							})

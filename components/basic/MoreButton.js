@@ -19,7 +19,7 @@ const MoreButton = ({file = ''}) => {
 			>
         <ModalBody>
             <div className='pdf-container'>
-              <embed className='pdf-embed' src={`https://gb97.ec/tripticos/${file}`} />
+              <embed className='pdf-embed' src={`https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/tripticos/${file}`} />
             </div>
         </ModalBody>
 			</Modal>
