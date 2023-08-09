@@ -31,7 +31,7 @@ const Features = () => {
                   Pedidos GB97, registra productos y clientes, y genera ordenes y cotizaciones de forma rápida y sencilla con nuestra plataforma dedicada. 
                   Simplifica tu proceso de ventas.
                   </p>
-                  <div className='d-flex justify-content-around mr-5'>
+                  <div className='mr-5'>
                     <a
                       className='btn btn-primary btn-md btn-arrow m-t-20'
                       data-toggle="collapse"
@@ -44,22 +44,6 @@ const Features = () => {
                           <i className="ti-arrow-right"></i>
                       </span>
                     </a>
-
-                    <div
-                      className='btn btn-primary btn-md btn-arrow m-t-20'
-                      data-toggle="collapse"
-                    >
-                      <Link
-                        href='/guide'
-                        rel="noreferrer"
-                        passHref
-                      >
-                        <span>
-                            Video Guia
-                            <i className="ti-arrow-right"></i>
-                        </span>
-                      </Link>
-                    </div>
                   </div>
                 </CardBody>
               </Card>
@@ -78,7 +62,7 @@ const Features = () => {
                   </p>
                   <MoreButton file='textil-workspace.pdf' />
 
-                  <div className='d-flex justify-content-around'>
+                  <div className='mr-5'>
                     <a
                       className='btn btn-primary btn-md btn-arrow m-t-20'
                       data-toggle="collapse"
@@ -91,22 +75,6 @@ const Features = () => {
                           <i className="ti-arrow-right"></i>
                       </span>
                     </a>
-
-                    <div
-                      className='a btn btn-primary btn-md btn-arrow m-t-20'
-                      data-toggle="collapse"
-                    >
-                      <Link 
-                        href='/guide#Textil'
-                        rel="noreferrer"
-                        passHref
-                      >
-                        <span>
-                            Video Guia
-                            <i className="ti-arrow-right"></i>
-                        </span>
-                      </Link>
-                    </div>
                   </div>
                 </CardBody>
               </Card>
@@ -129,7 +97,7 @@ const Features = () => {
                     Ya sea que estés buscando publicar, comprar o alquilar bienes raíces u oferta laboral, Alianza Común es tu aliado confiable. 
                     Con una interfaz intuitiva y poderosas herramientas de búsqueda, nuestra aplicación te conecta con una amplia variedad de propiedades y oportunidades laborales.
                   </p>
-                  <div className='mr-5 ml-4'>
+                  <div className='mr-5'>
                     <a
                       className='btn btn-primary btn-md btn-arrow m-t-20'
                       data-toggle="collapse"
@@ -163,7 +131,7 @@ const Features = () => {
                   </p>
                   
                   <MoreButton file='gb97-track.pdf' />
-                  <div className='mr-5 ml-4'>
+                  <div className='mr-5'>
                     <a
                       className='btn btn-primary btn-md btn-arrow m-t-20'
                       data-toggle="collapse"
