@@ -8,7 +8,12 @@ const Footer = () => {
     <div className="footer4 b-t spacer">
       <Container>
         <Row>
-          
+          <Col lg="3" md="6" className="m-b-30">
+            <h5 className="m-b-20">Apartado Postal</h5>
+            <p>
+              Codigo Postal: 170518
+            </p>
+          </Col>
           <Col lg="3" md="6" className="m-b-30">
             <h5 className="m-b-20">Telefono</h5>
             <p>

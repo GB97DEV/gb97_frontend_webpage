@@ -25,10 +25,10 @@ const Features = () => {
                   <div className="icon-round bg-light-info">
                     <i className="fa fa-pencil-square-o ml-2"></i>
                   </div>
-                  <h5 className="font-medium">Pedidos GB97</h5>
+                  <h5 className="font-medium">GB97 Pedidos Textil</h5>
                   <p className="m-t-20">
                   GB97 Ecuador te ofrece una solución completa para gestionar tus pedidos, productos y clientes de manera rapida y eficiente. 
-                  Pedidos GB97, registra productos y clientes, y genera ordenes y cotizaciones de forma rápida y sencilla con nuestra plataforma dedicada. 
+                  GB97 Pedidos Textil, registra productos y clientes, y genera ordenes y cotizaciones de forma rápida y sencilla con nuestra plataforma dedicada. 
                   Simplifica tu proceso de ventas.
                   </p>
                   <div className='mr-5'>
@@ -54,7 +54,7 @@ const Features = () => {
                   <div className="icon-round bg-light-info">
                     <i className="fa fa-tasks"></i>
                   </div>
-                  <h5 className="font-medium">GB97 Textil Workspace</h5>
+                  <h5 className="font-medium">GB97 Reportes Textil</h5>
                   <p className="m-t-20">
                     GB97 Ecuador ofrece un espacio de trabajo para su servicio tecnológico textil, 
                     accesible directamente desde tu dispositivo móvil. Además, 

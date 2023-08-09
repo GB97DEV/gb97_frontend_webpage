@@ -1,8 +1,6 @@
 import React, {useState} from 'react'
-import Image from 'next/image'
 import { Row, Col, Container, Modal, ModalHeader, ModalBody } from 'reactstrap'
 
-import img1 from '../../assets/images/about/about.png'
 import GalleryCard from '../basic/GalleryCard'
 import { GalleryClients } from '../../interface/GalleryClients'
 

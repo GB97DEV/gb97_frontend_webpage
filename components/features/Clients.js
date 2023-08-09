@@ -85,7 +85,7 @@ const Clients = () => {
 							primerArray && primerArray.map((client) => {
 								return(
 									<Col lg='3' md="4" sm="6" xs="6" key={client.name}>
-										<ClientCard image={client.logo} name={client.name} products={client.products} />
+										<ClientCard image={client.logo} name={client.name} organizationId={client.organizationId} products={client.products} />
 									</Col>
 								)
 							})
@@ -98,7 +98,7 @@ const Clients = () => {
 							segundoArray && segundoArray.map((client) => {
 								return(
 									<Col lg='3' md="4" sm="6" xs="6" key={client.name}>
-										<ClientCard image={client.logo} name={client.name} products={client.products} />
+										<ClientCard image={client.logo} name={client.name} organizationId={client.organizationId} products={client.products} />
 									</Col>
 								)
 							})
@@ -111,7 +111,7 @@ const Clients = () => {
 							tercerArray && tercerArray.map((client) => {
 								return(
 									<Col lg='3' md="4" sm="6" xs="6" key={client.name}>
-										<ClientCard image={client.logo} name={client.name} products={client.products} />
+										<ClientCard image={client.logo} name={client.name} organizationId={client.organizationId} products={client.products} />
 									</Col>
 								)
 							})

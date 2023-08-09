@@ -26,7 +26,6 @@ const Build = () => {
         </section>
         <FloatingButton />
         <UpButton />
-        <LandBot />
     </div>
   )
 }

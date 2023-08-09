@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
 import Image from 'next/image';
-import {Link, useNavigate} from 'react-router-dom';
 import { Row, Col, Card, CardBody, Modal, ModalBody, ModalHeader } from 'reactstrap';
 
 
-const ClientCard = ({image = 'default', name = 'No definido', products = []}) => {
+const ClientCard = ({image = 'default', name = 'No definido', organizationId = "",products = []}) => {
    const [modal, setModal] = useState(false);
 	const toggle = () => {
       if(products.length > 0){
@@ -45,48 +44,22 @@ const ClientCard = ({image = 'default', name = 'No definido', products = []}) =>
 					</ModalHeader>
 					<ModalBody>
                   <Row>
-                     <Col md="6">
-                        <Image
-                           src={`https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/productos/${products[0]}.jpg`}
-                           alt={"Producto"}
-                           onClick={toggle}
-                           loading='lazy'
-                           width={500}
-                           height={500}
-                        />
-                     </Col>
-                     <Col md="6">
-                        <Image
-                           src={`https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/productos/${products[1]}.jpg`}
-                           alt={"Producto"}
-                           onClick={toggle}
-                           loading='lazy'
-                           width={500}
-                           height={500}
-                        />
-                     </Col>
-                  </Row>
-                  <Row>
-                     <Col md="6">
-                        <Image
-                           src={`https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/productos/${products[2]}.jpg`}
-                           alt={"Producto"}
-                           onClick={toggle}
-                           loading='lazy'
-                           width={500}
-                           height={500}
-                        />
-                     </Col>
-                     <Col md="6">
-                        <Image
-                           src={`https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/productos/${products[3]}.jpg`}
-                           alt={"Producto"}
-                           onClick={toggle}
-                           loading='lazy'
-                           width={500}
-                           height={500}
-                        />
-                     </Col>
+                     {
+                        products.map((product) => {
+                           return (
+                              <Col md="4">
+                                 <Image
+                                    src={`https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/productos/${organizationId}/${product}.png`}
+                                    alt={"Producto"}
+                                    onClick={toggle}
+                                    loading='lazy'
+                                    width={500}
+                                    height={500}
+                                 />
+                              </Col>
+                           )
+                        })
+                     }
                   </Row>
 					</ModalBody>
 			</Modal>
