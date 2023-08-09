@@ -45,9 +45,9 @@ const ClientCard = ({image = 'default', name = 'No definido', organizationId = "
 					<ModalBody>
                   <Row>
                      {
-                        products.map((product) => {
+                        products.map((product, index) => {
                            return (
-                              <Col md="4">
+                              <Col md="4" key={index}>
                                  <Image
                                     src={`https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/productos/${organizationId}/${product}.png`}
                                     alt={"Producto"}
