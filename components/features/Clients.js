@@ -15,26 +15,29 @@ const Clients = () => {
 	const [tercerArray, setTercerArray] = useState([])
 
 	useEffect(() => {
-		handleResize(); // Llamada inicial al cargar el componente
-	
-		const longitud = ClientsLogos.length;
-		const parte = Math.floor(longitud / 3);
-	
-		setPrimerArray(ClientsLogos.slice(0, parte));
-		setSegundoArray(ClientsLogos.slice(parte, parte * 2));
-		setTercerArray(ClientsLogos.slice(parte * 2));
-	
-		// Agregar el último elemento de segundoArray a primerArray si la longitud es impar
-		if (longitud % 2 !== 0 && primerArray.length > 0) {
-			setPrimerArray((prevArray) => [...prevArray, segundoArray.pop()]);
-		}
-	
-		window.addEventListener('resize', handleResize);
-	
-		return () => {
-			window.removeEventListener('resize', handleResize);
-		};
-	}, []);
+    handleResize(); // Llamada inicial al cargar el componente
+
+    const longitud = ClientsLogos.length;
+    const parte = Math.floor(longitud / 3);
+
+    setPrimerArray(ClientsLogos.slice(0, parte));
+    setSegundoArray(ClientsLogos.slice(parte, parte * 2));
+    setTercerArray(ClientsLogos.slice(parte * 2));
+
+    // Agregar el último elemento de segundoArray a primerArray si la longitud es impar
+    if (longitud % 2 !== 0 && primerArray.length > 0) {
+        setPrimerArray((prevArray) => {
+            const lastItem = segundoArray[segundoArray.length - 1];
+            return [...prevArray, lastItem];
+        });
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+        window.removeEventListener('resize', handleResize);
+    };
+}, [primerArray.length, segundoArray]);
 
 	const handleResize = () => {
 		const windowWidth = window.innerWidth;

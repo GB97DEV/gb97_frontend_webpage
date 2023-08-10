@@ -129,7 +129,13 @@ const Features = () => {
                     GB97 Ecuador cuenta con lo último en tecnologi en rastreo vehicular con los mas altos estandares de monitoreo y seguridad para su vehiculo,
                     contamos con Control de rutas y velocidad, Bloqueo de Encendido, Botón de panico para señales de emergencia, entre muchas mas funcionalidades que ayudar a que usted y su vehiculo esten seguros en las carretas del país.
                   </p>
-                  
+                  <div className="round-social">
+                    <Link href="https://www.instagram.com/gb97tracking/">
+                      <a className="link">
+                        <i className="fa fa-instagram fa-2x"></i>
+                      </a>
+                    </Link>
+                  </div>
                   <MoreButton file='gb97-track.pdf' />
                   <div className='mr-5'>
                     <a

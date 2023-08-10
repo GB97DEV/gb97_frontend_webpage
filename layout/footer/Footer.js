@@ -59,6 +59,22 @@ const Footer = () => {
                 </a>
               </Link>
             </div>
+            <Row>
+              <Col md='2'>
+                <div className="round-social light mt-2">
+                  <Link href="https://www.instagram.com/gb97ecuador/">
+                    <a className="link">
+                      <i className="fa fa-instagram"></i>
+                    </a>
+                  </Link>
+                </div>
+              </Col>
+              <Col>
+              <div className="mt-3 ml-1">
+                <span className="link">Ecaudorable</span>
+              </div>
+              </Col>
+            </Row>
           </Col>
         </Row>
         <div className="f4-bottom-bar">
