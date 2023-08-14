@@ -22,8 +22,12 @@ const Features = () => {
             <Col md="6" className="wrap-feature4-box">
               <Card>
                 <CardBody>
-                  <div className="icon-round bg-light-info">
-                    <i className="fa fa-pencil-square-o ml-2"></i>
+                <div className="icon-round bg-light-info">
+                  <Image
+                    className='feature-logo'
+                    src={require(`../../assets/images/logos/gb97-pedidos.png`)}
+                    alt={"logo pedidos"}
+                  />
                   </div>
                   <h5 className="font-medium">GB97 Pedidos Textil</h5>
                   <p className="m-t-20">
