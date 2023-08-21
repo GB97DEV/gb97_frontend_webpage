@@ -45,7 +45,7 @@ const Header = () => {
                   isLoggedIn  
                   ?<>
                     <NavItem>
-                      <NavLink href="/guide" >Video Guia</NavLink>
+                      <NavLink href="/guia" >Video Guia</NavLink>
                     </NavItem>
                     <NavItem >
                       <a className="btn btn-info" onClick={logout}>
