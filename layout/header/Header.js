@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import {
   Container,
   NavbarBrand,
@@ -9,13 +8,17 @@ import {
   NavItem,
   NavLink,
   NavbarToggler,
-  Collapse,
+  Collapse
 } from "reactstrap";
 import logo2 from "../../assets/images/logos/gb97-logo.png";
+import { AuthContext } from "../../context/AuthContext";
 
 const Header = () => {
+  const {logout} = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+
+  const { isLoggedIn } = useContext(AuthContext)
   return (
     <div className="topbar" id="top">
       <div className="header1 po-relative bg-primary">
@@ -38,11 +41,24 @@ const Header = () => {
                 <NavItem>
                   <NavLink href="/#Features">Nuestros Servicios</NavLink>
                 </NavItem>
-                <NavItem>
-                  <a className="btn btn-info" href="https://main.d3b5i26s5vbmmp.amplifyapp.com/">
-                    Usuarios
-                  </a>
-                </NavItem>
+                {
+                  isLoggedIn  
+                  ?<>
+                    <NavItem>
+                      <NavLink href="/guide" >Video Guia</NavLink>
+                    </NavItem>
+                    <NavItem >
+                      <a className="btn btn-info" onClick={logout}>
+                        Salir
+                      </a>
+                    </NavItem>
+                  </> 
+                  : <NavItem>
+                      <a className="btn btn-info" href="/acceso">
+                        Usuarios
+                      </a>
+                  </NavItem>
+                }
               </Nav>
             </Collapse>
           </Navbar>

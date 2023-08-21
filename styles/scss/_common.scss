@@ -241,6 +241,43 @@ Icon space
 }
 
 /******************* 
+Login Container
+*******************/
+.login-container {
+  width: 500px;
+}
+
+.login {
+  background-color: whitesmoke;
+  border: 1px solid #000;
+  border-radius: 10px;
+
+  .login-label {
+    color: rgba(64, 63, 64, 0.8);
+  }
+}
+
+.password-btn-container {
+  cursor: pointer;
+}
+
+.password-button{
+  width: 30px;
+  border-top: 2px solid rgba(120, 130, 140, 0.13);
+  border-right: 2px solid rgba(120, 130, 140, 0.13);
+  border-bottom: 2px solid rgba(120, 130, 140, 0.13);
+  border-left: 0px;
+  background-color: white;
+
+  a{
+    color: black;
+  }
+}
+
+
+
+
+/******************* 
 Floating Button
 *******************/
 
