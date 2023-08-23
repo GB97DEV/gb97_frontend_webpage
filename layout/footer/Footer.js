@@ -61,7 +61,7 @@ const Footer = () => {
             <Row>
               <Col md='2'>
                 <div className="round-social light mt-2">
-                  <Link href="https://www.instagram.com/gb97ecuador/">
+                  <Link href="https://www.instagram.com/ecuadorable1/">
                     <a className="link">
                       <i className="fa fa-instagram"></i>
                     </a>
