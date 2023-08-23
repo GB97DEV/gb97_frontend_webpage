@@ -51,6 +51,8 @@ const LoginForm = () => {
         transition={Flip}
       />
       <div className='login p-4 m-5'>
+        <h1 className='text-center'>Iniciar Sesión</h1>
+        <hr/>
         <Form onSubmit={handleLogin}>
           <FormGroup>
             <Label className='login-label' htmlFor="usuarioField">

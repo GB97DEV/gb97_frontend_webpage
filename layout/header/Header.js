@@ -12,13 +12,21 @@ import {
 } from "reactstrap";
 import logo2 from "../../assets/images/logos/gb97-logo.png";
 import { AuthContext } from "../../context/AuthContext";
+import { useRouter } from "next/router";
 
 const Header = () => {
+  const router = useRouter();
   const {logout} = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
   const { isLoggedIn } = useContext(AuthContext)
+
+  const salir = () => {
+    logout();
+    router.push("/");
+  }
+
   return (
     <div className="topbar" id="top">
       <div className="header1 po-relative bg-primary">
@@ -48,14 +56,14 @@ const Header = () => {
                       <NavLink href="/guia" >Video Guia</NavLink>
                     </NavItem>
                     <NavItem >
-                      <a className="btn btn-info" onClick={logout}>
+                      <a className="btn btn-info" onClick={salir}>
                         Salir
                       </a>
                     </NavItem>
                   </> 
                   : <NavItem>
                       <a className="btn btn-info" href="/acceso">
-                        Usuarios
+                        Acceder
                       </a>
                   </NavItem>
                 }
