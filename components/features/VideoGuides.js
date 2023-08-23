@@ -39,7 +39,7 @@ const VideoGuides = () => {
 						<Row className="justify-content-center">
 							<Col md="7" className="text-center">
 								<h1 className="mt-5 mb-5 title">Videos de Capacitación</h1>
-								<h2 className="subtitle">Aplicación de Pedidos</h2>
+								<h2 className="subtitle">GB97 Pedidos Textil</h2>
 							</Col>
 						</Row>
 							<Row className="m-t-40">
@@ -61,7 +61,7 @@ const VideoGuides = () => {
 							<Row className="justify-content-center">
 								<Col md="7" className="text-center">
 								<h2 className="mt-5 mb-5 subtitle">
-									Aplicación Textil Workspace
+									GB97 Reportes Textil
 								</h2>
 								</Col>
 							</Row>
