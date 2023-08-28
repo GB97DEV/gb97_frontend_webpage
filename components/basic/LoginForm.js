@@ -31,7 +31,7 @@ const LoginForm = () => {
       if(data.response){
         const date = new Date();
         login(data.data.token, date);
-        router.push("/");
+        router.push("/guia");
       } else {
         toast(data.message, {
           autoClose: 800,
