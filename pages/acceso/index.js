@@ -5,11 +5,13 @@ import { useRouter } from 'next/router';
 
 export default function Acceso() {
   const router = useRouter();
+  
   useEffect(() => {
     if(localStorage.getItem('token') !== null){
-      router.replace("/")
+      router.replace("/guia")
     }
   },[]);
+
   return (
     <div>
       <Head>
