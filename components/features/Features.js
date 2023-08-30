@@ -14,7 +14,7 @@ const Features = () => {
               <h2 className="title">Servicio Textil GB97 Ecuador</h2>
               <h6 className="subtitle">
                 GB97 utiliza una plataforma tecnológica basada en la nube para ofrecer su servicio. 
-                Actualmente, cuenta con dos aplicaciones móviles diseñadas para dispositivos Android, proporcionando una experiencia completa y fácil de usar.
+                Actualmente, cuenta con varias aplicaciones móviles multiplataforma, que brindan una experiencia completa y fácil de usar.
               </h6>
             </Col>
           </Row>
@@ -31,9 +31,8 @@ const Features = () => {
                   </div>
                   <h5 className="font-medium">GB97 Pedidos Textil</h5>
                   <p className="m-t-20">
-                  GB97 Ecuador te ofrece una solución completa para gestionar tus pedidos, productos y clientes de manera rapida y eficiente. 
-                  GB97 Pedidos Textil, registra productos y clientes, y genera ordenes y cotizaciones de forma rápida y sencilla con nuestra plataforma dedicada. 
-                  Simplifica tu proceso de ventas.
+                    GB97 Ecuador te ofrece una solución que te permite gestionar de manera rápida y eficiente la información de tus productos, 
+                    clientes y pedidos, simplificando así tu proceso de ventas. Te presentamos nuestra aplicación: GB97 Pedidos Textil.
                   </p>
                   <div className='mr-5'>
                     <a
@@ -130,8 +129,9 @@ const Features = () => {
                 </div>
                   <h5 className="font-medium">GB97 Track</h5>
                   <p className="m-t-20">
-                    GB97 Ecuador cuenta con lo último en tecnologi en rastreo vehicular con los mas altos estandares de monitoreo y seguridad para su vehiculo,
-                    contamos con Control de rutas y velocidad, Bloqueo de Encendido, Botón de panico para señales de emergencia, entre muchas mas funcionalidades que ayudar a que usted y su vehiculo esten seguros en las carretas del país.
+                    GB97 Ecuador cuenta con lo último en tecnología en rastreo vehicular con los más altos estándares de monitoreo y seguridad para su vehículo, 
+                    contamos con Control de rutas y velocidad, Bloqueo de Encendido, Botón de pánico para señales de emergencia, entre muchas más funcionalidades 
+                    que ayudaran a que usted y su vehículo estén seguros en las carretas del país.
                   </p>
                   <div className="round-social">
                     <Link href="https://www.instagram.com/gb97tracking/">
@@ -154,6 +154,42 @@ const Features = () => {
                           <i className="ti-arrow-right"></i>
                       </span>
                     </a>
+                  </div>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+          <Row className="m-t-40">
+            <Col md="6" className="wrap-feature4-box">
+              <Card>
+                <CardBody>
+                  <div className="icon-round bg-light-info">
+                  <Image
+                    className='feature-logo'
+                    src={require(`../../assets/images/logos/gb97-produccion-textil.png`)}
+                    alt={"logo track"}
+                  />
+                  </div>
+                  <h5 className="font-medium">GB97 Producción Textil</h5>
+                  <p className="m-t-20">
+                    GB97 Ecuador te presenta su nueva aplicación: GB97 Producción Textil. Simplifica la gestión de informacion de insumos y brinda un soporte al proceso de producción textil.
+                  </p>
+                  <div className='mr-5'>
+                    {/* <a
+                      className='btn btn-primary btn-md btn-arrow m-t-20'
+                      data-toggle="collapse"
+                      
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <span>
+                          Producción Textil
+                          <i className="ti-arrow-right"></i>
+                      </span>
+                    </a> */}
+                    <span>
+                      Proximamente
+                    </span>
                   </div>
                 </CardBody>
               </Card>

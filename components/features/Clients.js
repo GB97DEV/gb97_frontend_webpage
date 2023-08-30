@@ -1,7 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react'
-import { Col, Row, Container} from 'reactstrap'
-import ClientCard from '../basic/ClientCard'
-import ClientsLogos from '../../interface/ClientLogos'
+import React, { useRef, useState, useEffect } from 'react';
+import { Col, Row, Container} from 'reactstrap';
+import ClientCard from '../basic/ClientCard';
 
 
 const Clients = () => {
@@ -9,20 +8,27 @@ const Clients = () => {
 	const scrollableRowRef2 = useRef(null);
 	const scrollableRowRef3 = useRef(null);
 
-	const [desplazamiento, setDesplazamiento] = useState(1130)
-	const [primerArray, setPrimerArray] = useState([])
-	const [segundoArray, setSegundoArray] = useState([])
-	const [tercerArray, setTercerArray] = useState([])
+	const [desplazamiento, setDesplazamiento] = useState(1130);
+	const [primerArray, setPrimerArray] = useState([]);
+	const [segundoArray, setSegundoArray] = useState([]);
+	const [tercerArray, setTercerArray] = useState([]);
+
+	const [clients, setClients] = useState([]);
+  const [isFetchClients, setIsFetchClients] = useState(false)
+
+	useEffect(() => {
+		getClients();
+	}, []);
 
 	useEffect(() => {
     handleResize(); // Llamada inicial al cargar el componente
 
-    const longitud = ClientsLogos.length;
+    const longitud = clients.length;
     const parte = Math.floor(longitud / 3);
 
-    setPrimerArray(ClientsLogos.slice(0, parte));
-    setSegundoArray(ClientsLogos.slice(parte, parte * 2));
-    setTercerArray(ClientsLogos.slice(parte * 2));
+    setPrimerArray(clients.slice(0, parte));
+    setSegundoArray(clients.slice(parte, parte * 2));
+    setTercerArray(clients.slice(parte * 2));
 
     // Agregar el último elemento de segundoArray a primerArray si la longitud es impar
     if (longitud % 2 !== 0 && primerArray.length > 0) {
@@ -37,7 +43,32 @@ const Clients = () => {
     return () => {
         window.removeEventListener('resize', handleResize);
     };
-}, [primerArray.length, segundoArray]);
+	}, [isFetchClients]);
+
+	const getClients = async() => {
+		await fetch(`https://w1sppy28xj.execute-api.us-east-1.amazonaws.com/prod/gb97/organizaciones/api?limit=0`,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+      .then(response => response.json())
+      .then(data => {
+				const resp = data.data;
+				const dataFiltered = resp.filter(item => item.organization !== "0691776360001")
+				dataFiltered.sort(compareByName);
+
+        setClients(dataFiltered);
+        setIsFetchClients(true);
+      });
+	}
+
+	const compareByName = (a, b) => {
+		if (a.organizationAlias < b.organizationAlias) return -1;
+		if (a.organizationAlias > b.organizationAlias) return 1;
+		return 0;
+	};
+ 
 
 	const handleResize = () => {
 		const windowWidth = window.innerWidth;
@@ -74,7 +105,7 @@ const Clients = () => {
 		}
 	};
 
-  	return (
+	return (
 		<div className="feature20 mt-4 mb-4">
 			<Container>
 				<Row className="justify-content-center">
@@ -87,8 +118,8 @@ const Clients = () => {
 						{
 							primerArray && primerArray.map((client) => {
 								return(
-									<Col lg='3' md="4" sm="6" xs="6" key={client.name}>
-										<ClientCard image={client.logo} name={client.name} organizationId={client.organizationId} products={client.products} />
+									<Col lg='3' md="4" sm="6" xs="6" key={client._id}>
+										<ClientCard image={client.organization} name={client.organizationAlias} organizationId={client.organization} products={client.products} />
 									</Col>
 								)
 							})
@@ -100,8 +131,8 @@ const Clients = () => {
 						{
 							segundoArray && segundoArray.map((client) => {
 								return(
-									<Col lg='3' md="4" sm="6" xs="6" key={client.name}>
-										<ClientCard image={client.logo} name={client.name} organizationId={client.organizationId} products={client.products} />
+									<Col lg='3' md="4" sm="6" xs="6" key={client._id}>
+										<ClientCard image={client.organization} name={client.organizationAlias} organizationId={client.organization} products={client.products} />
 									</Col>
 								)
 							})
@@ -113,8 +144,8 @@ const Clients = () => {
 						{
 							tercerArray && tercerArray.map((client) => {
 								return(
-									<Col lg='3' md="4" sm="6" xs="6" key={client.name}>
-										<ClientCard image={client.logo} name={client.name} organizationId={client.organizationId} products={client.products} />
+									<Col lg='3' md="4" sm="6" xs="6" key={client._id}>
+										<ClientCard image={client.organization} name={client.organizationAlias} organizationId={client.organization} products={client.products} />
 									</Col>
 								)
 							})

@@ -12,7 +12,7 @@ export const GalleryClients = [
   {
     id: 3,
     photo: "5.jpg",
-    title: "Punto Ecuador"
+    title: "PUNTO ECUADOR"
   },
   {
     id: 4,
@@ -22,7 +22,7 @@ export const GalleryClients = [
   {
     id: 5,
     photo: "6.jpg",
-    title: "Punto Ecuador"
+    title: "PUNTO ECUADOR"
   },
   {
     id: 6,
