@@ -10,7 +10,7 @@ const ModalVideo = ({videoPath = '', preview = 'default.png', alt = "video" ,tit
 
    return (
 		<div>
-			<Card className="card-shadow img-ho">
+			<Card className="card-shadow img-ho video-box">
 				<Image
 					className="image-card card-img-top"
 					src={require(`../../assets/images/previews/${preview}`)}
