@@ -2,7 +2,6 @@ import "../styles/scss/style.scss";
 import Layout from "../layout/Layout";
 import Script from "next/script";
 import { AuthProvider } from "../context/AuthContext";
-import GoogleAnalytics from "../components/basic/GoogleAnalytics";
 
 function MyApp({ Component, pageProps }) {
   return (
