@@ -57,30 +57,6 @@ const VideoGuides = () => {
 							}
 							</Row>
 						</div>
-						<div id="Textil">
-							<Row className="justify-content-center">
-								<Col md="7" className="text-center">
-								<h2 className="mt-5 mb-5 subtitle">
-									GB97 Reportes Textil
-								</h2>
-								</Col>
-							</Row>
-
-							<Row className="m-t-40">
-								{Textil.map((item) => {
-									return(
-										<Col md="4" key={item.key}>
-											<ModalVideo 
-												title={item.title}
-												preview={item.preview}
-												videoPath={item.path}
-											/>
-										</Col>
-									)
-									})
-								}
-							</Row>
-						</div>
 					</Container>
 				</div>
 			}
