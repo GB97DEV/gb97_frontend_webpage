@@ -110,7 +110,7 @@ const Clients = () => {
 			<Container>
 				<Row className="justify-content-center">
 				<Col md="7" className="text-center">
-					<h2 className="title">Nuestros Clientes</h2>
+					<h2 className="title">Nuestras Organizaciones</h2>
 				</Col>
 				</Row>
 				<Row className="wrap-feature-20 mb-0">

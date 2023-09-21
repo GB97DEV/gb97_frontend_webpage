@@ -3,21 +3,26 @@ import Link from 'next/link'
 import Image from 'next/image';
 import { Row, Col, Container, Card, CardBody, Button } from "reactstrap";
 import MoreButton from '../basic/MoreButton';
+import BannerPublicity from '../banner/BannerPublicity';
 
 
 const Features = () => {
   return (
-    <div className="spacer feature4">
+    <>
+      <BannerPublicity />
+      <div className=''>
+        <Row className="justify-content-center ">
+          <Col md="7" className="text-center">
+            <h2 className="title">Aplicaciones GB97 Ecuador</h2>
+            <h6 className="subtitle">
+              GB97 utiliza una plataforma tecnológica basada en la nube para ofrecer su servicio. 
+              Actualmente, cuenta con varias aplicaciones móviles multiplataforma, que brindan una experiencia completa y fácil de usar.
+            </h6>
+          </Col>
+        </Row>
+      </div>
+      <div className="feature4">
         <Container>
-          <Row className="justify-content-center">
-            <Col md="7" className="text-center">
-              <h2 className="title">Servicio Textil GB97 Ecuador</h2>
-              <h6 className="subtitle">
-                GB97 utiliza una plataforma tecnológica basada en la nube para ofrecer su servicio. 
-                Actualmente, cuenta con varias aplicaciones móviles multiplataforma, que brindan una experiencia completa y fácil de usar.
-              </h6>
-            </Col>
-          </Row>
           <Row className="m-t-40">
             <Col md="6" className="wrap-feature4-box">
               <Card>
@@ -197,6 +202,7 @@ const Features = () => {
           </Row>
         </Container>
       </div>
+    </>
   )
 }
 

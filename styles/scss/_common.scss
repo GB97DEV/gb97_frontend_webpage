@@ -281,6 +281,18 @@ Video Box
   max-height: 320px;
 }
 
+/******************* 
+Banner Publicity
+*******************/
+.banner-publicity-container {
+  align-items: center;
+  div{
+    width: 100% !important;
+  }
+  .banner-image{
+    object-fit: fill;
+  }
+}
 
 /******************* 
 Floating Button

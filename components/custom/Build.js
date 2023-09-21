@@ -11,18 +11,20 @@ import Clients from '../features/Clients'
 const Build = () => {
   return (
     <div>
-        <Banner2 />
+        <section id="#">
+          <Banner2 />
+        </section>
         <section id='About'>
           <AboutUs />
         </section>
         <section id='Gallery' className='bg-light'>
           <PhotosGallerie />
         </section>
-        <section id='Nuestros clientes' >
-          <Clients />
-        </section>
         <section id='Features'>
           <Features />
+        </section>
+        <section id='Organizations' >
+          <Clients />
         </section>
         <FloatingButton />
         <UpButton />
