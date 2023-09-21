@@ -32,9 +32,6 @@ const Header = () => {
       <div className="header1 po-relative bg-primary">
         <Container>
           <Navbar className="navbar-expand-lg h2-nav">
-            <NavbarBrand href="/#">
-              <Image src={logo2} alt="wrapkit" width={70} height={70} />
-            </NavbarBrand>
             <NavbarToggler onClick={toggle}>
               <span className="ti-menu text-white"></span>
             </NavbarToggler>
@@ -47,7 +44,13 @@ const Header = () => {
                   <NavLink href="/#About">Sobre Nosotros</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/#Features">Nuestros Servicios</NavLink>
+                  <NavLink href="/#Gallery">Nuestra Experiencia</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/#Features">Nuestras Aplicaciones</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/#Organizations">Nuestras Organizaciones</NavLink>
                 </NavItem>
                 {
                   isLoggedIn  
