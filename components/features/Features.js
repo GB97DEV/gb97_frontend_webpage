@@ -9,7 +9,7 @@ import BannerPublicity from '../banner/BannerPublicity';
 const Features = () => {
   return (
     <>
-      <BannerPublicity />
+      {/* <BannerPublicity /> */}
       <div className=''>
         <Row className="justify-content-center ">
           <Col md="7" className="text-center">
