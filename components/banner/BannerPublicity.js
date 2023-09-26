@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import Banner from "../../assets/images/Ban.gif"
+import Banner from "../../assets/images/Ban.webp"
 
 const BannerPublicity = () => {
   return (
