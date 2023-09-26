@@ -6,7 +6,7 @@ const BannerPublicity = () => {
     <div className="banner-publicity-container">
       <Image 
         className="banner-image"
-        src="https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/Ban.gif"
+        src="https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/Ban.webp"
         loading='lazy'
         alt="banner"
         width={"100%"}
