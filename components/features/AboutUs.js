@@ -1,16 +1,20 @@
-import React from 'react'
-import { Row, 
-    Col, 
-    Container, 
-    Card, 
-    CardBody,
+import React, {useState} from 'react'
+import { 
+	Row, 
+	Col, 
+	Container, 
+	Card, 
+	CardBody,
+	Modal,
+	ModalBody,
 } from "reactstrap";
 import Image from "next/image";
 import about from "../../assets/images/about/about.png";
-import MoreButton from '../basic/MoreButton';
-
+import certificado from "../../assets/images/Certificado.png"
 
 const AboutUs = () => {
+	const [modal, setModal] = useState(false);
+	const toggle = () => setModal(!modal);
     return (
         <div className="spacer ">
             <Container className="feature30">
@@ -22,18 +26,37 @@ const AboutUs = () => {
                         alt="Socializacion"
                     />
                     </Col>
-                    <Col lg="5" md='9' className="text-center wrap-feature30-box">
+                    <Col lg="5" md='9' className="wrap-feature30-box">
                     <Card className="card-shadow">
                         <CardBody>
-                        <div className="p-20">
-                            <h3 className="title">
-                            ¿Quienes Somos?
-                            </h3>
-                            <span >
-                            GB97 ECUADOR CÍA. LTDA., se constituyó el 22 de noviembre de 2019. 
-                            Somos una compañía subsidiaria de la Multinacional GB97 que se encuentra establecida en el Reino Unido desde 2016 y que tiene como objetivo principal la sistematización y optimización de los procesos productivos.
-                            </span>
-                            <MoreButton file='gb97.pdf' />
+                        <div className="p-10">
+                           <h3 className="title text-center">
+                           ¿Quienes Somos?
+                           </h3>
+                           <div className='subtitle text-justify'>
+                                Es una empresa subsidiaria de GB97 limite, la cual es una empresa multinacional creada para abarcar el conocimiento y experiencia de desarrollo tecnológico desde 1997 en Londres, Reino Unido que cuenta con una certificación internacional ISO9001-210.
+                                <br/>
+                                GB97 Ecuador nos encontramos en operaciones desde noviembre del 2019, ofreciendo soluciones desarrolladas con tecnología de última generación. 
+                              </div>
+                              <div className='text-justify mt-2'>
+																<button className='more-button' onClick={toggle}>
+																	<span className='more-text'>
+																		Certificación
+																	</span>
+																	<i className='more-icon fa fa-arrow-right'></i>
+																</button>
+																<Modal 
+																	size='md'
+																	isOpen={modal}
+																	toggle={toggle}
+																>
+																	<ModalBody>
+																		<Image 
+																			src={certificado}
+																		/>
+																	</ModalBody>
+																</Modal>
+                            </div>
                         </div>
                         </CardBody>
                     </Card>

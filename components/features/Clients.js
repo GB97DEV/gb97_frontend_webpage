@@ -108,11 +108,6 @@ const Clients = () => {
 	return (
 		<div className="feature20 mt-4 mb-4">
 			<Container>
-				<Row className="justify-content-center">
-				<Col md="7" className="text-center">
-					<h2 className="title">Nuestras Organizaciones</h2>
-				</Col>
-				</Row>
 				<Row className="wrap-feature-20 mb-0">
 					<div className='scrollable-row' ref={scrollableRowRef1}>
 						{

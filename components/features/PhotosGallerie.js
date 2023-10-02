@@ -6,10 +6,10 @@ import { GalleryClients } from '../../interface/GalleryClients'
 
 const PhotosGallerie = () => {
   return (
-    <div>
+    <div className='bg-light'>
       <Row className="justify-content-center pt-4 pb-4">
         <Col md="7" className="text-center">
-          <h1 className="title">Explorando Nuestra Experiencia</h1>
+          <h1 className="title">Nuestras Organizaciones Textiles de la EPS</h1>
         </Col>
       </Row>
       <Container >

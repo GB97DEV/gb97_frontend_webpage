@@ -34,7 +34,7 @@ Header 1
 .h1-nav {
   padding: 15px 0;
   .navbar-nav .nav-item {
-    margin: 0 20px;
+    margin: 0 14px;
     .nav-link {
       padding: 12px 0px;
       color: $muted;
@@ -53,9 +53,9 @@ Header 2
 *******************/
 
 .h2-nav {
-  padding: 15px 0;
+  padding: 14px 0;
   .navbar-nav .nav-item {
-    margin: 0 20px;
+    margin: 0 10px;
     .nav-link {
       padding: 12px 0px;
       color: $white;
@@ -292,6 +292,9 @@ Feature 20
     width: 100%;
     display: block;
     padding: 35px 0;
+  }
+  .btn-video{
+    border: none;
   }
 }
 

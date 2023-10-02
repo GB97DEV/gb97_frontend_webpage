@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Card, CardBody, Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import previewDefault from '../../assets/images/previews/default.png'
 
-const ModalVideo = ({videoPath = '', preview = 'default.png', alt = "video" ,title}) => {
+const ModalVideo = ({videoPath = '', preview = 'Preview.png', alt = "video" ,title}) => {
 	const [modal, setModal] = useState(false);
   	const toggle = () => setModal(!modal);
 

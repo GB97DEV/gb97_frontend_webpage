@@ -44,13 +44,16 @@ const Header = () => {
                   <NavLink href="/#About">Sobre Nosotros</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/#Gallery">Nuestra Experiencia</NavLink>
+                  <NavLink href="/#Projects">Nuestro Proyecto</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink href="/#Features">Nuestras Aplicaciones</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink href="/#Organizations">Nuestras Organizaciones</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/#Convenios">Nuestros Convenios</NavLink>
                 </NavItem>
                 {
                   isLoggedIn  
@@ -66,7 +69,7 @@ const Header = () => {
                   </> 
                   : <NavItem>
                       <a className="btn btn-info" href="/acceso">
-                        Acceder
+                        Licenciantes
                       </a>
                   </NavItem>
                 }

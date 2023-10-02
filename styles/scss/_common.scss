@@ -94,8 +94,6 @@ Header 6
     }
     .image-iso{
       width: 100%;
-      justify-content: center !important;
-      display: flex !important;
       margin-bottom: 20px;
     }
   }
@@ -106,6 +104,10 @@ Header 6
   animation-name: slidein;
   // animation-delay: 1s;
   border-radius: 2cm;
+}
+
+.indicator{
+  height: 540px;
 }
 
 
@@ -281,6 +283,106 @@ Video Box
   max-height: 320px;
 }
 
+.image-container{
+  justify-content: center;
+  display: flex;
+}
+
+/******************* 
+Videos Container
+*******************/
+
+.videos-menu-container{
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  .video-menu-button{
+    width: 100%;
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid $border;
+    .subtitle{
+      margin-left: 10px;
+      text-align: left;
+    }
+    &.active{
+      .subtitle{
+        color: $primary;
+      }
+      border-bottom-color: $primary;
+    }
+  }
+}
+
+.videos-submenu-container{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+
+  .video-submenu-button{
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid $border;
+
+    .subtitle{
+      font-size: 19px;
+      margin-left: 15px;
+      text-align: left;
+    }
+
+
+    &.active{
+      .subtitle{
+        color: $primary;
+      }
+      border-bottom-color: $primary;
+    }
+  }
+  
+  .video{
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .divisor{
+    border-bottom: 1px solid $primary;
+    margin-bottom: 10px
+  }
+
+  &.active{
+    border-bottom-color: $primary;
+  }
+}
+
+.divisor{
+  border-bottom: 1px solid $primary;
+  margin-bottom: 10px
+}
+
+.video-poject-container {
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* Proporción de aspecto 16:9 (para un video de 16:9) */
+  overflow: hidden;
+}
+
+.bg-video{
+  border: 1px solid $primary;
+
+  .border-video{
+    border-top: 1PX solid $primary;
+  }
+}
+
 /******************* 
 Banner Publicity
 *******************/
@@ -294,6 +396,17 @@ Banner Publicity
   }
 }
 
+.banner-project-container {
+  align-items: center;
+  div{
+    width: 100%;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .project-banner{
+    object-fit: fill;
+  }
+}
 /******************* 
 Floating Button
 *******************/

@@ -1,15 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Row, Col, Container } from "reactstrap";
+import { Button, Row, Col, Container, Collapse } from "reactstrap";
 import ModalVideo from "../basic/ModalVideo";
 import { Pedido } from "../../interface/PedidoVideos";
-import { Textil } from "../../interface/TextilVideos";
 import { AuthContext } from "../../context/AuthContext";
 import { useRouter } from 'next/router';
+import { model } from "mongoose";
 
 const VideoGuides = () => {
-	const { isLoggedIn } = useContext(AuthContext);
 	const router = useRouter();
+	const { isLoggedIn } = useContext(AuthContext);
 	const [shouldRedirect, setShouldRedirect] = useState(false);
+
+	const [pedidosOpen, setPedidosOpen] = useState(false)
+	const [activeModule, setActiveModule] = useState("")
+	const [videos, setVideos] = useState([])
+
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -27,37 +32,100 @@ const VideoGuides = () => {
       router.push('/acceso');
     }
   }, [shouldRedirect, router]);
-	
+
+	const togglePedidosVideo = () => {
+		setPedidosOpen(!pedidosOpen)
+	}
+
+	const [moduleOpen, setModuleOpen] = useState(false);
+
+  const toggleModulo = (moduleName = "") => {
+		if(activeModule === moduleName){
+			setModuleOpen(!moduleOpen);
+			setActiveModule("");
+		} else {
+			setActiveModule(moduleName);
+		}
+  }
+
+	const RenderVideo = (moduleVideos) => {
+		return moduleVideos.map(video => (
+			<Col md="4" key={video.key}>
+				<ModalVideo 
+					title={video.title}
+					videoPath={video.path}
+				/>
+			</Col>
+			// <ModalVideo key={video.path} title={video.title} alt={video.alt} videoPath={video.path} />
+		));
+	};
 	
 	return (
 		<div>
 			{
 				isLoggedIn &&
 				<div>
-					<Container>
-						<div id="Pedido">
-						<Row className="justify-content-center">
-							<Col md="7" className="text-center">
-								<h1 className="mt-5 mb-5 title">Videos de Capacitación</h1>
-								<h2 className="subtitle">GB97 Pedidos Textil</h2>
+					<Row className="justify-content-center">
+						<Col md="7" className="text-center">
+							<h1 className="mt-5 mb-5 title">Videos de Capacitación</h1>
+						</Col>
+					</Row>
+					<div className="videos-menu-container">
+						<Row>
+							<Col lg="4" md="5" sm="4">
+								<button className={`video-menu-button ${pedidosOpen ?"active" :""}`} onClick={togglePedidosVideo}>
+									<Row className="ml-2 mr-2">
+										<h2 className="subtitle">
+											GB97 Pedidos Textil
+											<h3>
+												{
+												!pedidosOpen
+												? <i className="subtitle fa fa-chevron-down" />
+												: <i className="subtitle fa fa-chevron-up" />
+											}
+											</h3>
+										</h2>
+										
+									</Row>
+								</button>
+								{
+									pedidosOpen &&
+									<Collapse isOpen={pedidosOpen} className="videos-submenu-container">
+									{
+										Pedido.map(moduleItem => {
+											return (
+												<React.Fragment key={moduleItem.module}>
+													<button className={`video-submenu-button ${activeModule === moduleItem.module ?"active" :""}`} onClick={() => {toggleModulo(moduleItem.module), setVideos(moduleItem.videos)}}>
+														<Row className="mr-2">
+															<h3 className="subtitle">{moduleItem.module}</h3>
+															{
+																activeModule !== moduleItem.module
+																? <i className="subtitle fa fa-chevron-left" />
+																: <i className="subtitle fa fa-chevron-right" />
+															}
+														</Row>
+													</button>
+												
+												</React.Fragment>
+											);
+										})
+									}
+								</Collapse>
+								}
+								{
+									pedidosOpen &&
+									<div className="divisor"/>
+								}
+							</Col>
+							<Col>
+								<Collapse isOpen={activeModule !== ""}>
+									<Row className="video">
+										{RenderVideo(videos)}
+									</Row>
+								</Collapse>
 							</Col>
 						</Row>
-							<Row className="m-t-40">
-							{Pedido.map((item) => {
-								return(
-									<Col md="4" key={item.key}>
-										<ModalVideo 
-											title={item.title}
-											preview={item.preview}
-											videoPath={item.path}
-										/>
-									</Col>
-								)
-								})
-							}
-							</Row>
-						</div>
-					</Container>
+					</div>				
 				</div>
 			}
 		</div>

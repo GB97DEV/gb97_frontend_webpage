@@ -7,6 +7,10 @@ import UpButton from '../basic/UpButton'
 import LandBot from '../basic/LandBot'
 import PhotosGallerie from '../features/PhotosGallerie'
 import Clients from '../features/Clients'
+import Projects from '../features/Projects'
+import Convenios from '../features/Convenios'
+import BannerPublicity from "../banner/BannerPublicity"
+
 
 const Build = () => {
   return (
@@ -17,14 +21,18 @@ const Build = () => {
         <section id='About'>
           <AboutUs />
         </section>
-        <section id='Gallery' className='bg-light'>
-          <PhotosGallerie />
+        <section id='Projects' className='bg-light'>
+          <Projects />
         </section>
         <section id='Features'>
           <Features />
         </section>
-        <section id='Organizations' >
+        <section id='Organizations'>
+          <PhotosGallerie />
           <Clients />
+        </section>
+        <section id='Convenios'>
+          <Convenios />
         </section>
         <FloatingButton />
         <UpButton />

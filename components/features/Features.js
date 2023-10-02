@@ -3,13 +3,11 @@ import Link from 'next/link'
 import Image from 'next/image';
 import { Row, Col, Container, Card, CardBody, Button } from "reactstrap";
 import MoreButton from '../basic/MoreButton';
-import BannerPublicity from '../banner/BannerPublicity';
 
 
 const Features = () => {
   return (
     <>
-      <BannerPublicity />
       <div className=''>
         <Row className="justify-content-center ">
           <Col md="7" className="text-center">
@@ -59,8 +57,12 @@ const Features = () => {
             <Col md="6" className="wrap-feature4-box">
               <Card>
                 <CardBody>
-                  <div className="icon-round bg-light-info">
-                    <i className="fa fa-tasks"></i>
+                <div className="icon-round bg-light-info">
+                  <Image
+                    className='feature-logo'
+                    src={require(`../../assets/images/logos/gb97-reportes.png`)}
+                    alt={"logo reportes"}
+                  />
                   </div>
                   <h5 className="font-medium">GB97 Reportes Textil</h5>
                   <p className="m-t-20">
