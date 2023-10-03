@@ -75,16 +75,14 @@ const VideoGuides = () => {
 							<Col lg="4" md="5" sm="4">
 								<button className={`video-menu-button ${pedidosOpen ?"active" :""}`} onClick={togglePedidosVideo}>
 									<Row className="ml-2 mr-2">
-										<h2 className="subtitle">
+										<h3 className="subtitle">
 											GB97 Pedidos Textil
-											<h3>
 												{
 												!pedidosOpen
 												? <i className="subtitle fa fa-chevron-down" />
 												: <i className="subtitle fa fa-chevron-up" />
 											}
-											</h3>
-										</h2>
+										</h3>
 										
 									</Row>
 								</button>
