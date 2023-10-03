@@ -25,7 +25,7 @@ const Features = () => {
             <Col md="6" className="wrap-feature4-box">
               <Card>
                 <CardBody>
-                <div className="icon-round bg-light-info">
+                <div className="icon-round">
                   <Image
                     className='feature-logo'
                     src={require(`../../assets/images/logos/gb97-pedidos.png`)}
@@ -57,7 +57,7 @@ const Features = () => {
             <Col md="6" className="wrap-feature4-box">
               <Card>
                 <CardBody>
-                <div className="icon-round bg-light-info">
+                <div className="icon-round">
                   <Image
                     className='feature-logo'
                     src={require(`../../assets/images/logos/gb97-reportes.png`)}
@@ -94,7 +94,7 @@ const Features = () => {
             <Col md="6" className="wrap-feature4-box">
               <Card>
                 <CardBody>
-                  <div className="icon-round bg-light-info">
+                  <div className="icon-round">
                   <Image
                     className='feature-logo'
                     src={require(`../../assets/images/logos/gb97-alianza_comun.webp`)}
@@ -127,7 +127,7 @@ const Features = () => {
             <Col md="6" className="wrap-feature4-box">
               <Card>
                 <CardBody>
-                <div className="icon-round bg-light-info">
+                <div className="icon-round">
                   <Image
                     className='feature-logo'
                     src={require(`../../assets/images/logos/gb97-track.png`)}
@@ -170,7 +170,7 @@ const Features = () => {
             <Col md="6" className="wrap-feature4-box">
               <Card>
                 <CardBody>
-                  <div className="icon-round bg-light-info">
+                  <div className="icon-round">
                   <Image
                     className='feature-logo'
                     src={require(`../../assets/images/logos/gb97-produccion-textil.png`)}
