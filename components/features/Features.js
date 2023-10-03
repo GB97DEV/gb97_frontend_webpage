@@ -28,8 +28,10 @@ const Features = () => {
                 <div className="icon-round">
                   <Image
                     className='feature-logo'
-                    src={require(`../../assets/images/logos/gb97-pedidos.png`)}
+                    src={"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/logos-app/gb97-pedidos.png"}
                     alt={"logo pedidos"}
+                    width={100}
+                    height={100}
                   />
                   </div>
                   <h5 className="font-medium">GB97 Pedidos Textil</h5>
@@ -60,8 +62,10 @@ const Features = () => {
                 <div className="icon-round">
                   <Image
                     className='feature-logo'
-                    src={require(`../../assets/images/logos/gb97-reportes.png`)}
+                    src={"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/logos-app/gb97-reportes.png"}
                     alt={"logo reportes"}
+                    width={100}
+                    height={100}
                   />
                   </div>
                   <h5 className="font-medium">GB97 Reportes Textil</h5>
@@ -97,8 +101,10 @@ const Features = () => {
                   <div className="icon-round">
                   <Image
                     className='feature-logo'
-                    src={require(`../../assets/images/logos/gb97-alianza_comun.webp`)}
+                    src={"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/logos-app/gb97-alianza_comun.webp"}
                     alt={"logo track"}
+                    width={100}
+                    height={100}
                   />
                   </div>
                   <h5 className="font-medium">Alianza Común</h5>
@@ -130,8 +136,10 @@ const Features = () => {
                 <div className="icon-round">
                   <Image
                     className='feature-logo'
-                    src={require(`../../assets/images/logos/gb97-track.png`)}
+                    src={"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/logos-app/gb97-track.png"}
                     alt={"logo track"}
+                    width={100}
+                    height={100}
                   />
                 </div>
                   <h5 className="font-medium">GB97 Track</h5>
@@ -173,8 +181,10 @@ const Features = () => {
                   <div className="icon-round">
                   <Image
                     className='feature-logo'
-                    src={require(`../../assets/images/logos/gb97-produccion-textil.png`)}
-                    alt={"logo track"}
+                    src={"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/logos-app/gb97-produccion-textil.png"}
+                    alt={"logo produccion"}
+                    width={100}
+                    height={100}
                   />
                   </div>
                   <h5 className="font-medium">GB97 Producción Textil</h5>

@@ -1,8 +1,6 @@
 import React, { useState, useContext } from "react";
-import Image from "next/image";
 import {
   Container,
-  NavbarBrand,
   Navbar,
   Nav,
   NavItem,
@@ -10,7 +8,6 @@ import {
   NavbarToggler,
   Collapse
 } from "reactstrap";
-import logo2 from "../../assets/images/logos/gb97-logo.png";
 import { AuthContext } from "../../context/AuthContext";
 import { useRouter } from "next/router";
 
