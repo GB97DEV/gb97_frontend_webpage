@@ -1892,10 +1892,39 @@ common-innerpage-banner
   background: $themecolor;
 }
 
+.feature-conv{
+  background-image: linear-gradient(180deg, $tertiary 0%, $secondary 60%);
+  color: white;
+
+  .title{
+    color: white;
+  }
+}
+
 /*******************
 Footer 4
 *******************/
 .footer4 {
+  background-image: linear-gradient(180deg, $secondary 0%, $primary 60%);
+  
+  p {
+    color: white;
+  }
+  span {
+    color: white;
+  }
+  h5 {
+    color: white;
+  }
+  .icono-telefono{
+    color: white
+  }
+  .link{
+    color: white;
+    &:hover{
+      color: $tertiary;
+    }
+  }
   .f4-bottom-bar {
     padding-top: 10px;
     margin-top: 20px;

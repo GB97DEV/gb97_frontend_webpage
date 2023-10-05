@@ -81,7 +81,9 @@ const Footer = () => {
             <Col md="12">
               <div className="d-flex font-14">
                 <div className="m-t-10 m-b-10 copyright">
-                  All Rights Reserved by GB97 ECUADOR
+                  <p>
+                    All Rights Reserved by GB97 ECUADOR
+                  </p>
                 </div>
               </div>
             </Col>

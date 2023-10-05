@@ -4,7 +4,6 @@ import ModalVideo from "../basic/ModalVideo";
 import { Pedido } from "../../interface/PedidoVideos";
 import { AuthContext } from "../../context/AuthContext";
 import { useRouter } from 'next/router';
-import { model } from "mongoose";
 
 const VideoGuides = () => {
 	const router = useRouter();
@@ -18,7 +17,6 @@ const VideoGuides = () => {
 
   useEffect(() => {
     if (!isLoggedIn) {
-      // Esperar 100 ms antes de realizar la redirección
       const timeout = setTimeout(() => {
         setShouldRedirect(true);
       }, 100);
@@ -56,7 +54,6 @@ const VideoGuides = () => {
 					videoPath={video.path}
 				/>
 			</Col>
-			// <ModalVideo key={video.path} title={video.title} alt={video.alt} videoPath={video.path} />
 		));
 	};
 	
@@ -71,8 +68,8 @@ const VideoGuides = () => {
 						</Col>
 					</Row>
 					<div className="videos-menu-container">
-						<Row>
-							<Col lg="4" md="5" sm="4">
+						{/* <Row>
+							<Col lg="4" md="5" sm="4"> */}
 								<button className={`video-menu-button ${pedidosOpen ?"active" :""}`} onClick={togglePedidosVideo}>
 									<Row className="ml-2 mr-2">
 										<h3 className="subtitle">
@@ -103,26 +100,27 @@ const VideoGuides = () => {
 															}
 														</Row>
 													</button>
-												
+													<Collapse isOpen={activeModule === moduleItem.module}>
+									<Row className="video">
+										{RenderVideo(videos)}
+									</Row>
+								</Collapse>
 												</React.Fragment>
 											);
 										})
 									}
+									
 								</Collapse>
 								}
 								{
 									pedidosOpen &&
 									<div className="divisor"/>
 								}
-							</Col>
-							<Col>
-								<Collapse isOpen={activeModule !== ""}>
-									<Row className="video">
-										{RenderVideo(videos)}
-									</Row>
-								</Collapse>
-							</Col>
-						</Row>
+							{/* </Col>
+							<Col> */}
+								
+							{/* </Col>
+						</Row> */}
 					</div>				
 				</div>
 			}

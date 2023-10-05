@@ -5,7 +5,7 @@ import ConveniosCard from "../basic/ConveniosCard";
 const Convenios = () => {
   return (
     <>
-      <div className="feature4 pb-5 bg-light">
+      <div className="feature-conv feature4 pb-5 bg-light">
         <Container>
           <Row className="pt-4 pb-4 justify-content-center">
             <Col md="12" className="text-center">
