@@ -39,11 +39,23 @@ export const Pedido = [
         ]
     },
     {
-        module: "Productos - Complementos",
+        module: "Productos - Items Variantes",
         videos: [
             {
                 key: 5,
-                title: "05. Creación de Complementos",
+                title: "05. Creación y uso de items variantes ",
+                path: `${GB97Path}/pedidos_creacion_variantes.mp4`,
+                preview: "Creacion_Items.png",
+                alt: "video"
+            },
+        ]
+    },
+    {
+        module: "Productos - Complementos",
+        videos: [
+            {
+                key: 6,
+                title: "06. Creación de Complementos",
                 path: `${GB97Path}/pedidos_creacion_complementos.mp4`,
                 preview: "Modificacion_Item.png",
                 alt: "video"
@@ -54,8 +66,8 @@ export const Pedido = [
         module: "Clientes",
         videos: [
             {
-                key: 6,
-                title: "06. Creación de Clientes",
+                key: 7,
+                title: "07. Creación de Clientes",
                 path: `${GB97Path}/pedidos_creacion_cliente.mp4`,
                 preview: "Creacion_Clientes.png",
                 alt: "video"
@@ -66,8 +78,8 @@ export const Pedido = [
         module: "Lista de Precios",
         videos: [
             {
-                key: 7,
-                title: "07. Lista de Precios",
+                key: 8,
+                title: "08. Lista de Precios",
                 path: `${GB97Path}/pedidos_lista_precios.mp4`,
                 preview: "Lista_Precios.png",
                 alt: "video"
@@ -78,15 +90,15 @@ export const Pedido = [
         module: "Proformas",
         videos: [
             {
-                key: 8,
-                title: "08. Emisión de Proformas",
+                key: 9,
+                title: "09. Emisión de Proformas",
                 path: `${GB97Path}/pedidos_emision_proforma.mp4`,
                 preview: "Emision_Proforma.png",
                 alt: "video"
             },
             {
-                key: 9,
-                title: "09. Transformar Proforma en Pedido",
+                key: 10,
+                title: "10. Transformar Proforma en Pedido",
                 path: `${GB97Path}/pedidos_proforma_pedido.mp4`,
                 preview: "Proforma_Pedido.png",
                 alt: "video"
@@ -97,29 +109,41 @@ export const Pedido = [
         module: "Pedidos",
         videos: [
             {
-                key: 10,
-                title: "10. Historial de Pagos",
+                key: 11,
+                title: "11. Creación de pedidos",
+                path: `${GB97Path}/pedidos_creacion_pedidos.mp4`,
+                preview: "Historial_Pagos.png",
+                alt: "video"
+            },
+            {
+                key: 12,
+                title: "12. Historial de Pagos",
                 path: `${GB97Path}/pedidos_historial_pago.mp4`,
                 preview: "Historial_Pagos.png",
                 alt: "video"
             },
             {
-                key: 11,
-                title: "11. Registro de Entrega de Pedidos",
+                key: 13,
+                title: "13. Registro de Entrega de Pedidos",
                 path: `${GB97Path}/pedidos_entrega_pedidos.mp4`,
                 preview: "Registro_Entrega.png",
                 alt: "video"
             },
+        ]
+    },
+    {
+        module: "Factura",
+        videos:[
             {
-                key: 12,
-                title: "12. Factura Electronica",
+                key: 14,
+                title: "14. Factura Electronica",
                 path: `${GB97Path}/pedidos_factura_electronica.mp4`,
                 preview: "Factura_Electronica.png",
                 alt: "video"
             },
             {
-                key: 13,
-                title: "13. Módulo de Facturas",
+                key: 15,
+                title: "15. Listado de Facturas",
                 path: `${GB97Path}/pedidos_modulo_facturas.mp4`,
                 preview: "Factura_Electronica.png",
                 alt: "video"
@@ -130,8 +154,8 @@ export const Pedido = [
         module: "Inicio de Sesión",
         videos: [
             {
-                key: 14,
-                title: "14. Acceso como Invitado",
+                key: 16,
+                title: "16. Acceso en modo Invitado",
                 path: `${GB97Path}/pedidos_acceso_invitado.mp4`,
                 preview: "Acceso_Invitado.png",
                 alt: "video"
