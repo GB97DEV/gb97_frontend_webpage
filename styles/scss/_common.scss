@@ -1893,7 +1893,7 @@ common-innerpage-banner
 }
 
 .feature-conv{
-  background-image: linear-gradient(180deg, $tertiary 0%, $secondary 60%);
+  background-image: linear-gradient(180deg, $primary 0%);
   color: white;
 
   .title{
@@ -1905,7 +1905,7 @@ common-innerpage-banner
 Footer 4
 *******************/
 .footer4 {
-  background-image: linear-gradient(180deg, $secondary 0%, $primary 60%);
+  background-image: linear-gradient(180deg, $primary 0%, $secondary 60%, $tertiary 100%);
   
   p {
     color: white;

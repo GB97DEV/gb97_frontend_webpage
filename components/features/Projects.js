@@ -66,10 +66,14 @@ const Projects = () => {
                 Exportación
               </h3>
               <div className="subtitle font-light text-justify">
-                Como resultado de la inclusión tecnológica se podrá obtener, una cadena productiva eficiente e integrada en todas sus etapas, logrando la estandarización de prendas en altos volúmenes, fomentando una competencia leal entre las organizaciones textiles.
-                <br/> <br/>
-                Esta Transformación digital podría dar paso a la formación de una corporación Textil a nivel país que se beneficie en la compra de insumos y materiales con precios privilegiados permitiéndoles competir en el mercado e incursionar en nuevos nichos de mercado tanto nacional como internacional.
+                Nuestro proyecto no solo incluye la tecnología en nuestras organizaciones textiles, sino también se permite sensibilizar sobre lo que el estándar representa.
+                <br />
                 <br/>
+                Uno de los requisitos importantes para la exportación es la estandarización y este es el resultado de digitalizar los procesos textiles, ya que nos permite garantizar que la calidad de la producción sea la misma a pesar de los altos volúmenes de producción.
+                <br />
+                <br/>
+                Nuestro proyecto también permite que las organizaciones aprovechen de mejores oportunidades en el mercado, ampliando sus horizontes comerciales a nuevos nichos de mercados internacionales que solo es posible teniendo una cadena productiva eficiente e integrada. 
+                <br /> <br/>
                 Este camino no está muy lejos de ser realidad como es el caso de nuestros licenciantes:
               </div>
             </Col>

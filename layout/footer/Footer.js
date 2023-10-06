@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className="footer4 b-t spacer">
+    <div className="footer4 spacer">
       <Container>
         <Row>
           <Col lg="3" md="6" className="m-b-30">
