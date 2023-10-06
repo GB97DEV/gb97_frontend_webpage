@@ -73,8 +73,14 @@ const Projects = () => {
                 <br />
                 <br/>
                 Nuestro proyecto también permite que las organizaciones aprovechen de mejores oportunidades en el mercado, ampliando sus horizontes comerciales a nuevos nichos de mercados internacionales que solo es posible teniendo una cadena productiva eficiente e integrada. 
-                <br /> <br/>
-                Este camino no está muy lejos de ser realidad como es el caso de nuestros licenciantes:
+                <br />
+                <div className="mt-3">
+                  <Image
+                    src={"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/logos-app/gb97-alianza_comun.webp"}
+                    width={100}
+                    height={100}
+                  />
+                </div>
               </div>
             </Col>
           </Row>
