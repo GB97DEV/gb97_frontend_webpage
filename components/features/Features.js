@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image';
-import { Row, Col, Container, Card, CardBody, Button } from "reactstrap";
+import { Row, Col, Container, Card, CardBody, Modal, ModalBody } from "reactstrap";
 import MoreButton from '../basic/MoreButton';
-
+import { BeneficiosApp } from '../../interface/BeneficiosApp';
 
 const Features = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [module, setModule] = useState("")
+  const toggle = (mod) => {
+    if(mod){
+      setModule(mod)
+    }
+    setIsOpen(!isOpen);
+  }
   return (
     <>
       <div className=''>
@@ -35,9 +43,15 @@ const Features = () => {
                   />
                   </div>
                   <h5 className="font-medium">GB97 Pedidos Textil</h5>
-                  <p className="m-t-20">
-                    GB97 Ecuador te ofrece una solución que te permite gestionar de manera rápida y eficiente la información de tus productos, 
-                    clientes y pedidos, simplificando así tu proceso de ventas. Te presentamos nuestra aplicación: GB97 Pedidos Textil.
+                  <p className="m-t-20 text-justify">
+                    GB97 Pedidos Textil es una aplicación móvil, que le permite gestionar de manera rápida y eficiente proformas, pedidos y facturas a sus clientes, con toda la información detallada y completa.
+                    Nuestra Aplicación le permite tener una galería de fotos de sus prendas confeccionadas, con lista de precios por cliente, por talla y por prenda.
+                    <br/>
+                    También le permite ver el estado de sus pedidos ingresados, entregados en proceso o finalizados con un historial de pagos.
+                    Puede llevar un registro adecuado de las entregas fecha, forma y firma, con foto de respaldo para su seguridad.  
+                    <button className='mas-button pl-2' onClick={() => toggle("Pedidos")}>
+                      Mas...
+                    </button>
                   </p>
                   <div className='mr-5'>
                     <a
@@ -69,7 +83,7 @@ const Features = () => {
                   />
                   </div>
                   <h5 className="font-medium">GB97 Reportes Textil</h5>
-                  <p className="m-t-20">
+                  <p className="m-t-20 text-justify">
                     GB97 Ecuador ofrece un espacio de trabajo para su servicio tecnológico textil, 
                     accesible directamente desde tu dispositivo móvil. Además, 
                     proporcionamos un servicio completo de reportería que te permite visualizar de manera global o detallada el desempeño de tu negocio.
@@ -108,10 +122,14 @@ const Features = () => {
                   />
                   </div>
                   <h5 className="font-medium">Alianza Común</h5>
-                  <p className="m-t-20">
-                    GB97 ofrece la plataforma integral para tus necesidades inmobiliarias y laborales. 
-                    Ya sea que estés buscando publicar, comprar o alquilar bienes raíces u oferta laboral, Alianza Común es tu aliado confiable. 
-                    Con una interfaz intuitiva y poderosas herramientas de búsqueda, nuestra aplicación te conecta con una amplia variedad de propiedades y oportunidades laborales.
+                  <p className="m-t-20 text-justify">
+                    Alianza Común es una aplicación web y móvil que apoya en la gestión del liderazgo y trabajo en equipo, con el objetivo de llevar a cabo una mejor organización en sus proyectos laborales, permitiendo una comunicación más acertada y eficaz.
+                    <br/>
+                    Con nuestra aplicación se podrá categorizar los contactos en grupo o subgrupos de acuerdo a su necesidad.
+                    También se podrá enviar de forma masiva mensajes, avisos, convocatorias a las categorías seleccionadas.
+                    <button className='mas-button pl-2' onClick={() => toggle("Alianza")}>
+                      Mas...
+                    </button>
                   </p>
                   <div className='mr-5'>
                     <a
@@ -143,10 +161,13 @@ const Features = () => {
                   />
                 </div>
                   <h5 className="font-medium">GB97 Track</h5>
-                  <p className="m-t-20">
-                    GB97 Ecuador cuenta con lo último en tecnología en rastreo vehicular con los más altos estándares de monitoreo y seguridad para su vehículo, 
-                    contamos con Control de rutas y velocidad, Bloqueo de Encendido, Botón de pánico para señales de emergencia, entre muchas más funcionalidades 
-                    que ayudaran a que usted y su vehículo estén seguros en las carretas del país.
+                  <p className="m-t-20 text-justify">
+                    Nuestra Aplicación Track, cuenta con la última tecnología en rastreo vehicular con los más altos estándares de monitoreo y seguridad vehicular.
+                    <br/>
+                    Con nuestra aplicación usted va a tener el control total de su vehículo, evitando intentos de robo y manipulación de su vehículo, llamadas de emergencia, avisos de control de velocidad y salidas de rutas establecidas, bloqueo de motor y ubicación en tiempo real. 
+                    <button className='mas-button pl-2' onClick={() => toggle("Track")}>
+                      Mas...
+                    </button>
                   </p>
                   <div className="round-social">
                     <Link href="https://www.instagram.com/gb97tracking/">
@@ -214,6 +235,24 @@ const Features = () => {
           </Row>
         </Container>
       </div>
+      <Modal 
+        isOpen={isOpen} 
+        toggle={toggle} 
+        size='md'
+      >
+        <ModalBody>
+          <Container>
+            <h1 className='title'>Beneficios</h1>
+            </Container>
+            {module && BeneficiosApp[module] && (
+              <ul>
+                {BeneficiosApp[module].map((item, index) => (
+                  <li className='text-justify mr-4' key={index}>{item}</li>
+                ))}
+              </ul>
+            )}
+        </ModalBody>
+      </Modal>
     </>
   )
 }

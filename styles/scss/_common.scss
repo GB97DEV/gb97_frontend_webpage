@@ -1902,6 +1902,21 @@ common-innerpage-banner
 }
 
 /*******************
+Mas Button
+*******************/
+.mas-button{
+  background-color: transparent;
+  border: 0px;
+  padding: 0px;
+  color: $tertiary;
+  font-weight: 400;
+
+  &:hover{
+    color: $primary;
+  }
+}
+
+/*******************
 Footer 4
 *******************/
 .footer4 {

@@ -43,13 +43,11 @@ const Projects = () => {
                 Proyecto Textil Ecuadorable
               </h3>
               <p className="subtitle font-light text-justify mr-5">
-                Nuestro proyecto, está enfocado en fomentar la inclusión tecnológica en el sector textil.
-                <br/><br/>
+                Nuestro proyecto, fomenta la inclusión tecnológica en el sector textil de la economía popular y solidaria de nuestro País.
+                <br/>
                 Buscamos mejorar la calidad de producción en nuestra comunidad, adoptando modelos cada vez más automatizados. 
-                Estamos enfocados en la transformación tecnológica de las organizaciones textiles de la Economía Popular y Solidaria, para que tengan un acceso libre, sencillo y gratuito a desarrollos tecnológicos en nuestra plataforma.
-                <br/><br/>
-                Vemos que una de las barreras es el costo de las aplicaciones y contar con un acompañamiento personalizado; nuestro proyecto ayudará a bajar los índices de desiertos digitales que son frecuentes en comunidades desatendidas independientemente de en qué parte del país se encuentren.  
-
+                <br/> <br/>
+                Reducimos los índices de desiertos digitales que son frecuentes en comunidades desatendidas, facilitando herramientas tecnológicas amigables, gratuitas y modernas que impactan positivamente en sus organizaciones.
               </p>
             </Col>
             <Col lg="6" md="12" sm="12" xs="12">
