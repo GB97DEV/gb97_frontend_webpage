@@ -70,7 +70,7 @@ const Footer = () => {
               </Col>
               <Col>
               <div className="mt-3 ml-1">
-                <span className="link">Ecaudorable</span>
+                <span className="link">Ecuadorable</span>
               </div>
               </Col>
             </Row>
