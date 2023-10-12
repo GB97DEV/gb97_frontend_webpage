@@ -441,6 +441,39 @@ Floating Button
 }
 
 /******************* 
+Support Button
+*******************/
+
+.support-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 80px;
+  background-color: $tertiary;
+  width: 40px;
+  height: 40px;
+
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+
+
+  border: none;
+  border-radius: 50px;
+
+  opacity: 0;
+  transition: opacity 2s ease-out;
+
+  &.aparecer {
+    opacity: 1;
+  }
+
+  &:hover {
+    background-color: $tertiary-dark;
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+}
+
+/******************* 
 Up Button
 *******************/
 

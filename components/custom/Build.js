@@ -10,6 +10,7 @@ import Clients from '../features/Clients'
 import Projects from '../features/Projects'
 import Convenios from '../features/Convenios'
 import BannerPublicity from "../banner/BannerPublicity"
+import SoporteButton from '../basic/SoporteButton'
 
 
 const Build = () => {
@@ -34,6 +35,7 @@ const Build = () => {
         <section id='Convenios'>
           <Convenios />
         </section>
+        <SoporteButton />
         <FloatingButton />
         <UpButton />
     </div>
