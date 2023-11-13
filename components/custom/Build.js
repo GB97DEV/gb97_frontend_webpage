@@ -1,5 +1,4 @@
 import React from 'react'
-import Banner2 from '../banner/Banner2'
 import Features from '../features/Features'
 import AboutUs from '../features/AboutUs'
 import FloatingButton from '../basic/FloatingButton'  
@@ -9,19 +8,15 @@ import PhotosGallerie from '../features/PhotosGallerie'
 import Clients from '../features/Clients'
 import Projects from '../features/Projects'
 import Convenios from '../features/Convenios'
-import BannerPublicity from "../banner/BannerPublicity"
 import SoporteButton from '../basic/SoporteButton'
+import { ContactForm } from '../basic/ContactForm'
+import ContentCarousel from '../basic/ContentCarousel'
 
 
 const Build = () => {
   return (
     <div>
-        <section id="#">
-          <Banner2 />
-        </section>
-        <section id='About'>
-          <AboutUs />
-        </section>
+      <ContentCarousel />
         <section id='Projects' className='bg-light'>
           <Projects />
         </section>
@@ -34,6 +29,9 @@ const Build = () => {
         </section>
         <section id='Convenios'>
           <Convenios />
+        </section>
+        <section id="Demo">
+          <ContactForm />
         </section>
         <SoporteButton />
         <FloatingButton />

@@ -6,7 +6,7 @@ const ErrorPage = () => {
   return (
     <div className="static-slider-head">
       <Head>
-        <title>404 - Page not Found</title>
+        <title>404 - Página no encontrada</title>
         <meta
           name="description"
           content="La pagina que estas buscando no existe"
