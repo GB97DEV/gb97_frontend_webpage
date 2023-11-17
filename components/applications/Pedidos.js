@@ -10,17 +10,16 @@ const Pedidos = () => {
   return (
     <div className="aplicaciones">
       <div className="image-container">
-      <div className="bg-dif"/>
-        <Image
+        <div className="bg-dif"/>
+          <Image
           src="https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/fondo-aplicaciones/Pedidos.jpg"
           layout='fill'
           objectFit="fill"
         />
       </div>
-      <div className="container-title spacer">
-        <Container>
-          <Row className="mt-2">
-            <Col lg="6" md="6" sm="12" xs="10">
+      <div className="container-title">
+          <Row className="row-content">
+            <Col lg="6" md="6" sm="12" xs="12" className="col-title">
               <Image
                 className="app-logo text-center"
                 src={"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/logos-app/gb97-pedidos.png"}
@@ -30,9 +29,12 @@ const Pedidos = () => {
               />
               <h2 className="title font-bold mt-3">GB97 Pedidos Textil</h2>
             </Col>
-            
+            <Col lg="6" md="6" sm="12" xs="12" className="col-video">
+              <div className="icon-container">
+                <a href="https://youtu.be/Zjqh_4yJINM" target="_blank" rel="noreferrer" className="icon fa fa-play-circle-o" />
+              </div>
+            </Col>
           </Row>
-        </Container>
       </div>
       <div className="container-info">
         <section>
@@ -62,20 +64,17 @@ const Pedidos = () => {
           </div>
         </section>
       </div>
-      <div className="spacer">
+      <div className="mt-4">
         <Container>
-          <h2 className="title font-bold text-center mb-5">Beneficios</h2>
+          <h2 className="title font-bold text-center mb-4">Beneficios</h2>
           <Row>
             {
               BeneficiosApp["Pedidos"].map((beneficio, i) => {
                 return(
-                  <Col lg="6" md="6" sm="6" xs="6" key={i}>
+                  <Col lg="6" md="6" sm="12" xs="12" key={i}>
                     <Row>
-                      <Col lg="1" md="1" sm="1" xs="1">
-                        <i className="ben-icono fa fa-circle" />
-                      </Col>
-                      <Col lg="11" md="11" xm="11" xs="11">
-                        <h5 className="ben-text subtitle text-justify">{beneficio}</h5>
+                      <Col lg="12" md="12" xm="12" xs="12" className="list-ben">
+                        <h5 className="ben-text subtitle text-justify"><i className="ben-icono fa fa-circle" /> {beneficio}</h5>
                       </Col>
                     </Row>
                   </Col>

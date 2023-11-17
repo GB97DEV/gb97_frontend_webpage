@@ -12,7 +12,7 @@ export const Store = ({url}) => {
               Adquiere Nuestra Aplicación
             </h2>
             <h6 className="subtitle op-7 m-b-20">
-              `&quot;`Prepárate para una experiencia única con nuestras aplicaciones. Transforma tu vida, descubre un mundo de posibilidades y hazlo tuyo. ¡Adquiérela y comienza tu aventura hoy!`&quot;`
+              Prepárate para una experiencia única con nuestras aplicaciones. Transforma tu vida, descubre un mundo de posibilidades y hazlo tuyo. ¡Adquiérela y comienza tu aventura hoy!
             </h6>
             <a
               className='m-b-20'

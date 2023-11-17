@@ -41,7 +41,7 @@ export const InicioSlide = ({active }) => {
             </Col>
             <Col xl="6" lg="6" md="6" sm="12" xs="12" className="col-video">
               <div className="icon-container">
-                <a className="icon fa fa-play-circle-o" />
+                <a href="https://youtu.be/22keL1FWf6U" target="_blank" rel="noreferrer" className="icon fa fa-play-circle-o" />
               </div>
             </Col>
         </Row>

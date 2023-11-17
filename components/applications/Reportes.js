@@ -1,6 +1,5 @@
 import Image from "next/image"
 import {Row, Col, Container } from "reactstrap"
-import Fondo from "../../assets/images/Fondo.jpg"
 import Banner from "../../assets/images/AppReporting.jpg"
 import { Store } from "../basic/Store"
 import { ContactForm } from '../basic/ContactForm'
