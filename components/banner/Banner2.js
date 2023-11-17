@@ -11,7 +11,7 @@ const Banner2 = () => {
   return (
     <div className="static-slider-head banner2">
       <BannerPublicity />
-      <Container>
+      <Container className="initial-cotainer">
         <Row className="d-flex">
           <Col xl="6" lg="6" md="12" sm='12' xs='12' className="align-self-center">
             {/* <div className="d-flex justify-content-center">
@@ -22,19 +22,19 @@ const Banner2 = () => {
                 alt="Logo"
               />
             </div> */}
-            <h1 className="title">
+            <h2 className="title">
               Misión
-            </h1>
-            <h4 className="subtitle font-light text-justify mr-5">
+            </h2>
+            <p className="subtitle font-light text-justify mr-4">
               Somos una empresa que ofrece soluciones tencológicas a compañías y/o emprendimientos de la industria textil. 
               En donde sistematizando los procesos de producción y calidad, las empresas desarrollen productos de calidad, los cuáles sean competitivos en el mercado nacional e internacional.
-            </h4>
-            <h1 className="title">
+            </p>
+            <h2 className="title">
               Vision
-            </h1>
-            <h4 className="subtitle font-light text-justify mr-5">
+            </h2>
+            <p className="subtitle font-light text-justify mr-4">
               Ser una empresa líder en el desarrollo de soluciones tecnológicas textiles, adaptándonos a los estándares de calidad nacionales e internacionales para el manejo y desarrollo de procesos sistematizados de empresas y/o emprendimientos de la industria textil.
-            </h4>
+            </p>
             <div className="image-iso d-flex mr-5 mb-5 pt-3">
               <Image src={iso} alt="Logo ISO" width={160} height={90}/>            
             </div>

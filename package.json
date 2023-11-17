@@ -11,6 +11,7 @@
   "dependencies": {
     "axios": "^1.4.0",
     "bootstrap": "4.6.0",
+    "framer-motion": "^4.1.17",
     "mongoose": "^7.3.1",
     "next": "11.1.2",
     "nextjs-google-analytics": "^2.3.3",

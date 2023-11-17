@@ -1,4 +1,4 @@
-export const BeneficiosApp = {
+const Beneficios = {
   Pedidos:[
     "Optimiza tiempo y recursos en la toma de pedido, evitando posibles errores.",
     "Le permite Generar desde su móvil de manera rápida y segura proformas, pedidos y facturas.",
@@ -22,3 +22,14 @@ export const BeneficiosApp = {
     "Usted puede escuchar las conversaciones de la cabina en caso de emergencia."
   ]
 }
+
+function sortByLength(arr) {
+  return arr.sort((a, b) => b.length - a.length);
+}
+
+// Ordena los elementos de cada categoría de mayor a menor por la cantidad de caracteres
+export const BeneficiosApp = {
+  Pedidos: sortByLength(Beneficios.Pedidos),
+  Alianza: sortByLength(Beneficios.Alianza),
+  Track: sortByLength(Beneficios.Track),
+};

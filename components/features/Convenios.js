@@ -9,16 +9,16 @@ const Convenios = () => {
         <Container>
           <Row className="pt-4 pb-4 justify-content-center">
             <Col md="12" className="text-center">
-              <h1 className="title">Nuestros Convenios</h1>
+              <h1 className="title mr-3 ml-3">Nuestros Convenios</h1>
             </Col>
           </Row>
-          <div className="pt-2 text-justify">
+          <div className="pt-2 text-justify ml-3 mr-3">
             Nuestro Proyecto Ecuadorable está en marcha desde el 2022 y vemos la necesidad de buscar mecanismos que nos permitan la coordinación entre otras instituciones para evitar la atomización de las actuaciones, sino más bien fomentar la complementariedad en beneficio de nuestra comunidad.
             Nuestro plan director tiene un enfoque abierto y muy participativo con aportaciones de diferentes actores del sector público y privado.   
           </div>
         </Container>
         <Container>
-          <Row>
+          <Row className="ml-3 mr-3">
               {
                 ConveniosEPS.map(item => {
                   return (

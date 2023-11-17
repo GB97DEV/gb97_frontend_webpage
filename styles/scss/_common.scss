@@ -4,9 +4,10 @@ Topbar
 
 .topbar {
   padding: 0px;
-  transition: 0.2s ease-in;
+  transition: position 0.8s ease-in;
   width: 100%;
-  // position: absolute;
+  position: relative;
+  background-color: $primary;
   z-index: 20;
 }
 
@@ -67,8 +68,8 @@ Header 6
   .title {
     color: $white;
     font-weight: 700;
-    font-size: 42px;
-    line-height: 54px;
+    font-size: 25px;
+    line-height: 30px;
   }
 
   .subtitle {
@@ -80,15 +81,15 @@ Header 6
     .title{
       color: $white;
       font-weight: 700;
-      font-size: 32px;
-      line-height: 54px;
+      font-size: 25px;
+      line-height: 25px;
       margin-bottom: 30px;
       margin-left: 20px;
     }
     .subtitle{
       color: $white;
       line-height: 30px;
-      font-size: 18px;
+      font-size: 13px;
       margin-bottom: 30px;
       margin-left: 20px;
     }
@@ -427,6 +428,7 @@ Floating Button
 
   opacity: 0;
   transition: opacity 2s ease-out;
+  z-index: 999;
 
   &.aparecer {
     opacity: 1;
@@ -461,6 +463,8 @@ Support Button
   opacity: 0;
   transition: opacity 2s ease-out;
 
+  z-index: 999;
+
   &.aparecer {
     opacity: 1;
   }
@@ -471,6 +475,39 @@ Support Button
     height: 45px;
     font-size: 18px;
   }
+}
+
+
+/******************* 
+Up Button
+*******************/
+.form-container{
+  background-color: white;
+  border: 1px solid whitesmoke;
+  border-radius: 10px;
+}
+
+.btn-form{
+  width: 130px;
+  height: 50px;
+  background-image: linear-gradient(90deg, $primary 0%, $tertiary 100%);
+  box-shadow: 4px 4px 10px $secondary;
+  border-radius: 10px;
+  border: none;
+  transition: 0.2s ease-in;
+  .text{
+    color: white;
+    font-size: 15px;
+    font-weight: 400;
+  }
+  &:hover{
+    background-image: linear-gradient(90deg, $tertiary 0%, $primary 100%);
+    // box-shadow: -4px 4px 10px $secondary;
+  }
+}
+
+.input-text{
+  font-size: 15px;
 }
 
 /******************* 
@@ -490,6 +527,8 @@ Up Button
 
   border: none;
   border-radius: 50px;
+
+  z-index: 999;
 
   &:hover {
     background-color: rgba($color: #0026bd, $alpha: 1.0);
@@ -752,6 +791,339 @@ up section
   right: 20px;
   z-index: 100;
   visibility: hidden;
+}
+
+/******************* 
+Aplicaciones
+*******************/
+.aplicaciones{
+  width: 100%;
+  height: 100%;
+  .image-container{
+    position: relative;
+    width: 100%;
+    height: 400px;
+  }
+  .bg-dif{
+    // background-image: linear-gradient(90deg, rgba(243, 243, 243, 0.69) 40%, rgba(0,0,0,0) 60%);
+    background-color: rgba(51, 51, 51, 0.5);
+    width: 100%;
+    height: 400px;
+    z-index: 2;
+    
+  }
+  .container-title{
+    position: absolute;
+    top: 76px;
+    left: 0;
+    z-index: 4;
+    height: 400px;
+    width: 100%;
+
+    .row-content{
+      height: 100%;
+
+      .col-title{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .col-video{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .icon-container{
+          width: 170px;
+          height: 170px;
+          border-radius: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .icon{
+            cursor: pointer;
+            font-size: 200px;
+            color: rgba(255,255,255, 0.8);
+  
+            &:hover{
+              color: rgba(255,255,255, 1);
+            }
+          }
+          &:hover{
+            box-shadow: 0px 0px 20px rgba(28, 28, 28, 0.6);
+          }
+        }
+      }
+    }
+
+    .title{
+      color: white
+    }
+
+  }
+}
+@media (max-width: 900px){
+  .aplicaciones{
+    .container-title{
+      .row-content{
+        .col-video{
+          .icon-container{
+            width: 130px;
+            height: 130px;
+            .icon{
+              font-size: 150px;
+            }
+          }
+        }
+      }
+    }
+    .ben-text{
+      font-size: 15px;
+    }
+  }
+  .ben-icono{
+    font-size: 8px !important;
+  }
+}
+
+/******************* 
+Application Card
+*******************/
+.application-card{
+  height: 450px;
+  box-shadow: 10px 10px 5px rgba(95, 95, 95, 0.5); /* Nueva sombra cuando aparece el componente */
+
+  .text-container{
+    background: rgba(51, 51, 51, 0.5);
+  }
+  .title-card{
+    color: white;
+    height: 120px;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .subtitle-card{
+    overflow: auto;
+    height: 180px;
+    color: white;
+    font-size: 15px;
+    font-weight: 400;
+    padding-right: 6px;
+
+    &::-webkit-scrollbar {
+      width: 8px; /* Ancho de la barra de desplazamiento */
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background: rgba(218, 218, 218, 0.5); /* Color de la barra de desplazamiento */
+      border-radius: 4px; /* Borde redondeado */
+    }
+  
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(218, 218, 218, 0.7); /* Cambio de color al pasar el cursor */
+    }
+  
+    &::-webkit-scrollbar-track {
+      background: transparent; /* Fondo transparente */
+    }
+  }
+
+  .application-footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .btn-application{
+      width: 200px;
+      height: 50px;
+      background-color: $primary;
+      font-size: 14px;
+      border: none;
+      border-radius: 10PX;
+      color: white;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:hover{
+        background-color: $primary-dark;
+        font-size: 15px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &:hover{
+    transform: translateX(-5px);
+    box-shadow: 12px 12px 5px rgba(95, 95, 95, 0.8); /* Nueva sombra cuando aparece el componente */
+  }
+}
+
+.ben-icono{
+  color: $primary;
+  font-size: 12px;
+}
+
+.ben-text{
+  color: $primary;
+}
+
+/******************* 
+Nosotros Page
+*******************/
+.valores{
+  .title{
+    font-size: 40px;
+  }
+}
+
+/******************* 
+carousel container
+*******************/
+
+.carousel-container{
+  width: 100%;
+  height: 600px;
+}
+
+.custom-carousel-control{
+  width: 8%;
+  opacity: 0.8;
+  z-index: 2;
+}
+/******************* 
+slide
+*******************/
+.slide-container{
+  height: 600px;
+
+  .slide-image-container {
+    position: relative;
+    width: 100%;
+    height: 500px; /* Ajusta la altura como desees */
+    overflow: hidden;
+    z-index: 0;
+
+    .slide-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+    }
+  }
+  .slide-content-container{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    background-color: rgba(94, 94, 94, 0.65);
+
+    .motion-div{
+      width: 100%;
+      height: 100%;
+    }
+    .row-content{
+      height: 100%;
+      padding: 10px 9% 10px 9%;
+      .col-title{
+        height: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .title{
+          color:  white;
+          font-weight: bold;
+        }
+        .subtitle{
+          color: white;
+          font-size: 16px;
+          font-weight: 300;
+        }
+      }
+      .col-video{
+        height: 100%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .icon-container{
+          width: 170px;
+          height: 170px;
+          border-radius: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .icon{
+            cursor: pointer;
+            font-size: 200px;
+            color: rgba(255,255,255, 0.8);
+  
+            &:hover{
+              color: rgba(255,255,255, 1);
+            }
+          }
+          &:hover{
+            box-shadow: 0px 0px 20px rgba(28, 28, 28, 0.6);
+          }
+        }
+      }
+      
+      .button-content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 150px;
+        height: 50px;
+        border-radius: 10px;
+        border: none;
+        background-color: rgba(0, 19, 165, 0.6);
+        color: white;
+
+        &:hover{
+          background-color: rgba(0, 19, 165, 1);
+          box-shadow: 0px 0px 20px rgba(28, 28, 28, 0.6);
+        }
+      }
+    }
+  }
+  @media (max-width: 900px) {
+    .slide-content-container{
+      .row-content{
+        height: 50%;
+        padding: 0px 9% 0px 9%;
+        .col-title{
+
+          margin-top: 10px;
+          .title{
+            font-size: 30px;
+          }
+          .subtitle{
+            font-size: 15px;
+          }
+        }
+        .col-video{
+          margin-top: 2rem;
+          height: 50%;
+          .icon-container{
+            width: 130px;
+            height: 130px;
+            .icon{
+              font-size: 150px;
+            }
+          }
+        }
+      }
+      &.total-height{
+        height: 100%;
+      }
+    }
+  }
 }
 
 /******************* 

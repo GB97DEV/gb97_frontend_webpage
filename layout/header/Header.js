@@ -6,10 +6,15 @@ import {
   NavItem,
   NavLink,
   NavbarToggler,
-  Collapse
+  Collapse,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
 } from "reactstrap";
 import { AuthContext } from "../../context/AuthContext";
 import { useRouter } from "next/router";
+import Link from 'next/link';
 
 const Header = () => {
   const router = useRouter();
@@ -24,9 +29,24 @@ const Header = () => {
     router.push("/");
   }
 
+  // if (typeof window !== 'undefined') {
+  //   // El código dentro de este bloque se ejecutará solo en el lado del cliente
+  //   const topbar = document.querySelector('.topbar');
+  //   const scrollThreshold = 1; // Puedes ajustar esto según tu diseño
+  
+  //   window.addEventListener('scroll', () => {
+  //     if (window.scrollY > scrollThreshold) {
+  //       topbar.style.position = "fixed"
+  //     } else {
+  //       topbar.style.position = 'relative'; // Fondo transparente
+  //     }
+  //   });
+  // }
+
+
   return (
     <div className="topbar" id="top">
-      <div className="header1 po-relative bg-primary">
+      <div className="header1 po-relative">
         <Container>
           <Navbar className="navbar-expand-lg h2-nav">
             <NavbarToggler onClick={toggle}>
@@ -38,25 +58,60 @@ const Header = () => {
                   <NavLink href="/#">Inicio</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/#About">Sobre Nosotros</NavLink>
+                  <NavLink href="/nosotros">Nosotros</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/#Projects">Nuestro Proyecto</NavLink>
+                  <NavLink href="/#Projects">Proyectos</NavLink>
                 </NavItem>
-                <NavItem>
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav>
+                   Aplicaciones <i className="fa fa-angle-down m-l-5"></i>
+                  </DropdownToggle>
+                  <DropdownMenu className="b-none animated fadeInUp">
+                    <DropdownItem>
+                        <Link href={"/aplicaciones/[app]"} as="/aplicaciones/pedidos">
+                          GB97 Pedidos Textil
+                        </Link>
+                      </DropdownItem>
+                    <DropdownItem>
+                      <Link href={"/aplicaciones/[app]"} as="/aplicaciones/reportes">
+                          GB97 Reportes Textil
+                        </Link>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <Link href={"/aplicaciones/[app]"} as="/aplicaciones/track">
+                          GB97 Track
+                        </Link>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <Link href={"/aplicaciones/[app]"} as="/aplicaciones/produccion">
+                          GB97 Producción Textil
+                        </Link>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <Link href={"/aplicaciones/[app]"} as="/aplicaciones/alianza">
+                          Alianza Común
+                        </Link>
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+                {/* <NavItem>
                   <NavLink href="/#Features">Nuestras Aplicaciones</NavLink>
+                </NavItem> */}
+                <NavItem>
+                  <NavLink href="/#Organizations">Organizaciones</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/#Organizations">Nuestras Organizaciones</NavLink>
+                  <NavLink href="/#Convenios">Convenios</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/#Convenios">Nuestros Convenios</NavLink>
+                  <NavLink href="#Demo">Demo</NavLink>
                 </NavItem>
                 {
                   isLoggedIn  
                   ?<>
                     <NavItem>
-                      <NavLink href="/guia" >Video Guia</NavLink>
+                      <NavLink href="/guia">Video Guia</NavLink>
                     </NavItem>
                     <NavItem >
                       <a className="btn btn-info" onClick={salir}>
