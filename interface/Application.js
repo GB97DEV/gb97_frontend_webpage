@@ -1,7 +1,7 @@
 export const Application = [
   {
     title:"GB97 Pedidos Textil",
-    content:"Gestiona de manera rápida y eficiente proformas, pedidos y facturas a sus clientes.",
+    content:"Gestiona de manera rápida y eficiente proformas, pedidos, facturas y fichas tecnicas.",
     href:"/aplicaciones/pedidos",
     fondo:"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/aplicaciones-mock/Pedidos.jpg",
     logo:"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/logos-app/gb97-pedidos.png",
