@@ -1,7 +1,8 @@
 export const Application = [
   {
     title:"GB97 Pedidos Textil",
-    content:"Gestiona de manera rápida y eficiente proformas, pedidos, facturas y fichas tecnicas.",
+    // content:"Gestiona de manera rápida y eficiente proformas, pedidos, facturas y fichas tecnicas.",
+    content: "Es una aplicación móvil, que le permite gestionar de manera rápida y eficiente proformas, pedidos y facturas a sus clientes. Generando una ficha técnica por cada producto con toda la información detallada y su respectiva galería de fotos.",
     href:"/aplicaciones/pedidos",
     fondo:"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/aplicaciones-mock/Pedidos.jpg",
     logo:"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/logos-app/gb97-pedidos.png",
