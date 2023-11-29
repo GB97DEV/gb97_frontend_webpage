@@ -3,6 +3,7 @@ import {Row, Col, Container } from "reactstrap"
 import Banner from "../../assets/images/AppReporting.jpg"
 import { Store } from "../basic/Store"
 import { ContactForm } from '../basic/ContactForm'
+import { BeneficiosApp } from "../../interface/BeneficiosApp"
 
 const Reportes = () => {
   return (
@@ -42,9 +43,7 @@ const Reportes = () => {
                     ¿Qué es GB97 Reportes Textil?
                   </h2>
                   <p className="m-t-40 m-b-30 text-justify">
-                    GB97 Ecuador ofrece un espacio de trabajo para su servicio tecnológico textil, 
-                    accesible directamente desde tu dispositivo móvil. Además, 
-                    proporcionamos un servicio completo de reportería que te permite visualizar de manera global o detallada el desempeño de tu negocio.
+                    Es una aplicación móvil, que le permite obtener de una manera rápida y eficiente reportes de pedidos, facturas, órdenes, listado de clientes, listado de precios, entregas y proformas. Por periodos de tiempo establecidos de acuerdo a la necesidad de nuestros clientes.
                   </p>
                 </Col>
                 <Col lg="5" md="5" className="align-self-center ml-auto">
@@ -58,6 +57,26 @@ const Reportes = () => {
             </Container>
           </div>
         </section>
+      </div>
+      <div className="mt-5">
+        <Container>
+          <h2 className="title font-bold text-center mb-5">Beneficios</h2>
+          <Row className="mb-5">
+            {
+              BeneficiosApp["Reportes"].map((beneficio, i) => {
+                return(
+                  <Col lg="6" md="6" sm="12" xs="12" key={i}>
+                    <Row>
+                      <Col lg="12" md="12" xm="12" xs="12" className="list-ben">
+                        <h5 className="ben-text subtitle text-justify"><i className="ben-icono fa fa-circle" /> {beneficio}</h5>
+                      </Col>
+                    </Row>
+                  </Col>
+                )
+              })
+            }
+          </Row>
+        </Container>
       </div>
       <Store url="https://play.google.com/store/apps/details?id=com.alexandertubon.gb97textil_workspace" />
       <section id="Demo">

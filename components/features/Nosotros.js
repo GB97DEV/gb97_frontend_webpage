@@ -80,7 +80,7 @@ export const Nosotros = () => {
             <Col md="7" className="text-center">
               <h2 className="title font-bold">Nuestros Valores</h2>
               <h6 className="subtitle pt-3">
-              En GB97 ECUADOR, siempre buscamos cumplir con el compromiso social de ayuda a los emprendedores y/o empresas ecuatorianas,
+              En GB97 ECUADOR, siempre buscamos cumplir con el compromiso social de ayuda a los emprendedores y/o empresas ecuatorianas.
               </h6>
             </Col>
           </Row>
@@ -90,13 +90,13 @@ export const Nosotros = () => {
             <Col lg="6">
               <h2 className="title font-semibold">Misión</h2>
               <p className="subtitle text-justify">
-              Somos una empresa que ofrece soluciones tencológicas a compañías y/o emprendimientos de la industria textil. 
+              Somos una empresa que ofrece soluciones tecnológicas a compañías y/o emprendimientos de la industria ecuatoriana. 
               En donde sistematizando los procesos de producción y calidad, las empresas desarrollen productos de calidad, los cuáles sean competitivos en el mercado nacional e internacional.
               </p>
             </Col>
             <Col>
             <h2 className="title font-semibold">Visión</h2>
-            <p className="subtitle text-justify">Ser una empresa líder en el desarrollo de soluciones tecnológicas textiles, adaptándonos a los estándares de calidad nacionales e internacionales para el manejo y desarrollo de procesos sistematizados de empresas y/o emprendimientos de la industria textil.</p>
+            <p className="subtitle text-justify">Ser una empresa líder en el desarrollo de soluciones tecnológicas, adaptándonos a los estándares de calidad nacionales e internacionales para el manejo y desarrollo de procesos sistematizados de empresas y/o emprendimientos de la industria ecuatoriana.</p>
             </Col>
           </Row>
           <Row>
