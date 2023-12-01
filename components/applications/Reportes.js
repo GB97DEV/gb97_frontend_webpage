@@ -1,6 +1,5 @@
 import Image from "next/image"
 import {Row, Col, Container } from "reactstrap"
-import Banner from "../../assets/images/AppReporting.jpg"
 import { Store } from "../basic/Store"
 import { ContactForm } from '../basic/ContactForm'
 import { BeneficiosApp } from "../../interface/BeneficiosApp"
@@ -47,10 +46,12 @@ const Reportes = () => {
                   </p>
                 </Col>
                 <Col lg="5" md="5" className="align-self-center ml-auto">
-                  <Image
-                    src={Banner}
+                <Image
+                    src={"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/aplicaciones-mock/Reportes.jpg"}
                     alt="We are Digital Agency"
                     className="img-fluid"
+                    width={1200}
+                    height={800}
                   />
                 </Col>
               </Row>

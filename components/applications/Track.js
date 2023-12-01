@@ -1,7 +1,5 @@
 import Image from "next/image"
 import {Row, Col, Container } from "reactstrap"
-import Fondo from "../../assets/images/Fondo.jpg"
-import Banner from "../../assets/images/AppTrack.jpg"
 import { Store } from "../basic/Store"
 import { BeneficiosApp } from "../../interface/BeneficiosApp"
 import { ContactForm } from '../basic/ContactForm'
@@ -49,9 +47,11 @@ const Track = () => {
                 </Col>
                 <Col lg="5" md="5" className="align-self-center ml-auto">
                   <Image
-                    src={Banner}
+                    src={"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/aplicaciones-mock/Track.jpg"}
                     alt="We are Digital Agency"
                     className="img-fluid"
+                    width={1200}
+                    height={800}
                   />
                 </Col>
               </Row>

@@ -151,10 +151,22 @@ export const Pedido = [
         ]
     },
     {
-        module: "Inicio de Sesión",
+        module: "Ficha Tecnica",
         videos: [
             {
                 key: 16,
+                title: "16. Creación de fichas técnicas de ítems a través de un archivo Excel",
+                path: `${GB97Path}/ficha_tecnica_excel.mp4`,
+                preview: "Acceso_Invitado.png",
+                alt: "video"
+            },
+        ]
+    },
+    {
+        module: "Inicio de Sesión",
+        videos: [
+            {
+                key: 17,
                 title: "16. Acceso en modo Invitado",
                 path: `${GB97Path}/pedidos_acceso_invitado.mp4`,
                 preview: "Acceso_Invitado.png",
