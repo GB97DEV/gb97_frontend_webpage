@@ -10,14 +10,14 @@ export const Application = [
     title:"GB97 Reportes Textil",
     content:"Es una aplicación móvil que le brinda un servicio completo de reportería y le permite visualizar de manera global o detallada los datos de su empresa.",
     href:"/aplicaciones/reportes",
-    fondo:"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/fondo-aplicaciones/Reportes.jpg",
+    fondo:"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/aplicaciones-mock/Reportes.jpg",
     logo:"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/logos-app/gb97-reportes.png",
   },
   {
     title:"GB97 Track",
     content: "Nuestra aplicación móvil, cuenta con la última tecnología en rastreo vehicular con los más altos estándares de monitoreo y seguridad.",
     href:"/aplicaciones/track",
-    fondo:"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/fondo-aplicaciones/Track.jpg",
+    fondo:"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/aplicaciones-mock/Track.jpg",
     logo:"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/logos-app/gb97-track.png"
   },
   {
