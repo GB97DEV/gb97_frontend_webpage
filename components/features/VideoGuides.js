@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Row, Col, Container, Collapse } from "reactstrap";
+import { Button, Row, Col, Container, Collapse, ListGroup, ListGroupItem } from "reactstrap";
 import ModalVideo from "../basic/ModalVideo";
 import { Pedido } from "../../interface/PedidoVideos";
 import { AuthContext } from "../../context/AuthContext";
 import { useRouter } from 'next/router';
+import UpButton from "../basic/UpButton";
 
 const VideoGuides = () => {
 	const router = useRouter();
@@ -11,6 +12,7 @@ const VideoGuides = () => {
 	const [shouldRedirect, setShouldRedirect] = useState(false);
 
 	const [pedidosOpen, setPedidosOpen] = useState(false)
+	const [indiceOpen, setIndiceOpen] = useState(true)
 	const [activeModule, setActiveModule] = useState("")
 	const [videos, setVideos] = useState([])
 
@@ -35,6 +37,10 @@ const VideoGuides = () => {
 		setPedidosOpen(!pedidosOpen)
 	}
 
+	const toggleIndice = () => {
+		setIndiceOpen(!indiceOpen);
+	}
+
 	const [moduleOpen, setModuleOpen] = useState(false);
 
   const toggleModulo = (moduleName = "") => {
@@ -45,20 +51,9 @@ const VideoGuides = () => {
 			setActiveModule(moduleName);
 		}
   }
-
-	const RenderVideo = (moduleVideos) => {
-		return moduleVideos.map(video => (
-			<Col md="4" key={video.key}>
-				<ModalVideo 
-					title={video.title}
-					videoPath={video.path}
-				/>
-			</Col>
-		));
-	};
 	
 	return (
-		<div>
+		<div className="bg-light pb-3">
 			{
 				isLoggedIn &&
 				<div>
@@ -67,61 +62,82 @@ const VideoGuides = () => {
 							<h1 className="mt-5 mb-5 title">Videos de Capacitación</h1>
 						</Col>
 					</Row>
-					<div className="videos-menu-container">
-						{/* <Row>
-							<Col lg="4" md="5" sm="4"> */}
-								<button className={`video-menu-button ${pedidosOpen ?"active" :""}`} onClick={togglePedidosVideo}>
-									<Row className="ml-2 mr-2">
-										<h3 className="subtitle">
-											GB97 Pedidos Textil
-												{
-												!pedidosOpen
-												? <i className="subtitle fa fa-chevron-down" />
-												: <i className="subtitle fa fa-chevron-up" />
-											}
-										</h3>
-										
+					
+					<div className="indice-container">
+						<Col className="border bg-white" xl="7" lg="7" md="8" sm="12" xs="12">
+							<Row className="mt-1 mb-1">
+								<Col xs={10}>
+									<h4 className="text-left mt-2">Índice de Contenido</h4>
+								</Col>
+								<Col xs={2} className="text-right mt-2">
+									<button style={{border: "none", backgroundColor: "transparent"}} onClick={toggleIndice}>
+										{!indiceOpen ? <i className="subtitle fa fa-chevron-down" /> : <i className="subtitle fa fa-chevron-up" />}
+									</button>
+								</Col>
+							</Row>
+							<Collapse isOpen={indiceOpen}>
+								<div>
+									{Pedido.map((modulo, index) => (
+										<div key={modulo.module} className="mb-2">
+											<p className="text-black">
+												{`${index + 1}.`}
+												<a className="ml-2" href={`#modulo-${modulo.module}`}>
+													{`${modulo.module}`}
+												</a>
+											</p>
+											{modulo.videos.map((video, videoIndex) => (
+												<div className="ml-3 mt-2">
+													<p>
+														{`${index + 1}.${videoIndex + 1}`}
+														<a className="ml-2" href={`#video-${video.title}`}>
+															{`${video.title}`}
+														</a>
+													</p>
+													
+												</div>
+											))}
+										</div>
+									))}
+									{/* <div key="FAQ" className="mb-2">
+										<p className="text-black">
+											<a className="ml-1" href={`#FAQ`}>
+												Preguntas frecuentes - FAQ
+											</a>
+										</p>
+									</div> */}
+								</div>
+							</Collapse>
+						</Col>
+					</div>
+
+					<div className="videos-container">
+						<h2 className="title-content title text-center">GB97 Pedidos Textil</h2>
+						<div>
+							{Pedido.map((modulo, index) => (
+								<section id={`modulo-${modulo.module}`} className="mb-2" >
+									<h4 className="title">
+										{`${index + 1}.`} {`${modulo.module}`}
+									</h4>
+									<Row>
+										{modulo.videos.map((video, videoIndex) => (
+											<Col id={`video-${video.title}`} md="4" lg="4" sm="6" xs="12" key={video.key}>
+												<Container>
+													<ModalVideo 
+														title={`${index + 1}.${videoIndex + 1} ${video.title}`}
+														videoPath={video.path}
+													/>
+												</Container>
+											</Col>													
+										))}
 									</Row>
-								</button>
-								{
-									pedidosOpen &&
-									<Collapse isOpen={pedidosOpen} className="videos-submenu-container">
-									{
-										Pedido.map(moduleItem => {
-											return (
-												<React.Fragment key={moduleItem.module}>
-													<button className={`video-submenu-button ${activeModule === moduleItem.module ?"active" :""}`} onClick={() => {toggleModulo(moduleItem.module), setVideos(moduleItem.videos)}}>
-														<Row className="mr-2">
-															<h3 className="subtitle">{moduleItem.module}</h3>
-															{
-																activeModule !== moduleItem.module
-																? <i className="subtitle fa fa-chevron-left" />
-																: <i className="subtitle fa fa-chevron-right" />
-															}
-														</Row>
-													</button>
-													<Collapse isOpen={activeModule === moduleItem.module}>
-									<Row className="video">
-										{RenderVideo(videos)}
-									</Row>
-								</Collapse>
-												</React.Fragment>
-											);
-										})
-									}
-									
-								</Collapse>
-								}
-								{
-									pedidosOpen &&
-									<div className="divisor"/>
-								}
-							{/* </Col>
-							<Col> */}
-								
-							{/* </Col>
-						</Row> */}
-					</div>				
+								</section>
+							))}
+						</div>
+					</div>
+					{/* <div id="FAQ">
+						<h2 className="title text-center mb-0">Preguntas Frecuentes</h2>
+					</div> */}
+					<UpButton />
 				</div>
 			}
 		</div>
