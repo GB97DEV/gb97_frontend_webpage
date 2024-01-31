@@ -86,7 +86,7 @@ const VideoGuides = () => {
 												</a>
 											</p>
 											{modulo.videos.map((video, videoIndex) => (
-												<div className="ml-3 mt-2">
+												<div className="ml-3 mt-2" key={videoIndex}>
 													<p>
 														{`${index + 1}.${videoIndex + 1}`}
 														<a className="ml-2" href={`#video-${video.title}`}>
@@ -114,7 +114,7 @@ const VideoGuides = () => {
 						<h2 className="title-content title text-center">GB97 Pedidos Textil</h2>
 						<div>
 							{Pedido.map((modulo, index) => (
-								<section id={`modulo-${modulo.module}`} className="mb-2" >
+								<section id={`modulo-${modulo.module}`} className="mb-2" key={index}>
 									<h4 className="title">
 										{`${index + 1}.`} {`${modulo.module}`}
 									</h4>
