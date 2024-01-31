@@ -37,7 +37,7 @@ export const InicioSlide = ({active }) => {
                 height={100}
               />
               <h1 className="title">GB97 Ecuador</h1>
-              <p className="subtitle text-justify">Ofrecemos soluciones en desarrollo de tecnología de última generación para todas las OEPS textileras.</p>
+              <p className="subtitle text-center">OFRECEMOS SOLUCIONES EN DESARROLLO DE TECNOLOGÍA DE ÚLTIMA GENERACIÓN.</p>
             </Col>
             <Col xl="6" lg="6" md="6" sm="12" xs="12" className="col-video">
               <div className="icon-container">

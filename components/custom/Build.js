@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Features from '../features/Features'
 import AboutUs from '../features/AboutUs'
 import FloatingButton from '../basic/FloatingButton'  
@@ -11,9 +11,11 @@ import Convenios from '../features/Convenios'
 import SoporteButton from '../basic/SoporteButton'
 import { ContactForm } from '../basic/ContactForm'
 import ContentCarousel from '../basic/ContentCarousel'
+import { AuthContext } from "../../context/AuthContext";
 
 
 const Build = () => {
+  const { isLoggedIn } = useContext(AuthContext)
   return (
     <div>
       <ContentCarousel />
@@ -33,7 +35,11 @@ const Build = () => {
         <section id="Demo">
           <ContactForm />
         </section>
-        <SoporteButton />
+        {
+          isLoggedIn ?
+          <SoporteButton />
+          : <></>
+        }
         <FloatingButton />
         <UpButton />
     </div>

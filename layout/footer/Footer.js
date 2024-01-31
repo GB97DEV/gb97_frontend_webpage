@@ -47,7 +47,7 @@ const Footer = () => {
                   <i className="fa fa-twitter"></i>
                 </a>
               </Link>
-              <Link href="https://www.youtube.com/channel/UCUIuV1s5Om8Q5LpEsCO8cUg">
+              <Link href="https://youtu.be/22keL1FWf6U">
                 <a className="link">
                   <i className="fa fa-youtube-play"></i>
                 </a>

@@ -1,7 +1,5 @@
 import Image from "next/image"
 import {Row, Col, Container } from "reactstrap"
-import Fondo from "../../assets/images/Fondo.jpg"
-import Banner from "../../assets/images/AppTrack.jpg"
 import { Store } from "../basic/Store"
 import { BeneficiosApp } from "../../interface/BeneficiosApp"
 import { ContactForm } from '../basic/ContactForm'
@@ -44,15 +42,16 @@ const Track = () => {
                     ¿Qué es GB97 Track?
                   </h2>
                   <p className="m-t-40 m-b-30 text-justify">
-                    Nuestra Aplicación de Track, cuenta con la última tecnología en rastreo vehicular con los más altos estándares de monitoreo y seguridad vehicular.
-                    Con nuestra aplicación usted va a tener el control total de su vehículo, evitando intentos de robo y manipulación de su vehículo, llamadas de emergencia, avisos de control de velocidad y salidas de rutas establecidas, bloqueo de motor y ubicación en tiempo real. 
+                  Nuestra aplicación móvil le permite tener el control total de su vehículo, evitando intentos de robo, secuestro o manipulación no autorizada. También le permite tener un monitoreo en tiempo real y vigilancia permanente.
                   </p>
                 </Col>
                 <Col lg="5" md="5" className="align-self-center ml-auto">
                   <Image
-                    src={Banner}
+                    src={"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/aplicaciones-mock/Track.jpg"}
                     alt="We are Digital Agency"
                     className="img-fluid"
+                    width={1200}
+                    height={800}
                   />
                 </Col>
               </Row>
@@ -60,20 +59,17 @@ const Track = () => {
           </div>
         </section>
       </div>
-      <div className="spacer">
+      <div className="mt-5">
         <Container>
           <h2 className="title font-bold text-center mb-5">Beneficios</h2>
-          <Row>
+          <Row className="mb-5">
             {
               BeneficiosApp["Track"].map((beneficio, i) => {
                 return(
-                  <Col lg="6" md="6" sm="6" xs="6" key={i}>
+                  <Col lg="6" md="6" sm="12" xs="12" key={i}>
                     <Row>
-                      <Col lg="1" md="1" sm="1" xs="1">
-                        <i className="ben-icono fa fa-circle" />
-                      </Col>
-                      <Col lg="11" md="11" xm="11" xs="11">
-                        <h5 className="ben-text subtitle text-justify">{beneficio}</h5>
+                      <Col lg="12" md="12" xm="12" xs="12" className="list-ben">
+                        <h5 className="ben-text subtitle text-justify"><i className="ben-icono fa fa-circle" /> {beneficio}</h5>
                       </Col>
                     </Row>
                   </Col>

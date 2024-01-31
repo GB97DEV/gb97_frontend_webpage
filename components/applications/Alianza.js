@@ -1,7 +1,5 @@
 import Image from "next/image"
 import {Row, Col, Container } from "reactstrap"
-import Fondo from "../../assets/images/Fondo.jpg"
-import Banner from "../../assets/images/AppAlianza.jpg"
 import { Store } from "../basic/Store"
 import { BeneficiosApp } from "../../interface/BeneficiosApp"
 import { ContactForm } from '../basic/ContactForm'
@@ -45,7 +43,7 @@ const Alianza = () => {
                   </h2>
                   <p className="m-t-40 m-b-30 text-justify">
                   Alianza Común es una aplicación web y móvil que apoya en la gestión del liderazgo y trabajo en equipo, con el objetivo de llevar a cabo una mejor organización en sus proyectos laborales, permitiendo una comunicación más acertada y eficaz.
-                  Con nuestra aplicación se podrá categorizar los contactos en grupo o subgrupos de acuerdo a su necesidad. También se podrá enviar de forma masiva mensajes, avisos, convocatorias a las categorías seleccionadas.
+                  Con nuestra aplicación se podrá categorizar los contactos en grupo o subgrupos de acuerdo a su necesidad. También se podrá enviar de forma masiva mensajes, avisos, convocatorias y documentos a las categorías seleccionadas.
                   </p>
                 </Col>
                 <Col lg="5" md="5" className="align-self-center ml-auto">
@@ -62,20 +60,17 @@ const Alianza = () => {
           </div>
         </section>
       </div>
-      <div className="spacer">
+      <div className="mt-5">
         <Container>
           <h2 className="title font-bold text-center mb-5">Beneficios</h2>
-          <Row>
+          <Row className="mb-5">
             {
               BeneficiosApp["Alianza"].map((beneficio, i) => {
                 return(
-                  <Col lg="6" md="6" sm="6" xs="6" key={i}>
+                  <Col lg="6" md="6" sm="12" xs="12" key={i}>
                     <Row>
-                      <Col lg="1" md="1" sm="1" xs="1">
-                        <i className="ben-icono fa fa-circle" />
-                      </Col>
-                      <Col lg="11" md="11" xm="11" xs="11">
-                        <h5 className="ben-text subtitle text-justify">{beneficio}</h5>
+                      <Col lg="12" md="12" xm="12" xs="12" className="list-ben">
+                        <h5 className="ben-text subtitle text-justify"><i className="ben-icono fa fa-circle" /> {beneficio}</h5>
                       </Col>
                     </Row>
                   </Col>

@@ -16,6 +16,7 @@ const Features = () => {
             <h2 className="title">Aplicaciones GB97 Ecuador</h2>
             <h6 className="subtitle mr-3 ml-3">
               GB97 utiliza una plataforma tecnológica basada en la nube para ofrecer su servicio. 
+              <br/>
               Actualmente, cuenta con varias aplicaciones móviles multiplataforma, que brindan una experiencia completa y fácil de usar.
             </h6>
           </Col>

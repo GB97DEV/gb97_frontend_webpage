@@ -1,7 +1,5 @@
 import Image from "next/image"
 import {Row, Col, Container } from "reactstrap"
-import Fondo from "../../assets/images/Fondo.jpg"
-import Banner from "../../assets/images/Pedidos.jpg"
 import { Store } from "../basic/Store"
 import { BeneficiosApp } from "../../interface/BeneficiosApp"
 import { ContactForm } from '../basic/ContactForm'
@@ -46,7 +44,8 @@ const Pedidos = () => {
                     ¿Qué es GB97 Pedidos Textil?
                   </h2>
                   <p className="m-t-40 m-b-30 text-justify">
-                    Es una aplicación móvil, que le permite gestionar de manera rápida y eficiente proformas, pedidos y facturas a sus clientes, con toda la información detallada y completa.
+                    Es una aplicación móvil, que le permite gestionar de manera rápida y eficiente el envió de pedidos, proformas, facturas y fichas técnicas a sus clientes con toda la información detallada y completa, incluyendo su galería de fotos.
+                    <br/>
                     También le permite ver el estado de sus pedidos ingresados, entregados, en proceso o finalizados con un historial de pagos.
                   </p>
                 </Col>
@@ -64,10 +63,10 @@ const Pedidos = () => {
           </div>
         </section>
       </div>
-      <div className="mt-4">
+      <div className="mt-5">
         <Container>
-          <h2 className="title font-bold text-center mb-4">Beneficios</h2>
-          <Row>
+          <h2 className="title font-bold text-center mb-5">Beneficios</h2>
+          <Row className="mb-5">
             {
               BeneficiosApp["Pedidos"].map((beneficio, i) => {
                 return(

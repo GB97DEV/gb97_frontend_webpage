@@ -290,8 +290,37 @@ Video Box
 }
 
 /******************* 
+Indice Container
+*******************/
+.indice-container{
+  margin-left: 50px;
+  margin-right: 50px
+  
+}
+@media (max-width: 900px) {
+  .indice-container{
+    margin-left: 20px;
+    margin-right: 20px;
+  }   
+}
+/******************* 
 Videos Container
 *******************/
+.videos-container{
+  margin-left: 50px;
+  margin-right: 50px;
+  
+}
+
+@media (max-width: 900px) {
+  .videos-container{
+    margin-left: 20px;
+    margin-right: 20px;
+    .title-content{
+      align-content: center;
+    }
+  } 
+}
 
 .videos-menu-container{
   margin-top: 10px;
@@ -991,6 +1020,8 @@ carousel container
   opacity: 0.8;
   z-index: 2;
 }
+
+
 /******************* 
 slide
 *******************/

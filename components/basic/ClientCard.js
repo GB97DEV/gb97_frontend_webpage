@@ -57,7 +57,7 @@ const ClientCard = ({image = 'default', name = 'No definido', organizationId = "
                </Row>
                <Row className='d-flex justify-content-center'>
                   <div className='mr-0'>
-                     <h5 className="font-medium text-wrap ">
+                     <h5 className="font-medium text-wrap text-center">
                         {name}
                      </h5>
                   </div>
