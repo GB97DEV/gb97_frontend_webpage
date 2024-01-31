@@ -113,11 +113,11 @@ const Header = () => {
                     <NavItem>
                       <NavLink href="/guia">Video Guia</NavLink>
                     </NavItem>
-                    <NavItem >
-                      <a className="btn btn-info" onClick={salir}>
-                        Salir
+                    <NavItem>
+                      <a className="btn btn-info" href="/acceso">
+                        Licenciantes
                       </a>
-                    </NavItem>
+                  </NavItem>
                   </> 
                   : <NavItem>
                       <a className="btn btn-info" href="/acceso">
