@@ -5,16 +5,18 @@ import { Pedido } from "../../interface/PedidoVideos";
 import { AuthContext } from "../../context/AuthContext";
 import { useRouter } from 'next/router';
 import UpButton from "../basic/UpButton";
+import { Track } from "../../interface/TrackGuide";
+import { FAQ } from "../../interface/FAQ";
 
 const VideoGuides = () => {
 	const router = useRouter();
 	const { isLoggedIn } = useContext(AuthContext);
 	const [shouldRedirect, setShouldRedirect] = useState(false);
 
-	const [pedidosOpen, setPedidosOpen] = useState(false)
-	const [indiceOpen, setIndiceOpen] = useState(true)
-	const [activeModule, setActiveModule] = useState("")
-	const [videos, setVideos] = useState([])
+	// const [pedidosOpen, setPedidosOpen] = useState(false)
+	const [pedidosOpen, setPedidosOpen] = useState(true);
+	const [trackOpen, setTrackOpen] = useState(false);
+	const [activeModule, setActiveModule] = useState("");
 
 
   useEffect(() => {
@@ -33,24 +35,23 @@ const VideoGuides = () => {
     }
   }, [shouldRedirect, router]);
 
-	const togglePedidosVideo = () => {
-		setPedidosOpen(!pedidosOpen)
+	const togglePedidos = () => {
+		setPedidosOpen(!pedidosOpen);
 	}
 
-	const toggleIndice = () => {
-		setIndiceOpen(!indiceOpen);
+	const toggleTrack = () => {
+		setTrackOpen(!trackOpen);
 	}
 
-	const [moduleOpen, setModuleOpen] = useState(false);
 
-  const toggleModulo = (moduleName = "") => {
-		if(activeModule === moduleName){
-			setModuleOpen(!moduleOpen);
-			setActiveModule("");
-		} else {
-			setActiveModule(moduleName);
-		}
-  }
+  // const toggleModulo = (moduleName = "") => {
+	// 	if(activeModule === moduleName){
+	// 		setModuleOpen(!moduleOpen);
+	// 		setActiveModule("");
+	// 	} else {
+	// 		setActiveModule(moduleName);
+	// 	}
+  // }
 	
 	return (
 		<div className="bg-light pb-3">
@@ -66,19 +67,26 @@ const VideoGuides = () => {
 					<div className="indice-container">
 						<Col className="border bg-white" xl="7" lg="7" md="8" sm="12" xs="12">
 							<Row className="mt-1 mb-1">
-								<Col xs={10}>
-									<h4 className="text-left mt-2">Índice de Contenido</h4>
-								</Col>
-								<Col xs={2} className="text-right mt-2">
-									<button style={{border: "none", backgroundColor: "transparent"}} onClick={toggleIndice}>
-										{!indiceOpen ? <i className="subtitle fa fa-chevron-down" /> : <i className="subtitle fa fa-chevron-up" />}
-									</button>
+								<Col xs={12}>
+									<h4 className="text-center mt-2">Índice de Contenido</h4>
 								</Col>
 							</Row>
-							<Collapse isOpen={indiceOpen}>
+							<Row className="mt-2 mb-1">
+								<Col xs={10}>
+									<button style={{ border: "none", backgroundColor: "transparent", padding: 0, width: "100%" }} onClick={togglePedidos}>
+										<h4 className="text-left">GB97 Pedidos</h4>
+									</button>
+								</Col>
+								<Col xs={2} className="text-right">
+										<button style={{border: "none", backgroundColor: "transparent"}} onClick={togglePedidos}>
+											{!pedidosOpen ? <i className="subtitle fa fa-chevron-down" /> : <i className="subtitle fa fa-chevron-up" />}
+										</button>
+									</Col>
+							</Row>
+							<Collapse isOpen={pedidosOpen}>
 								<div>
 									{Pedido.map((modulo, index) => (
-										<div key={modulo.module} className="mb-2">
+										<div key={modulo.module} className="mb-2 ml-2">
 											<p className="text-black">
 												{`${index + 1}.`}
 												<a className="ml-2" href={`#modulo-${modulo.module}`}>
@@ -98,13 +106,52 @@ const VideoGuides = () => {
 											))}
 										</div>
 									))}
-									{/* <div key="FAQ" className="mb-2">
+									<div key={"Instructivo logo"} className="mb-2 ml-2">
+										<p className="text-black">
+											{`12.`}
+											<a className="ml-2" href={`https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/videos-guia/Instructivo_Logo.pdf`} target="_blank">
+												Subir su logo
+											</a>
+										</p>
+									</div>
+									<div key="FAQ" className="mb-2">
 										<p className="text-black">
 											<a className="ml-1" href={`#FAQ`}>
 												Preguntas frecuentes - FAQ
 											</a>
 										</p>
-									</div> */}
+									</div>
+								</div>
+							</Collapse>
+							<hr></hr>
+							<Row className="mb-2">
+								<Col xs={10}>
+									<button style={{ border: "none", backgroundColor: "transparent", padding: 0, width: "100%" }} onClick={toggleTrack}>
+										<h4 className="text-left">GB97 Track</h4>
+									</button>
+								</Col>
+								<Col xs={2} className="text-right">
+									<button style={{border: "none", backgroundColor: "transparent"}} onClick={toggleTrack}>
+										{!trackOpen ? <i className="subtitle fa fa-chevron-down" /> : <i className="subtitle fa fa-chevron-up" />}
+									</button>
+								</Col>
+							</Row>
+							<Collapse isOpen={trackOpen}>
+								<div>
+									{
+										Track.map((element, index) => {
+											return (
+												<div key={element.title} className="mb-2 ml-2">
+													<p className="text-black">
+														{`${index + 1}.`}
+														<a className="ml-2" href={`${element.path}`} target="_blank">
+															{`${element.title}`}
+														</a>
+													</p>
+												</div>
+											)
+										})
+									}
 								</div>
 							</Collapse>
 						</Col>
@@ -134,9 +181,21 @@ const VideoGuides = () => {
 							))}
 						</div>
 					</div>
-					{/* <div id="FAQ">
+					<div id="FAQ">
 						<h2 className="title text-center mb-0">Preguntas Frecuentes</h2>
-					</div> */}
+						<Row className="ml-5 mr-5">
+								{
+									FAQ.map((item, index) => {
+										return(
+											<div>
+												<h4 className="title">{index + 1}. {item.question}</h4>
+												<p className="subtitle text-justify">{item.answer}</p>
+											</div>
+										)
+									})
+								}
+						</Row>
+					</div>
 					<UpButton />
 				</div>
 			}
