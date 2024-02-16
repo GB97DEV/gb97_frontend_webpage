@@ -109,7 +109,7 @@ const VideoGuides = () => {
 									<div key={"Instructivo logo"} className="mb-2 ml-2">
 										<p className="text-black">
 											{`12.`}
-											<a className="ml-2" href={`https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/videos-guia/Instructivo_Logo.pdf`} target="_blank">
+											<a className="ml-2" href={`https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/videos-guia/Instructivo_Logo.pdf`} target="_blank" rel="noreferrer">
 												Subir su logo
 											</a>
 										</p>
@@ -144,7 +144,7 @@ const VideoGuides = () => {
 												<div key={element.title} className="mb-2 ml-2">
 													<p className="text-black">
 														{`${index + 1}.`}
-														<a className="ml-2" href={`${element.path}`} target="_blank">
+														<a className="ml-2" href={`${element.path}`} target="_blank" rel="noreferrer">
 															{`${element.title}`}
 														</a>
 													</p>
@@ -187,7 +187,7 @@ const VideoGuides = () => {
 								{
 									FAQ.map((item, index) => {
 										return(
-											<div>
+											<div key={item.question}>
 												<h4 className="title">{index + 1}. {item.question}</h4>
 												<p className="subtitle text-justify">{item.answer}</p>
 											</div>
