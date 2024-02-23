@@ -29,7 +29,7 @@ const Pedidos = () => {
             </Col>
             <Col lg="6" md="6" sm="12" xs="12" className="col-video">
               <div className="icon-container">
-                <a href="https://youtu.be/Zjqh_4yJINM" target="_blank" rel="noreferrer" className="icon fa fa-play-circle-o" />
+                <a href="https://youtu.be/krhKT8wCdOQ" target="_blank" rel="noreferrer" className="icon fa fa-play-circle-o" />
               </div>
             </Col>
           </Row>
