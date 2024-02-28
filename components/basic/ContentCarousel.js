@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Carousel, CarouselIndicators, CarouselControl, CarouselItem, CarouselCaption } from "reactstrap";
 
-import {InicioSlide} from "../slides/InicioSlide"
+import { InicioSlide } from "../slides/InicioSlide"
 import AplicacionesSlide from "../slides/AplicacionesSlide";
+import { TestimonioSlide } from "../slides/TestimoniosSlide";
 
 const ContentCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -10,7 +11,8 @@ const ContentCarousel = () => {
 
   const slides = [
     <InicioSlide key={0} active={activeIndex === 0}/>,
-    <AplicacionesSlide key={1} active={activeIndex === 1} />
+    <AplicacionesSlide key={1} active={activeIndex === 1} />,
+    <TestimonioSlide key={2} active={activeIndex === 2} />
   ];
 
   const next = () => {
