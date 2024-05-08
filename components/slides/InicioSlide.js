@@ -12,7 +12,7 @@ export const InicioSlide = ({active }) => {
           transition={{ duration: 1.6}}
         >
           <Image 
-            src={"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/fondo-aplicaciones/Reunion.jpg"}
+            src={"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/slides/home.png"}
             layout="fill"
           />
         </motion.div>
