@@ -89,6 +89,11 @@ const Header = () => {
                         </Link>
                     </DropdownItem>
                     <DropdownItem>
+                      <Link href={"/aplicaciones/[app]"} as="/aplicaciones/punto-venta">
+                          GB97 Punto de Venta
+                        </Link>
+                    </DropdownItem>
+                    <DropdownItem>
                       <Link href={"/aplicaciones/[app]"} as="/aplicaciones/alianza">
                           Alianza Común
                         </Link>

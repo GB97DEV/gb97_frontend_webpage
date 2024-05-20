@@ -46,7 +46,7 @@ export const ContactForm = ({app = "Ninguna"}) => {
   const Enviar = async(event) => {
     event.preventDefault();
     try{
-      const {data} = await EmailApi.post("/send-mail/api",{...form, documentName:"Demo", app})
+      const {data} = await EmailApi.post("/send-mail/api",{...form, documentName: "Demo", app})
       if(data){
         clearForm();
       }

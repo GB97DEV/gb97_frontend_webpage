@@ -28,6 +28,13 @@ export const Application = [
     logo:"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/logos-app/gb97-produccion-textil.png"
   },
   {
+    title:"GB97 Punto de Venta",
+    content:"Nuestra aplicación móvil le brinda la ayuda de vender sus productos con facilidad, cálida y rapidez",
+    href:"/aplicaciones/punto-venta",
+    fondo:"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/aplicaciones-mock/Pventa.jpg",
+    logo:"https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/logos-app/gb97-pventa.png"
+  },
+  {
     title:"Alianza Común",
     content:"Nuestra aplicación web y móvil le ayuda en el manejo de grupos y equipo de trabajo.",
     href:"/aplicaciones/alianza",
