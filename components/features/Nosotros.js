@@ -17,6 +17,7 @@ export const Nosotros = () => {
           layout='fill'
           objectFit="cover"
           objectPosition={"center"}
+          alt="Imagen de Socialización"
         />
       </div>
       <div className="container-title spacer">
@@ -54,7 +55,7 @@ export const Nosotros = () => {
                     </button>
                     <Modal size="md" isOpen={modal} toggle={toggle}>
                       <ModalBody>
-                        <Image src={Certificado} />
+                        <Image src={Certificado} alt="Imagen de Certificado"/>
                       </ModalBody>
                     </Modal>
                   </div>

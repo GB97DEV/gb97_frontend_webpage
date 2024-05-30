@@ -46,7 +46,7 @@ const Clients = () => {
 	}, [isFetchClients]);
 
 	const getClients = async() => {
-		await fetch(`https://w1sppy28xj.execute-api.us-east-1.amazonaws.com/prod/gb97/organizaciones/api?limit=0`,{
+		await fetch(`https://api-prod-textil.gb97.ec/organizaciones?limit=0`,{
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

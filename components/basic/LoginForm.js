@@ -27,7 +27,8 @@ const LoginForm = () => {
     event.preventDefault();
 
     try {
-      const { data } = await LoginApi.post("/user/login", formData);
+      const resp = await LoginApi.post("/user/login", formData);
+      const { data } = resp; 
       if(data.response){
         const date = new Date();
         login(data.data.token, date);
@@ -38,11 +39,19 @@ const LoginForm = () => {
           type: 'error'
         });
       }
-    } catch ({response}) {
-      toast(response.data.message,{
-        autoClose: 800,
-        type:"error"
-      });
+    } catch (error) {
+      const {message, response} = error;
+      if(response){
+        toast(response?.data.message,{
+          autoClose: 800,
+          type:"error"
+        });
+      } else {
+        toast(message,{
+          autoClose: 800,
+          type:"error"
+        });
+      }
     }    
   }
   return (
