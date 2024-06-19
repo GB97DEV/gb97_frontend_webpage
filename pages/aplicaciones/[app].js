@@ -6,6 +6,7 @@ import Alianza from '../../components/applications/Alianza';
 import Track from '../../components/applications/Track';
 import Produccion from '../../components/applications/Produccion';
 import Head from "next/head";
+import PVenta from '../../components/applications/PVenta';
 
 
 const Redirection = ({ app }) => {
@@ -80,6 +81,20 @@ const Redirection = ({ app }) => {
           <Produccion />
         </>
       ); 
+    case 'punto-venta':
+      return (
+        <>
+          <Head>
+            <title>GB97 Punto de Venta</title>
+            <meta
+              name="description"
+              content="Aplicación de GB97 Punto de Venta"
+            />
+            <link rel="icon" href="/logo.ico"/>
+          </Head>
+          <PVenta />
+        </>
+      );
     default:
       return <ErrorPage />;
   }
