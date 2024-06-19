@@ -12,9 +12,7 @@ export default function main (){
         />
         <link rel="icon" href="/logo.ico"/>
       </Head>
-      <Layout>
-        <RegistroOrganizacion />
-      </Layout>
+      <RegistroOrganizacion />
     </>
   )
 }
