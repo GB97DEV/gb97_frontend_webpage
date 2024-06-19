@@ -13,6 +13,7 @@ const Track = () => {
           src="https://bucket-images-gb97.s3.amazonaws.com/upload/webpage/images/fondo-aplicaciones/Track.jpg"
           layout='fill'
           objectFit="fill"
+          alt="Track fondo"
         />
       </div>
       <div className="container-title spacer">

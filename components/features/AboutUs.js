@@ -51,7 +51,7 @@ const AboutUs = () => {
                     </button>
                     <Modal size="md" isOpen={modal} toggle={toggle}>
                       <ModalBody>
-                        <Image src={certificado} />
+                        <Image src={certificado} alt="imagen certificado"/>
                       </ModalBody>
                     </Modal>
                   </div>

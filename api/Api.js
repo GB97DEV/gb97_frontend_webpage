@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const LoginApi = axios.create({
-  baseURL: "https://api-prod-textil.gb97.ec",
+  baseURL: process.env.GENERAL_API,
   headers:{
     "Accept-Language": "es"
   }
