@@ -88,11 +88,11 @@ const Header = () => {
                           GB97 Producción Textil
                         </Link>
                     </DropdownItem>
-                    <DropdownItem>
+                    {/* <DropdownItem>
                       <Link href={"/aplicaciones/[app]"} as="/aplicaciones/punto-venta">
                           GB97 Punto de Venta
                         </Link>
-                    </DropdownItem>
+                    </DropdownItem> */}
                     <DropdownItem>
                       <Link href={"/aplicaciones/[app]"} as="/aplicaciones/alianza">
                           Alianza Común
