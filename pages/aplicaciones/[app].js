@@ -81,20 +81,20 @@ const Redirection = ({ app }) => {
           <Produccion />
         </>
       ); 
-    case 'punto-venta':
-      return (
-        <>
-          <Head>
-            <title>GB97 Punto de Venta</title>
-            <meta
-              name="description"
-              content="Aplicación de GB97 Punto de Venta"
-            />
-            <link rel="icon" href="/logo.ico"/>
-          </Head>
-          <PVenta />
-        </>
-      );
+    // case 'punto-venta':
+    //   return (
+    //     <>
+    //       <Head>
+    //         <title>GB97 Punto de Venta</title>
+    //         <meta
+    //           name="description"
+    //           content="Aplicación de GB97 Punto de Venta"
+    //         />
+    //         <link rel="icon" href="/logo.ico"/>
+    //       </Head>
+    //       <PVenta />
+    //     </>
+    //   );
     default:
       return <ErrorPage />;
   }
