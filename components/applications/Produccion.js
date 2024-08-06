@@ -76,6 +76,26 @@ const Produccion = () => {
             }
           </Row>
         </Container>
+        <div className="text-center mt-4">
+            <a
+              href="/politics/es_ec_privacy_policy_prod.html"
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-primary"
+            >
+              Políticas Producción Datos
+            </a>
+          </div>
+          <div className="text-center mt-4">
+            <a
+              href="/politics/es_ec_data_removal_policy.html"
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-primary"
+            >
+              Políticas Producción
+            </a>
+          </div>
       </div>
     </div>
   )

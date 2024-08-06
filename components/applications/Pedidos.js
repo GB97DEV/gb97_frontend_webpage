@@ -82,6 +82,16 @@ const Pedidos = () => {
             }
           </Row>
         </Container>
+        <div className="text-center mt-4">
+            <a
+              href="/politics/es_ec_privacy_policy_textil.html"
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-primary"
+            >
+              Políticas Pedidos Textil
+            </a>
+          </div>
       </div>
       <Store url="https://play.google.com/store/apps/details?id=com.alexandertubon.pedidosgb97" />
       <section id="Demo">
