@@ -69,7 +69,7 @@ const Header = () => {
                   </DropdownToggle>
                   <DropdownMenu className="b-none animated fadeInUp">
                     <DropdownItem>
-                        <Link href={"/aplicaciones/[app]"} as="/aplicaciones/pedidos">
+                         <Link href={"/aplicaciones/[app]"} as="/aplicaciones/pedidos">
                           GB97 Pedidos Textil
                         </Link>
                       </DropdownItem>

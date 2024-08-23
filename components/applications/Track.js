@@ -3,6 +3,7 @@ import {Row, Col, Container } from "reactstrap"
 import { Store } from "../basic/Store"
 import { BeneficiosApp } from "../../interface/BeneficiosApp"
 import { ContactForm } from '../basic/ContactForm'
+import { TrackComponentForm } from "../basic/TrackComponentForm"
 
 const Track = () => {
   return (
@@ -81,6 +82,7 @@ const Track = () => {
         </Container>
       </div>
       <Store url="https://play.google.com/store/apps/details?id=com.tracking.gb97" />
+      <TrackComponentForm url={'/aplicaciones/encuestaTrack'}/>
       <section id="Demo">
         <ContactForm app="Track"/>
       </section>

@@ -7,6 +7,7 @@ import Track from '../../components/applications/Track';
 import Produccion from '../../components/applications/Produccion';
 import Head from "next/head";
 import PVenta from '../../components/applications/PVenta';
+import EncuestaTrack from '../../components/applications/EncuestaTrack';
 
 
 const Redirection = ({ app }) => {
@@ -79,6 +80,20 @@ const Redirection = ({ app }) => {
             <link rel="icon" href="/logo.ico"/>
           </Head>
           <Produccion />
+        </>
+      ); 
+      case 'encuestaTrack':
+      return (
+        <>
+          <Head>
+            <title>GB97 Track - Encuesta</title>
+            <meta
+              name="description"
+              content="Encuesta de Track GB97"
+            />
+            <link rel="icon" href="/logo.ico"/>
+          </Head>
+          <EncuestaTrack />
         </>
       ); 
     // case 'punto-venta':
