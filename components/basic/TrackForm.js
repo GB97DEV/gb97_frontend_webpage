@@ -158,7 +158,7 @@ const TrackForm = () => {
         email: formData.email,
         carModel: formData.modeloAuto,
         carPlates: formData.placas,
-        serviceInstallExperience: formData.instalacionServicio,
+        serviceInstalExperience: formData.instalacionServicio,
         serviceExperience: formData.conformeInstalacion,
         downloadApp: formData.appInstalada,
         userManual: formData.manualEntregado,
@@ -166,6 +166,8 @@ const TrackForm = () => {
       };
 
       try {
+        console.log(dataToSubmit);
+
         const response = await fetch('https://api-dev-crm.gb97.ec/forms', {
           method: 'POST',
           headers: {
@@ -181,7 +183,6 @@ const TrackForm = () => {
   
         const result = await response.json();
         console.log('Form submitted successfully', result);
-  
         // Muestra un toast de éxito y avanza al siguiente paso
         toast.success("Formulario enviado correctamente.");
         setStep(step + 1);
