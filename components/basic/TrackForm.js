@@ -26,6 +26,7 @@ const TrackForm = () => {
   const [validationErrors, setValidationErrors] = useState({});
   const sigCanvasRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
 
 
   useEffect(() => {
@@ -159,6 +160,7 @@ const TrackForm = () => {
         carModel: formData.modeloAuto,
         carPlates: formData.placas,
         serviceInstalExperience: formData.instalacionServicio,
+        qualityService: formData.atencionEjecutivo,
         serviceExperience: formData.conformeInstalacion,
         downloadApp: formData.appInstalada,
         userManual: formData.manualEntregado,
@@ -185,6 +187,7 @@ const TrackForm = () => {
         console.log('Form submitted successfully', result);
         // Muestra un toast de éxito y avanza al siguiente paso
         toast.success("Formulario enviado correctamente.");
+        setShowThankYou(true); // Mostrar pantalla de agradecimiento
         setStep(step + 1);
       } catch (error) {
         // Muestra un mensaje de error si ocurre un error al enviar el formulario
@@ -219,6 +222,16 @@ const TrackForm = () => {
                 height={50}
               />Encuesta Track GB97</h1>
       <div className='login p-4 m-3'>
+      {showThankYou ? (
+          <div className="thank-you-screen">
+            <h2>¡Gracias por tu envío!</h2>
+            <p>Tu respuesta ha sido enviada correctamente. Si necesitas más ayuda, no dudes en contactarnos.</p>
+            <li>administraciontrack@gb97.ec</li><li>informacion@gb97.ec</li><li><a href="https://www.gb97.ec">https://www.gb97.ec</a></li>
+            <Button className='mt-3' color="primary" onClick={() => window.close()}>
+              Cerrar
+            </Button>
+          </div>
+        ) : (
       <Form>
         {step === 1 && (
           <>
@@ -589,6 +602,7 @@ const TrackForm = () => {
               </Button>
             )}
       </Form>
+      )}
       </div>
     </Container>
     </>

@@ -55,7 +55,7 @@ const Clients = () => {
       .then(response => response.json())
       .then(data => {
 				const resp = data.data;
-				const dataFiltered = resp.filter(item => item.organization !== "0691776360001")
+				const dataFiltered = resp.filter(item => item.organization !== "0691776360001" && item.logoUrl)
 				dataFiltered.sort(compareByName);
 
         setClients(dataFiltered);
@@ -112,9 +112,10 @@ const Clients = () => {
 					<div className='scrollable-row' ref={scrollableRowRef1}>
 						{
 							primerArray && primerArray.map((client) => {
+								console.log('Cliente', client)
 								return(
 									<Col lg='2' md="4" sm="6" xs="6" key={client._id}>
-										<ClientCard image={client.organization} name={client.organizationAlias} organizationId={client.organization} products={client.products} />
+										<ClientCard image={client.logoUrl} name={client.organizationAlias} organizationId={client.organization} products={client.products} />
 									</Col>
 								)
 							})
@@ -127,7 +128,7 @@ const Clients = () => {
 							segundoArray && segundoArray.map((client) => {
 								return(
 									<Col lg='2' md="4" sm="6" xs="6" key={client._id}>
-										<ClientCard image={client.organization} name={client.organizationAlias} organizationId={client.organization} products={client.products} />
+										<ClientCard image={client.logoUrl} name={client.organizationAlias} organizationId={client.organization} products={client.products} />
 									</Col>
 								)
 							})
@@ -140,7 +141,7 @@ const Clients = () => {
 							tercerArray && tercerArray.map((client) => {
 								return(
 									<Col lg='2' md="4" sm="6" xs="6" key={client._id}>
-										<ClientCard image={client.organization} name={client.organizationAlias} organizationId={client.organization} products={client.products} />
+										<ClientCard image={client.logoUrl} name={client.organizationAlias} organizationId={client.organization} products={client.products} />
 									</Col>
 								)
 							})

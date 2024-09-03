@@ -45,7 +45,7 @@ const ClientCard = ({image = 'default', name = 'No definido', organizationId = "
                   ) : (
                   <Image
                      className={`${products.length > 0 && "image-card"} rounded`}
-                     src={`https://bucket-images-gb97.s3.amazonaws.com/upload/${image}.png`}
+                     src={`${image}`}
                      onClick={toggle}
                      height={100}
                      width={150}
@@ -54,13 +54,6 @@ const ClientCard = ({image = 'default', name = 'No definido', organizationId = "
                      onError={handleImageError} // Manejar el error de la imagen
                   />
                )}
-               </Row>
-               <Row className='d-flex justify-content-center'>
-                  <div className='mr-0'>
-                     <h5 className="font-medium text-wrap text-center">
-                        {name}
-                     </h5>
-                  </div>
                </Row>
             </CardBody>
          </Card>
