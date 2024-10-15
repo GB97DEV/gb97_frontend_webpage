@@ -16,6 +16,7 @@ const VideoGuides = () => {
 	// const [pedidosOpen, setPedidosOpen] = useState(false)
 	const [pedidosOpen, setPedidosOpen] = useState(true);
 	const [trackOpen, setTrackOpen] = useState(false);
+	const [productionOpen, setProductionOpen] = useState(false);
 	const [activeModule, setActiveModule] = useState("");
 
 
@@ -42,6 +43,11 @@ const VideoGuides = () => {
 	const toggleTrack = () => {
 		setTrackOpen(!trackOpen);
 	}
+
+	const toggleProduction = () => {
+		setProductionOpen(!productionOpen);
+	}
+
 
 
   // const toggleModulo = (moduleName = "") => {
@@ -137,6 +143,37 @@ const VideoGuides = () => {
 								</Col>
 							</Row>
 							<Collapse isOpen={trackOpen}>
+								<div>
+									{
+										Track.map((element, index) => {
+											return (
+												<div key={element.title} className="mb-2 ml-2">
+													<p className="text-black">
+														{`${index + 1}.`}
+														<a className="ml-2" href={`${element.path}`} target="_blank" rel="noreferrer">
+															{`${element.title}`}
+														</a>
+													</p>
+												</div>
+											)
+										})
+									}
+								</div>
+							</Collapse>
+							<hr></hr>
+							<Row className="mb-2">
+								<Col xs={10}>
+									<button style={{ border: "none", backgroundColor: "transparent", padding: 0, width: "100%" }} onClick={toggleProduction}>
+										<h4 className="text-left">GB97 Produccion</h4>
+									</button>
+								</Col>
+								<Col xs={2} className="text-right">
+									<button style={{border: "none", backgroundColor: "transparent"}} onClick={toggleProduction}>
+										{!productionOpen ? <i className="subtitle fa fa-chevron-down" /> : <i className="subtitle fa fa-chevron-up" />}
+									</button>
+								</Col>
+							</Row>
+							<Collapse isOpen={productionOpen}>
 								<div>
 									{
 										Track.map((element, index) => {

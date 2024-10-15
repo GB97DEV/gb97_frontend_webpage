@@ -9,7 +9,7 @@ export const FAQ = [
   },
   {
     question: "¿Qué debo hacer para que el logotipo de mi empresa aparezca en mi app de pedidos y en mis documentos?",
-    answer: "Es necesario que el logotipo cumpla con los siguientes parámetros: archivo en formato png, tamaño mínimo 512 x 512 pixeles, imagen clara y de preferencia con fondo transparente. Enviar al correo callcentre@gb97.ec solicitando la carga de su logotipo, indicar su nombre o el nombre de su organización y el RUC."
+    answer: "Es necesario que el logotipo cumpla con los siguientes parámetros: archivo en formato png, tamaño mínimo 512 x 512 pixeles, imagen clara y de preferencia con fondo transparente. Enviar al correo callcentre@gb97.com solicitando la carga de su logotipo, indicar su nombre o el nombre de su organización y el RUC."
   },
   {
     question: "¿Cómo descargo el archivo pdf de la ficha técnica de mis productos?",
@@ -89,6 +89,6 @@ export const FAQ = [
   },
   {
     question: "¿Qué necesito para activar dentro de mi aplicación el módulo de Facturación electrónica?",
-    answer: "Necesita disponer de la firma electrónica, en formato p12, del representante legal en caso de ser una persona jurídica o del titular en caso de ser una persona natural. Necesita además contar con un logotipo y el RUC actualizado, estos dos documentos deberán enviarse previamente al mail servicioalcliente@gb97.ec indicando que se requiere activar la facturación electrónica en la aplicación de pedidos. Una vez solicitado este servicio se enviará al correo electrónico de contacto un link para continuar con el proceso, en este link se deberá subir la contraseña y el archivo de firma electrónica. El link se encuentra activo por 30 minutos una vez generado, pasado este tiempo debe volver a solicitar un link. Una vez realizado esperaremos la notificación para poder hacer uso de este servicio",
+    answer: "Necesita disponer de la firma electrónica, en formato p12, del representante legal en caso de ser una persona jurídica o del titular en caso de ser una persona natural. Necesita además contar con un logotipo y el RUC actualizado, estos dos documentos deberán enviarse previamente al mail servicioalcliente@gb97.com indicando que se requiere activar la facturación electrónica en la aplicación de pedidos. Una vez solicitado este servicio se enviará al correo electrónico de contacto un link para continuar con el proceso, en este link se deberá subir la contraseña y el archivo de firma electrónica. El link se encuentra activo por 30 minutos una vez generado, pasado este tiempo debe volver a solicitar un link. Una vez realizado esperaremos la notificación para poder hacer uso de este servicio",
   }
 ]

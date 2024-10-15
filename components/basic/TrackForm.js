@@ -226,7 +226,7 @@ const TrackForm = () => {
           <div className="thank-you-screen">
             <h2>¡Gracias por tu envío!</h2>
             <p>Tu respuesta ha sido enviada correctamente. Si necesitas más ayuda, no dudes en contactarnos.</p>
-            <li>administraciontrack@gb97.ec</li><li>informacion@gb97.ec</li><li><a href="https://www.gb97.ec">https://www.gb97.ec</a></li>
+            <li>administraciontrack@gb97.com</li><li>info@gb97.com</li><li><a href="https://www.gb97.ec">https://www.gb97.ec</a></li>
             <Button className='mt-3' color="primary" onClick={() => window.close()}>
               Cerrar
             </Button>
@@ -564,7 +564,7 @@ const TrackForm = () => {
             </ul>
             <p>
               Si tiene alguna inquietud no dude en contactarnos:
-             <li>administraciontrack@gb97.ec</li><li>informacion@gb97.ec</li><li><a href="https://www.gb97.ec">https://www.gb97.ec</a></li>
+             <li>administraciontrack@gb97.com</li><li>infor@gb97.com</li><li><a href="https://www.gb97.ec">https://www.gb97.ec</a></li>
             </p>
             <FormGroup check>
               <Label check className='p-2 mb-2'>

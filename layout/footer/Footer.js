@@ -24,13 +24,13 @@ const Footer = () => {
             <h5 className="m-b-20">Correo</h5>
             <p>
               Información:
-              <Link href={"mailto:informacion@gb97.ec"}>
-                <a className="link">  informacion@gb97.ec</a>
+              <Link href={"mailto:infor@gb97.com"}>
+                <a className="link">  info@gb97.com</a>
               </Link>
               <br />
               Call Center: <br/>
-              <Link href={"mailto:callcentre@gb97.ec"}>
-                <a className="link">callcentre@gb97.ec</a>
+              <Link href={"mailto:callcentre@gb97.com"}>
+                <a className="link">callcentre@gb97.com</a>
               </Link>
             </p>
           </Col>
