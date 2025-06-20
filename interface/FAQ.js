@@ -21,7 +21,7 @@ export const FAQ = [
   },
   {
     question: "¿Cómo puedo reportar un problema técnico que suceda con mi aplicación de Pedidos?",
-    answer: "Dirígete a https://www.gb97.ec/ y en el lado inferior derecho encontrarás un ícono azul con un engranaje, seleccionamos esta opción que nos llevará a la creación de un ticket para atención de su requerimiento, dar click en la opción enviar un ticket, en donde deberá indicar, su nombre, correo electrónico, el asunto de su requerimiento y el detalle del mismo, además podrá adjuntar archivos de ser necesario."
+    answer: "Dirígete a https://www.gb97.com/ y en el lado inferior derecho encontrarás un ícono azul con un engranaje, seleccionamos esta opción que nos llevará a la creación de un ticket para atención de su requerimiento, dar click en la opción enviar un ticket, en donde deberá indicar, su nombre, correo electrónico, el asunto de su requerimiento y el detalle del mismo, además podrá adjuntar archivos de ser necesario."
   },
   {
     question: "¿Puedo ingresar en varios dispositivos a mi aplicación de pedidos o solo se puede abrir en uno?",
