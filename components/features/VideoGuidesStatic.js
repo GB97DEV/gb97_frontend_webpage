@@ -1,9 +1,29 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useContext, useEffect, useState, useRef, useCallback } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import Image from 'next/image';
 import { Row, Col, Collapse, Input, Button, Card, CardBody, Spinner, Modal, ModalHeader, ModalBody } from "reactstrap";
-import { FaChevronDown, FaQuestionCircle, FaPlayCircle, FaTimes, FaClock, FaEye, FaBook, FaChartLine, FaCogs, FaVolumeMute, FaVolumeUp, FaPlay,
-   FaPause, FaExpand, FaCompress, FaStepBackward, FaStepForward, FaEnvelope, FaCheckCircle } from "react-icons/fa";  
+import {
+  FaChevronDown,
+  FaQuestionCircle,
+  FaUpload,
+  FaPlayCircle,
+  FaTimes,
+  FaClock,
+  FaEye,
+  FaBook,
+  FaChartLine,
+  FaCogs,
+  FaVolumeMute,
+  FaVolumeUp,
+  FaPlay,
+  FaPause,
+  FaExpand,
+  FaCompress,
+  FaStepBackward,
+  FaStepForward,
+  FaEnvelope
+} from "react-icons/fa";
+import { Pedido } from "../../interface/PedidoVideos";
 import { AuthContext } from "../../context/AuthContext";
 import { useRouter } from "next/router";
 import UpButton from "../basic/UpButton";
@@ -14,11 +34,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import Thumbnail from "../../assets/images/thumbnail.png"
 import styles from '../../styles/VideoGuides.module.css'
 
-const VideoGuides = () => {
+const VideoGuidesStatic = () => {
   const router = useRouter();
   const { isLoggedIn } = useContext(AuthContext);
+
   const [searchTerm, setSearchTerm] = useState("");
-  const [openSections, setOpenSections] = useState({});
+  const [openSections, setOpenSections] = useState({
+    pedidos: true,
+    track: false,
+    prod: false,
+  });
   const [openFAQ, setOpenFAQ] = useState(false);
   const [modalVideoOpen, setModalVideoOpen] = useState(false);
   const [modalVideoData, setModalVideoData] = useState({ 
@@ -29,7 +54,6 @@ const VideoGuides = () => {
     date: "",
     key: "",
     module: "",
-    appIndex: 0,
     moduleIndex: 0,
     videoIndex: 0
   });
@@ -37,16 +61,14 @@ const VideoGuides = () => {
   const [faqOpenIndex, setFaqOpenIndex] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [activeSection, setActiveSection] = useState(null);
-  const [apiApps, setApiApps] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [watchedVideos, setWatchedVideos] = useState({}); 
+  const [durations, setDurations] = useState({});
   const refs = useRef({});
   const videoRefs = useRef({});
   const modalVideoRef = useRef(null);
   const searchInputRef = useRef(null);
   const sidebarRef = useRef(null);
+  
+  // Estados para controles de video
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -58,45 +80,11 @@ const VideoGuides = () => {
   const [duration, setDuration] = useState(0);
   const [hoverTime, setHoverTime] = useState(null);
 
+  // Nuevo estado para el formulario
   const [question, setQuestion] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
-  console.log("Watched videos:", watchedVideos);
-}, [watchedVideos]);
-
-useEffect(() => {
-  const savedWatchedVideos = localStorage.getItem('watchedVideos');
-  // Verificar si hay datos y parsear correctamente
-  if (savedWatchedVideos) {
-    try {
-      setWatchedVideos(JSON.parse(savedWatchedVideos));
-    } catch (error) {
-      console.error("Error parsing watched videos:", error);
-      setWatchedVideos({});
-    }
-  }
-}, []);
-
-const markVideoAsWatched = useCallback((videoId) => {
-  setWatchedVideos(prev => {
-    const updated = {...prev, [videoId]: true};
-    // Almacenar como string en localStorage
-    localStorage.setItem('watchedVideos', JSON.stringify(updated));
-    return updated;
-  });
-}, []);
-
-const handleVideoEnd = useCallback(() => {
-  if (modalVideoData.key) {
-    markVideoAsWatched(modalVideoData.key);
-  }
-}, [modalVideoData.key, markVideoAsWatched]);
-
-  useEffect(() => {
-    localStorage.setItem('watchedVideos', JSON.stringify(watchedVideos));
-  }, [watchedVideos]);
-
+  // Detectar tamaño de pantalla
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 992);
     checkMobile();
@@ -104,90 +92,40 @@ const handleVideoEnd = useCallback(() => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Redirección si no está logueado
   useEffect(() => {
     if (!isLoggedIn) {
       router.push("/acceso");
     }
   }, [isLoggedIn, router]);
 
-  const fetchData = async (page = 1) => {
-    setLoading(true);
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(
-        `https://api-dev-crm.gb97.ec/video-tutorial/filter?limit=10&page=${page}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `${token}`
-          }
-        }
-      );
-      
-      if (!response.ok) throw new Error('Error al obtener datos');
-      
-      const data = await response.json();
-      
-      if (data.response && data.data.length > 0) {
-        setApiApps(data.data);
-        setTotalPages(data.pagination.totalPages || 1);
-        
-        if (data.data.length > 0) {
-          setOpenSections(prev => ({
-            ...prev,
-            [`app-0`]: true
-          }));
-        }
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      toast.error("Error al cargar los videos");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      fetchData(currentPage);
-    }
-  }, [isLoggedIn, currentPage]);
-
+  // Scroll a la sección de FAQ
   useEffect(() => {
     if (openFAQ && refs.current.FAQ) {
       refs.current.FAQ.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }, [openFAQ]);
 
-useEffect(() => {
-  if (!modalVideoOpen) {
-    setIsPlaying(false);
-    setCurrentTime(0);
-    setProgress(0);
-    return;
-  }
+  // Manejar reproducción en el modal
+  useEffect(() => {
+    if (modalVideoOpen && modalVideoRef.current) {
+      setTimeout(() => {
+        modalVideoRef.current.volume = volume;
+        modalVideoRef.current.play().then(() => {
+          setIsPlaying(true);
+        }).catch(error => {
+          console.error("Error al reproducir el video:", error);
+        });
+      }, 300);
+    } else {
+      setIsPlaying(false);
+      setCurrentTime(0);
+      setProgress(0);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modalVideoOpen]);
 
-  // espero un instante a que el <video> esté en el DOM
-  const timeout = setTimeout(() => {
-    const vid = modalVideoRef.current;
-    if (!vid) return;       // <-- guard
-    vid.volume = volume;
-    vid.play()
-      .then(() => setIsPlaying(true))
-      .catch(err => console.error("Error al reproducir video:", err));
-  }, 200);
-
-  return () => clearTimeout(timeout);
-// eslint-disable-next-line react-hooks/exhaustive-deps
-}, [modalVideoOpen]); 
-
-useEffect(() => {
-  const vid = modalVideoRef.current;
-  if (modalVideoOpen && vid) {
-    vid.volume = volume;
-  }
-}, [volume, modalVideoOpen]);
-
+  // Actualizar tiempo del video
   useEffect(() => {
     const video = modalVideoRef.current;
     if (!video) return;
@@ -199,50 +137,34 @@ useEffect(() => {
     const updateProgress = () => {
       setCurrentTime(video.currentTime);
       if (video.duration && !isNaN(video.duration)) {
-        const currentProgress = (video.currentTime / video.duration) * 100;
-        setProgress(currentProgress);
-        
-        if (currentProgress > 95 && !watchedVideos[modalVideoData.key]) {
-          setWatchedVideos(prev => ({
-            ...prev,
-            [modalVideoData.key]: true
-          }));
-        }
-      }
-    };
-
-    const handleVideoEnd = () => {
-      if (!watchedVideos[modalVideoData.key]) {
-        setWatchedVideos(prev => ({
-          ...prev,
-          [modalVideoData.key]: true
-        }));
+        setProgress((video.currentTime / video.duration) * 100);
       }
     };
 
     video.addEventListener('loadedmetadata', handleLoadedMetadata);
     video.addEventListener('timeupdate', updateProgress);
-    video.addEventListener('ended', handleVideoEnd);
     
     return () => {
       video.removeEventListener('loadedmetadata', handleLoadedMetadata);
       video.removeEventListener('timeupdate', updateProgress);
-      video.removeEventListener('ended', handleVideoEnd);
     };
-  }, [modalVideoOpen, modalVideoData.key, watchedVideos]);
+  }, [modalVideoOpen]);
 
+  // Control de volumen
   useEffect(() => {
     if (modalVideoRef.current) {
       modalVideoRef.current.volume = volume;
     }
   }, [volume]);
 
+  // Control de silencio
   useEffect(() => {
     if (modalVideoRef.current) {
       modalVideoRef.current.muted = isMuted;
     }
   }, [isMuted]);
 
+  // Toggle play/pause
   const togglePlayPause = () => {
     if (modalVideoRef.current) {
       if (modalVideoRef.current.paused) {
@@ -255,6 +177,7 @@ useEffect(() => {
     }
   };
 
+  // Cambiar tiempo de reproducción
   const seekVideo = (e) => {
     if (modalVideoRef.current) {
       const rect = e.target.getBoundingClientRect();
@@ -263,12 +186,14 @@ useEffect(() => {
     }
   };
 
+  // Actualizar tiempo hover
   const updateHoverTime = (e) => {
     const rect = e.target.getBoundingClientRect();
     const pos = (e.clientX - rect.left) / rect.width;
     setHoverTime(pos * duration);
   };
 
+  // Formatear tiempo (mm:ss)
   const formatTime = (time) => {
     if (isNaN(time)) return "0:00";
     const minutes = Math.floor(time / 60);
@@ -276,6 +201,7 @@ useEffect(() => {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
+  // Toggle pantalla completa
   const toggleFullscreen = () => {
     const container = document.querySelector(`.${styles.videoContainer}`);
     if (!document.fullscreenElement) {
@@ -291,6 +217,7 @@ useEffect(() => {
     }
   };
 
+  // Escuchar cambios en pantalla completa
   useEffect(() => {
     const handleFullscreenChange = () => {
       setIsFullscreen(!!document.fullscreenElement);
@@ -304,34 +231,89 @@ useEffect(() => {
   }, []);
 
   const toggleSection = (section) => {
-    setOpenSections(prev => ({
-      ...prev,
-      [section]: !prev[section]
-    }));
+    setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
-  const filterVideos = (v) =>
-    v.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    v.description.toLowerCase().includes(searchTerm.toLowerCase());
+  const getVideoDuration = (videoPath, videoKey) => {
+    return new Promise((resolve) => {
+      const video = document.createElement('video');
+      video.src = videoPath;
+      
+      video.addEventListener('loadedmetadata', () => {
+        const minutes = Math.floor(video.duration / 60);
+        const seconds = Math.floor(video.duration % 60);
+        const formattedDuration = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        resolve({ [videoKey]: formattedDuration });
+      });
+      
+      video.addEventListener('error', () => {
+        resolve({ [videoKey]: "0:00" });
+      });
+    });
+  };
 
- const scrollTo = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+  useEffect(() => {
+    const loadDurations = async () => {
+      const allVideos = Pedido.flatMap(m => m.videos);
+      const promises = allVideos.map(v => getVideoDuration(v.path, v.key));
+      const results = await Promise.all(promises);
+      
+      const durationsObj = results.reduce((acc, curr) => ({ ...acc, ...curr }), {});
+      setDurations(durationsObj);
+    };
+
+    loadDurations();
+  }, []);
+
+  const filterVideos = (v) =>
+    v.title.toLowerCase().includes(searchTerm.toLowerCase());
+
+  const scrollTo = (id) => {
+    if (!refs.current[id]) return;
     
     setActiveSection(id);
     
-    if (sidebarRef.current && refs.current[id]) {
-      const activeItem = refs.current[id];
-      sidebarRef.current.scrollTo({
-        top: activeItem.offsetTop - sidebarRef.current.offsetTop - 100,
-        behavior: 'smooth'
-      });
+    if (id.startsWith('modulo-') || id.startsWith('video-')) {
+      if (!openSections.pedidos) {
+        setOpenSections(prev => ({ ...prev, pedidos: true }));
+        
+        setTimeout(() => {
+          if (refs.current[id]) {
+            refs.current[id].scrollIntoView({ behavior: "smooth", block: "start" });
+            
+            // Scroll en sidebar después de abrir la sección
+            setTimeout(() => {
+              if (refs.current[id] && sidebarRef.current) {
+                const activeItem = refs.current[id];
+                sidebarRef.current.scrollTo({
+                  top: activeItem.offsetTop - sidebarRef.current.offsetTop - 100,
+                  behavior: 'smooth'
+                });
+              }
+            }, 350);
+          }
+        }, 300);
+        return;
+      }
+    }
+    
+    if (refs.current[id]) {
+      refs.current[id].scrollIntoView({ behavior: "smooth", block: "start" });
+      
+      // Scroll en sidebar
+      setTimeout(() => {
+        if (refs.current[id] && sidebarRef.current) {
+          const activeItem = refs.current[id];
+          sidebarRef.current.scrollTo({
+            top: activeItem.offsetTop - sidebarRef.current.offsetTop - 100,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
     }
   };
 
-  const openVideoModal = (videoData, appIndex, moduleIndex, videoIndex) => {
+  const openVideoModal = (videoData, moduleIndex, videoIndex) => {
     Object.values(videoRefs.current).forEach(video => {
       if (video) {
         video.pause();
@@ -340,28 +322,29 @@ useEffect(() => {
     });
     setLoadingPreview(null);
     
-    const app = apiApps[appIndex];
-    const module = app.modules[moduleIndex];
+    const module = Pedido[moduleIndex];
     
     setModalVideoData({ 
       title: videoData.title, 
-      path: videoData.videoUrl,
-      duration: videoData.duration,
-      views: videoData.views,
-      date: new Date(videoData.uploadDate).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' }),
-      key: videoData._id,
-      module: module.name,
-      appIndex,
+      path: videoData.path,
+      duration: durations[videoData.key] || "0:00",
+      views: videoData.views || Math.floor(Math.random() * 1000) + 500,
+      date: videoData.date || "15 Mar 2023",
+      key: videoData.key,
+      module: module.module,
       moduleIndex,
       videoIndex
     });
-    markVideoAsWatched(videoData._id);
+    
+    // Obtener videos relacionados del mismo módulo
     const related = module.videos
       .filter((v, idx) => idx !== videoIndex)
       .map(v => ({
         ...v,
-        duration: v.duration,
-        views: v.views
+        thumbnail: v.thumbnail,
+        duration: durations[v.key],
+        views: v.views || Math.floor(Math.random() * 1000) + 500,
+        date: v.date || "15 Mar 2023"
       }));
     
     setRelatedVideos(related);
@@ -389,10 +372,25 @@ useEffect(() => {
       });
   };
 
+  const handleDownload = (videoPath, videoTitle) => {
+    const link = document.createElement('a');
+    link.href = videoPath;
+    link.setAttribute('download', `${videoTitle.replace(/\s+/g, '_')}.mp4`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  // Manejar clic en video relacionado
+  const handleRelatedVideoClick = (video, moduleIndex) => {
+    const videoIndex = Pedido[moduleIndex].videos.findIndex(v => v.key === video.key);
+    openVideoModal(video, moduleIndex, videoIndex);
+  };
+
+  // Navegar al video anterior/siguiente
   const navigateVideo = (direction) => {
-    const { appIndex, moduleIndex, videoIndex } = modalVideoData;
-    const app = apiApps[appIndex];
-    const module = app.modules[moduleIndex];
+    const { moduleIndex, videoIndex } = modalVideoData;
+    const module = Pedido[moduleIndex];
     
     let newIndex;
     if (direction === 'prev') {
@@ -402,9 +400,10 @@ useEffect(() => {
     }
     
     const newVideo = module.videos[newIndex];
-    openVideoModal(newVideo, appIndex, moduleIndex, newIndex);
+    openVideoModal(newVideo, moduleIndex, newIndex);
   };
 
+  // Función para enviar preguntas
   const handleQuestionSubmit = (e) => {
     e.preventDefault();
     if (!question.trim()) {
@@ -414,6 +413,7 @@ useEffect(() => {
     
     setIsSubmitting(true);
     
+    // Simular envío con un timeout
     setTimeout(() => {
       const mailtoLink = `mailto:info@gb97.com?subject=Nueva pregunta sobre GB97&body=${encodeURIComponent(question)}`;
       window.location.href = mailtoLink;
@@ -423,12 +423,13 @@ useEffect(() => {
     }, 1500);
   };
 
-  if (!isLoggedIn || loading) {
+  // Renderiza un loader mientras se verifica el login
+  if (!isLoggedIn) {
     return (
       <div className={styles.authLoader}>
         <div className={styles.loaderContent}>
           <Spinner color="light" />
-          <p>Cargando contenido...</p>
+          <p>Cargando contenido seguro...</p>
         </div>
       </div>
     );
@@ -455,54 +456,55 @@ useEffect(() => {
           <div className={styles.sidebarDivider}></div>
         </div>
 
-        {/* Secciones dinámicas de aplicaciones */}
-        {apiApps.map((app, appIndex) => (
-          <div className={styles.sidebarSection} key={`app-${appIndex}`}>
-            <button 
-              type="button" 
-              onClick={() => toggleSection(`app-${appIndex}`)} 
-              className={styles.sectionButton}
-              aria-expanded={openSections[`app-${appIndex}`]}
-            >
-              <FaBook className={styles.sectionIcon} />
-              <span>{app.app}</span>
-              <FaChevronDown className={`${styles.chevronIcon} ${openSections[`app-${appIndex}`] ? 'open' : ''}`} />
-            </button>
-            <Collapse isOpen={openSections[`app-${appIndex}`]}>
-              {app.modules.map((m, i) => {
-                const filteredVideos = m.videos.filter(filterVideos);
-                if (filteredVideos.length === 0) return null;
-                
-                return (
-                  <div key={`module-${i}`} className={styles.itemGroup}>
+        {/* Sección Pedidos */}
+        <div className={styles.sidebarSection}>
+          <button 
+            type="button" 
+            onClick={() => toggleSection('pedidos')} 
+            className={styles.sectionButton}
+            aria-expanded={openSections.pedidos}
+          >
+            <FaBook className={styles.sectionIcon} />
+            <span>GB97 Pedidos</span>
+            <FaChevronDown className={`${styles.chevronIcon} ${openSections.pedidos ? 'open' : ''}`} />
+          </button>
+          <Collapse isOpen={openSections.pedidos}>
+            {Pedido.map((m, i) => {
+              const filteredVideos = m.videos.filter(filterVideos);
+              if (filteredVideos.length === 0) return null;
+              
+              return (
+                <div key={`module-${i}`} className={styles.itemGroup}>
+                  <span 
+                    className={`${styles.groupTitle} ${activeSection === `modulo-${m.module}` ? 'active' : ''}`} 
+                    onClick={() => scrollTo(`modulo-${m.module}`)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === 'Enter' && scrollTo(`modulo-${m.module}`)}
+                    ref={(el) => (refs.current[`modulo-${m.module}`] = el)}
+                  >
+                    <span className={styles.moduleBadge}>{i + 1}</span>
+                    {m.module}
+                  </span>
+                  {filteredVideos.map((v, j) => (
                     <span 
-                      className={`${styles.groupTitle} ${activeSection === `modulo-${m._id}` ? 'active' : ''}`} 
-                      onClick={() => scrollTo(`modulo-${m._id}`)
-                    }
-                    ref={el => refs.current[`modulo-${m._id}`] = el} 
+                      key={`video-${i}-${j}`}
+                      className={`${styles.subItem} ${activeSection === `video-${v.key}` ? 'active' : ''}`} 
+                      onClick={() => scrollTo(`video-${v.key}`)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => e.key === 'Enter' && scrollTo(`video-${v.key}`)}
+                      ref={(el) => (refs.current[`video-${v.key}`] = el)}
                     >
-                      <span className={styles.moduleBadge}>{i + 1}</span>
-                      {m.name}
+                      <span className={styles.videoBadge}>{i + 1}.{j + 1}</span>
+                      {v.title}
                     </span>
-                    {filteredVideos.map((v, j) => (
-                      <span 
-                        key={`video-${v._id}`}
-                        className={`${styles.subItem} ${activeSection === `video-${v._id}` ? 'active' : ''}`} 
-                        onClick={() => scrollTo(`video-${v._id}`)}
-                        ref={el => refs.current[`modulo-${m._id}`] = el} 
-                      >
-                        
-                        <span className={styles.videoBadge}>{i + 1}.{j + 1}</span>
-                        {v.title}
-                        {watchedVideos[v._id] && <FaCheckCircle className={styles.watchedIcon} />}
-                      </span>
-                    ))}
-                  </div>
-                );
-              })}
-            </Collapse>
-          </div>
-        ))}
+                  ))}
+                </div>
+              );
+            })}
+          </Collapse>
+        </div>
 
         {/* Sección Track */}
         <div className={styles.sidebarSection}>
@@ -513,7 +515,7 @@ useEffect(() => {
             aria-expanded={openSections.track}
           >
             <FaChartLine className={styles.sectionIcon} />
-            <span>GB97 Track Guias - PDF</span>
+            <span>GB97 Track</span>
             <FaChevronDown className={`${styles.chevronIcon} ${openSections.track ? 'open' : ''}`} />
           </button>
           <Collapse isOpen={openSections.track}>
@@ -526,6 +528,34 @@ useEffect(() => {
                 rel="noreferrer"
               >
                 <span className={styles.trackBadge}>{i + 1}</span>
+                {t.title}
+              </a>
+            ))}
+          </Collapse>
+        </div>
+        
+        {/* Sección Producción */}
+        <div className={styles.sidebarSection}>
+          <button 
+            type="button" 
+            onClick={() => toggleSection('prod')} 
+            className={styles.sectionButton}
+            aria-expanded={openSections.prod}
+          >
+            <FaCogs className={styles.sectionIcon} />
+            <span>GB97 Producción</span>
+            <FaChevronDown className={`${styles.chevronIcon} ${openSections.prod ? 'open' : ''}`} />
+          </button>
+          <Collapse isOpen={openSections.prod}>
+            {Track.map((t, i) => (
+              <a 
+                key={`prod-${i}`}
+                href={t.path} 
+                className={styles.subItem} 
+                target="_blank" 
+                rel="noreferrer"
+              >
+                <span className={styles.prodBadge}>{i + 1}</span>
                 {t.title}
               </a>
             ))}
@@ -555,24 +585,17 @@ useEffect(() => {
             <div className={styles.headerText}>
               <h1 className={styles.mainHeader}>
                 <FaPlayCircle className={styles.headerIcon} />
-                Portal de Tutoriales - GB97
+                Portal de Videos Tutoriales - GB97
               </h1>
               <p className={styles.subHeader}>Aprende con nuestros tutoriales paso a paso</p>
             </div>
             <div className={styles.headerStats}>
-              {/* CORRECCIÓN: Cálculo usando apiApps */}
               <div className={styles.statItem}>
-                <span className={styles.statNumber}>
-                  {apiApps.reduce((total, app) => 
-                    total + app.modules.reduce((sum, mod) => sum + mod.videos.length, 0)
-                  , 0)}
-                </span>
+                <span className={styles.statNumber}>{Pedido.reduce((acc, curr) => acc + curr.videos.length, 0)}</span>
                 <span className={styles.statLabel}>Videos</span>
               </div>
               <div className={styles.statItem}>
-                <span className={styles.statNumber}>
-                  {apiApps.reduce((total, app) => total + app.modules.length, 0)}
-                </span>
+                <span className={styles.statNumber}>{Pedido.length}</span>
                 <span className={styles.statLabel}>Módulos</span>
               </div>
             </div>
@@ -606,147 +629,112 @@ useEffect(() => {
 
         {/* GRID DE VIDEOS */}
         <section className={styles.videosGrid}>
-          {apiApps.map((app, appIndex) => (
-            <div key={`app-content-${appIndex}`}>
-              <h2 
-                id={`app-${app._id}`} 
-                className={styles.appTitle}
-              >
-                {app.app}
-              </h2>
-              
-              {app.modules.map((m, i) => {
-                const filteredVideos = m.videos.filter(filterVideos);
-                if (filteredVideos.length === 0) return null;
-                
-                return (
-                  <div key={`module-content-${i}`}>
-                    <h3 
-                      id={`modulo-${m._id}`}
-                      className={styles.moduleTitle}
-                      ref={el => refs.current[`modulo-${m._id}`] = el} 
+          {Pedido.map((m, i) => {
+            const filteredVideos = m.videos.filter(filterVideos);
+            if (filteredVideos.length === 0) return null;
+            
+            return (
+              <div key={`module-content-${i}`}>
+                <h3 
+                  id={`modulo-${m.module}`} 
+                  ref={(el) => (refs.current[`modulo-${m.module}`] = el)} 
+                  className={styles.moduleTitle}
+                >
+                  <span className={styles.moduleNumber}>{i + 1}.</span> 
+                  <span className={styles.moduleName}>{m.module}</span>
+                  <span className={styles.moduleCount}>{filteredVideos.length} videos</span>
+                </h3>
+                <Row>
+                  {filteredVideos.map((v, j) => (
+                    <Col 
+                      md="4" 
+                      sm="6" 
+                      xs="12" 
+                      key={`video-card-${j}`} 
+                      id={`video-${v.key}`} 
+                      ref={(el) => (refs.current[`video-${v.key}`] = el)}
                     >
-                      <span className={styles.moduleNumber}>{i + 1}.</span> 
-                      {m.name}
-                      <span className={styles.moduleCount}>{filteredVideos.length} videos</span>
-                    </h3>
-                    <Row>
-                      {filteredVideos.map((v, j) => (
-                        <Col 
-                          md="4" 
-                          sm="6" 
-                          xs="12" 
-                          key={`video-card-${j}`} 
-                          id={`video-${v._id}`}
-                          ref={el => refs.current[`modulo-${m._id}`] = el} 
+                      <Card className={styles.videoCard}>
+                        <div
+                          className={styles.videoThumb}
+                          onMouseEnter={(e) => {
+                            if (isMobile) return;
+                            const video = videoRefs.current[v.key];
+                            if (video) {
+                              setLoadingPreview(v.key);
+                              video.play().catch(() => setLoadingPreview(null));
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            if (isMobile) return;
+                            const video = videoRefs.current[v.key];
+                            if (video) {
+                              video.pause();
+                              video.currentTime = 0;
+                              setLoadingPreview(null);
+                            }
+                          }}
                         >
-                          {/* Card de video */}
-                          <Card className={styles.videoCard}>
-                            <div
-                              className={styles.videoThumb}
-                              onMouseEnter={(e) => {
-                                if (isMobile) return;
-                                const video = videoRefs.current[v._id];
-                                if (video) {
-                                  setLoadingPreview(v._id);
-                                  video.play().catch(() => setLoadingPreview(null));
-                                }
-                              }}
-                              onMouseLeave={(e) => {
-                                if (isMobile) return;
-                                const video = videoRefs.current[v._id];
-                                if (video) {
-                                  video.pause();
-                                  video.currentTime = 0;
-                                  setLoadingPreview(null);
-                                }
-                              }}
-                            >
-                              {loadingPreview === v._id && (
-                                <div className={styles.loadingOverlay}>
-                                  <Spinner size="sm" color="light" />
-                                  <span className={styles.loadingText}>Cargando vista previa...</span>
-                                </div>
-                              )}
-                              
-                              {/* Indicador de video visto */}
-                              {watchedVideos[v._id] && (
-                                <div className={styles.watchedBadge}>
-                                  <FaCheckCircle />
-                                </div>
-                              )}
-                              
-                              <video
-                                ref={el => (videoRefs.current[v._id] = el)}
-                                poster={Thumbnail.src}
-                                src={v.videoUrl}
-                                muted
-                                loop
-                                preload="metadata"
-                                onCanPlay={() => setLoadingPreview(null)}
-                                aria-label={`Vista previa de ${v.title}`}
-                              />
-                              <div 
-                                className={styles.playIcon}
-                                onClick={() => openVideoModal(v, appIndex, i, j)}
-                                role="button"
-                                tabIndex={0}
-                                onKeyDown={(e) => e.key === 'Enter' && openVideoModal(v, appIndex, i, j)}
-                                aria-label={`Reproducir video: ${v.title}`}
-                              >
-                                <FaPlayCircle size={isMobile ? 36 : 48} />
-                              </div>
-                              <div className={styles.videoOverlay}></div>
-                              <div className={styles.videoMeta}>
-                                <span className={styles.metaItem}>
-                                  <FaClock /> {v.duration}                          
-                                </span>
-                                <span className={styles.metaItem}>
-                                  <FaEye /> {v.views || 0}
-                                </span>
-                              </div>
+                          {loadingPreview === v.key && (
+                            <div className={styles.loadingOverlay}>
+                              <Spinner size="sm" color="light" />
+                              <span className={styles.loadingText}>Cargando vista previa...</span>
                             </div>
-                            <CardBody>
-                              <p className={styles.videoTitle}>
-                                <span className={styles.videoNumber}>{i + 1}.{j + 1}</span> 
-                                {v.title}
-                                {watchedVideos[v._id] && <FaCheckCircle className={styles.watchedIconSmall} />}
-                              </p>
-                              <p className={styles.videoDescription}>
-                                {v.description}
-                              </p>
-                            </CardBody>
-                          </Card>
-                        </Col>
-                      ))}
-                    </Row>
-                  </div>
-                );
-              })}
-            </div>
-          ))}
+                          )}
+                          <video
+                            ref={el => (videoRefs.current[v.key] = el)}
+                            poster={v.thumbnail}
+                            src={v.path}
+                            muted
+                            loop
+                            preload="metadata"
+                            onCanPlay={() => setLoadingPreview(null)}
+                            aria-label={`Vista previa de ${v.title}`}
+                          />
+                          <div 
+                            className={styles.playIcon}
+                            onClick={() => openVideoModal({
+                              title: `${i + 1}.${j + 1} ${v.title}`,
+                              path: v.path,
+                              views: v.views || Math.floor(Math.random() * 1000) + 500,
+                              date: v.date || "15 Mar 2023",
+                              key: v.key
+                            }, i, j)}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => e.key === 'Enter' && openVideoModal({
+                              title: `${i + 1}.${j + 1} ${v.title}`,
+                              path: v.path,
+                              key: v.key
+                            }, i, j)}
+                            aria-label={`Reproducir video: ${v.title}`}
+                          >
+                            <FaPlayCircle size={isMobile ? 36 : 48} />
+                          </div>
+                          <div className={styles.videoOverlay}></div>
+                          <div className={styles.videoMeta}>
+                            <span className={styles.metaItem}>
+                              <FaClock /> {durations[v.key] || "Cargando..."}                          
+                            </span>
+                            <span className={styles.metaItem}>
+                              <FaEye /> {v.views || Math.floor(Math.random() * 1000) + 500}
+                            </span>
+                          </div>
+                        </div>
+                        <CardBody>
+                          <p className={styles.videoTitle}>
+                            <span className={styles.videoNumber}>{i + 1}.{j + 1}</span> 
+                            {v.title}
+                          </p>
+                        </CardBody>
+                      </Card>
+                    </Col>
+                  ))}
+                </Row>
+              </div>
+            );
+          })}
         </section>
-
-        {/* PAGINACIÓN */}
-        <div className={styles.paginationControls}>
-          <Button 
-            disabled={currentPage === 1} 
-            onClick={() => setCurrentPage(prev => prev - 1)}
-            className={styles.paginationButton}
-          >
-            Anterior
-          </Button>
-          <span className={styles.paginationText}>
-            Página {currentPage} de {totalPages}
-          </span>
-          <Button 
-            disabled={currentPage === totalPages} 
-            onClick={() => setCurrentPage(prev => prev + 1)}
-            className={styles.paginationButton}
-          >
-            Siguiente
-          </Button>
-        </div>
 
         {/* FAQ */}
         {openFAQ && (
@@ -853,14 +841,11 @@ useEffect(() => {
         >
           <ModalHeader toggle={() => setModalVideoOpen(false)} className={styles.modalVideoHeader}>
             <div className={styles.modalHeaderContent}>
-  <h3 className={styles.truncateTitle}>{modalVideoData.title}</h3>
-  <div className={styles.moduleTag}>
-    {modalVideoData.module}
-    {watchedVideos[modalVideoData.key] && 
-      <FaCheckCircle className={styles.watchedIconModal} />
-    }
-  </div>
-</div>
+              <h3 className={styles.truncateTitle}>{modalVideoData.title}</h3>
+              <div className={styles.moduleTag}>
+                {modalVideoData.module}
+              </div>
+            </div>
           </ModalHeader>
           <ModalBody>
             <div className={styles.youtubeStyleModal}>
@@ -939,25 +924,20 @@ useEffect(() => {
                     </div>
                   </div>
                 </div>
-            {/* <div className={styles.videoInfo}>
-                              <div className={styles.infoItem}>
-                                <FaClock /> Duración: {modalVideoData.duration}
-                              </div>
-                              <div className={styles.infoItem}>
-                                <FaEye /> Visualizaciones: {modalVideoData.views.toLocaleString()}
-                              </div>
-                              <div className={styles.infoItem}>
-                                Fecha: {modalVideoData.date}
-                              </div>
-                              {watchedVideos[modalVideoData.key] && (
-                                <div className={styles.infoItem}>
-                                  <FaCheckCircle /> Ya visto
-                                </div>
-                              )}
-                            </div> */}
+                
+                <div className={styles.videoInfo}>
+                  <div className={styles.infoItem}>
+                    <FaClock /> Duración: {modalVideoData.duration}
                   </div>
-
-             
+                  <div className={styles.infoItem}>
+                    <FaEye /> Visualizaciones: {modalVideoData.views.toLocaleString()}
+                  </div>
+                  <div className={styles.infoItem}>
+                    Fecha: {modalVideoData.date}
+                  </div>
+                </div>
+              
+              </div>
               
               <div className={styles.relatedVideosContainer}>
                 <h4 className={styles.relatedTitle}>
@@ -968,18 +948,7 @@ useEffect(() => {
                     <div 
                       key={`related-${idx}`} 
                       className={styles.relatedVideoItem}
-                      onClick={() => {
-                        const app = apiApps[modalVideoData.appIndex];
-                        const module = app.modules[modalVideoData.moduleIndex];
-                        const videoIndex = module.videos.findIndex(v => v._id === video._id);
-                        
-                        openVideoModal(
-                          video, 
-                          modalVideoData.appIndex, 
-                          modalVideoData.moduleIndex, 
-                          videoIndex
-                        );
-                      }}
+                      onClick={() => handleRelatedVideoClick(video, modalVideoData.moduleIndex)}
                     >
                       <div className={styles.relatedThumb}>
                         <div className={styles.thumbnailContainer}>
@@ -993,7 +962,6 @@ useEffect(() => {
                         </div>
 
                         <span className={styles.relatedDuration}>{video.duration}</span>
-                        {watchedVideos[video._id] && <FaCheckCircle className={styles.watchedBadgeRelated} />}
 
                         <div className={styles.relatedPlayIcon}>
                           <FaPlayCircle />
@@ -1021,4 +989,4 @@ useEffect(() => {
   );
 };
 
-export default VideoGuides;
+export default VideoGuidesStatic;

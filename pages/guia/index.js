@@ -1,7 +1,9 @@
 import Head from "next/head";
 import VideoGuides from "../../components/features/VideoGuides";
+import VideoGuidesStatic from "../../components/features/VideoGuidesStatic";
 
 export default function Guia () {
+  const isDev = true;
   return (
     <div>
       <Head>
@@ -12,7 +14,9 @@ export default function Guia () {
           />
         <link rel="icon" href="/logo.ico"/>
       </Head>
-      <VideoGuides />
+      {
+        isDev? <VideoGuides /> : <VideoGuidesStatic />
+      }
     </div>
   )
 }
