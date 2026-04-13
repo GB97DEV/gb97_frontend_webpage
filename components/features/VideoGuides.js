@@ -15,7 +15,6 @@ import {
   Input,
   Button,
   Card,
-  CardBody,
   Spinner,
   Modal,
   ModalHeader,
@@ -54,34 +53,14 @@ import "react-toastify/dist/ReactToastify.css";
 import Thumbnail from "../../assets/images/thumbnail.png";
 import styles from "../../styles/VideoGuides.module.css";
 
-/**
-  Cambios solicitados:
-  - Continuar viendo:
-    • UX/UI mejorado.
-    • En desktop ocupa todo el ancho (full-bleed) y toda la altura visible (100vh) con tarjetas grandes.
-    • En móvil se mantiene carrusel horizontal con tarjetas táctiles.
-  - Móvil:
-    • Quitar del header el título "Tutoriales GB97" y el botón de búsqueda (no hay barra superior).
-    • El buscador va debajo del bloque "Portal de tutoriales", con fondo blanco.
-    • Footer (botones Índice y FAQ) con color #231F8C.
-    • Índice (sheet móvil) con color #231F8C.
-  - Reproductor:
-    • Mantiene ratio 16:9 en modo normal.
-    • En pantalla completa el contenedor ocupa toda la pantalla y video/iframe usan object-fit: contain (sin recortes).
-    • YouTube con playsinline, enablejsapi y origin. Skeleton hasta cargar para evitar pantalla negra.
-*/
-
-const NAV_PURPLE = "#231F8C"; // color requerido para índice y footer en móvil
-const ContinueGridMin = 360;  // ancho mínimo para tarjetas en desktop "continuar viendo"
+const NAV_PURPLE = "#231F8C";
+const ContinueGridMin = 360;
 
 const VideoGuides = () => {
   const router = useRouter();
   const { isLoggedIn } = useContext(AuthContext);
 
-  // Dispositivo
   const [isMobile, setIsMobile] = useState(false);
-
-  // Data y filtros
   const [apiApps, setApiApps] = useState([]);
   const [loading, setLoading] = useState(true);
   const [openSections, setOpenSections] = useState({});
@@ -89,16 +68,10 @@ const VideoGuides = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [showUnwatchedOnly, setShowUnwatchedOnly] = useState(false);
-
-  // Paginación
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-
-  // Índice (sheet)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef(null);
-
-  // Video modal
   const [modalVideoOpen, setModalVideoOpen] = useState(false);
   const [modalVideoData, setModalVideoData] = useState({
     title: "",
@@ -113,10 +86,8 @@ const VideoGuides = () => {
     videoIndex: 0,
     isExternal: false,
   });
-
-  // Player (interno)
   const modalVideoRef = useRef(null);
-  const videoContainerRef = useRef(null); // para fullscreen controlado
+  const videoContainerRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -125,27 +96,22 @@ const VideoGuides = () => {
   const [progress, setProgress] = useState(0);
   const [hoverTime, setHoverTime] = useState(null);
   const [duration, setDuration] = useState(0);
-
-  // Relacionados y previews
   const [relatedVideos, setRelatedVideos] = useState([]);
   const [loadingPreview, setLoadingPreview] = useState(null);
   const videoRefs = useRef({});
   const refs = useRef({});
   const searchInputRef = useRef(null);
-
-  // FAQ
   const [openFAQ, setOpenFAQ] = useState(false);
   const [faqOpenIndex, setFaqOpenIndex] = useState(null);
-
-  // Vistos y progreso
   const [watchedVideos, setWatchedVideos] = useState({});
   const [videoProgress, setVideoProgress] = useState({});
   const [resumeTime, setResumeTime] = useState(null);
-
-  // YouTube skeleton
   const [externalLoaded, setExternalLoaded] = useState(true);
+  const [question, setQuestion] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showControls, setShowControls] = useState(true);
+  const controlsTimeoutRef = useRef(null);
 
-  // Detección de móvil
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 992);
     onResize();
@@ -153,13 +119,11 @@ const VideoGuides = () => {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // Debounce búsqueda
   useEffect(() => {
     const t = setTimeout(() => setDebouncedSearch(searchTerm.trim().toLowerCase()), 220);
     return () => clearTimeout(t);
   }, [searchTerm]);
 
-  // Lock scroll con índice abierto
   useEffect(() => {
     if (!isMobile) return;
     document.body.style.overflow = isSidebarOpen ? "hidden" : "";
@@ -168,12 +132,11 @@ const VideoGuides = () => {
     };
   }, [isSidebarOpen, isMobile]);
 
-  // Auth
   useEffect(() => {
     if (!isLoggedIn) router.push("/acceso");
   }, [isLoggedIn, router]);
 
-  // Persistencia vistos/progreso
+  // Cargar datos de localStorage
   useEffect(() => {
     const saved = localStorage.getItem("watchedVideos");
     if (saved) {
@@ -193,6 +156,7 @@ const VideoGuides = () => {
     }
   }, []);
 
+  // Guardar en localStorage
   useEffect(() => {
     localStorage.setItem("watchedVideos", JSON.stringify(watchedVideos));
   }, [watchedVideos]);
@@ -201,7 +165,6 @@ const VideoGuides = () => {
     localStorage.setItem("videoProgress", JSON.stringify(videoProgress));
   }, [videoProgress]);
 
-  // Fetch
   const fetchData = async (page = 1) => {
     setLoading(true);
     try {
@@ -240,7 +203,6 @@ const VideoGuides = () => {
     if (isLoggedIn) fetchData(currentPage);
   }, [isLoggedIn, currentPage]);
 
-  // Helpers video externo
   const isExternalVideo = (url) =>
     !!url &&
     (url.includes("youtube.com") ||
@@ -269,7 +231,6 @@ const VideoGuides = () => {
     return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : Thumbnail.src;
   };
 
-  // Abrir modal
   const markVideoAsWatched = useCallback((id) => {
     setWatchedVideos((p) => {
       const n = { ...p, [id]: true };
@@ -279,7 +240,6 @@ const VideoGuides = () => {
   }, []);
 
   const openVideoModal = (videoData, appIndex, moduleIndex, videoIndex) => {
-    // detener previews
     Object.values(videoRefs.current).forEach((v) => {
       if (v?.pause) {
         v.pause();
@@ -311,14 +271,12 @@ const VideoGuides = () => {
       isExternal,
     });
 
-    // relacionados
     setRelatedVideos(
       module.videos
         .filter((v, i) => i !== videoIndex)
         .map((v) => ({ ...v, isExternal: isExternalVideo(v.videoUrl) }))
     );
 
-    // reanudar
     const prog = videoProgress[videoData._id];
     if (prog?.duration > 0) {
       const pct = (prog.time / prog.duration) * 100;
@@ -326,9 +284,27 @@ const VideoGuides = () => {
     } else setResumeTime(null);
 
     setModalVideoOpen(true);
+    setShowControls(true);
   };
 
-  // Reproductor en modal
+  // Auto-ocultar controles
+  const handleMouseMove = () => {
+    setShowControls(true);
+    if (controlsTimeoutRef.current) clearTimeout(controlsTimeoutRef.current);
+    if (!isFullscreen && !modalVideoData.isExternal) {
+      controlsTimeoutRef.current = setTimeout(() => setShowControls(false), 3000);
+    }
+  };
+
+  useEffect(() => {
+    if (modalVideoOpen && !modalVideoData.isExternal && !isFullscreen) {
+      controlsTimeoutRef.current = setTimeout(() => setShowControls(false), 3000);
+    }
+    return () => {
+      if (controlsTimeoutRef.current) clearTimeout(controlsTimeoutRef.current);
+    };
+  }, [modalVideoOpen, modalVideoData.isExternal, isFullscreen]);
+
   useEffect(() => {
     if (!modalVideoOpen) {
       setIsPlaying(false);
@@ -341,7 +317,7 @@ const VideoGuides = () => {
       setIsPlaying(true);
       return;
     }
-    if (isMobile) return; // en móvil usamos controles nativos
+    if (isMobile) return;
     const t = setTimeout(() => {
       const vid = modalVideoRef.current;
       if (!vid) return;
@@ -349,8 +325,7 @@ const VideoGuides = () => {
       vid.play().then(() => setIsPlaying(true)).catch(() => {});
     }, 200);
     return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modalVideoOpen]);
+  }, [modalVideoOpen, modalVideoData.isExternal, isMobile, volume]);
 
   useEffect(() => {
     const vid = modalVideoRef.current;
@@ -418,7 +393,6 @@ const VideoGuides = () => {
     };
   }, [modalVideoOpen, modalVideoData.key, watchedVideos, modalVideoData.isExternal, handleVideoEnd, resumeTime]);
 
-  // Fullscreen sobre el contenedor para controlar ratio en FS
   const toggleFullscreen = () => {
     const container = videoContainerRef.current;
     if (!container) return;
@@ -435,7 +409,6 @@ const VideoGuides = () => {
     return () => document.removeEventListener("fullscreenchange", onFS);
   }, []);
 
-  // Controles
   const togglePlayPause = () => {
     if (modalVideoData.isExternal) return;
     const v = modalVideoRef.current;
@@ -448,6 +421,7 @@ const VideoGuides = () => {
       setIsPlaying(false);
     }
   };
+  
   const seekVideo = (e) => {
     if (modalVideoData.isExternal) return;
     const v = modalVideoRef.current;
@@ -456,12 +430,14 @@ const VideoGuides = () => {
     const pos = (e.clientX - rect.left) / rect.width;
     v.currentTime = pos * v.duration;
   };
+  
   const updateHoverTime = (e) => {
     if (modalVideoData.isExternal) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const pos = (e.clientX - rect.left) / rect.width;
     setHoverTime(pos * duration);
   };
+  
   const formatTime = (t) => {
     if (isNaN(t)) return "0:00";
     const m = Math.floor(t / 60);
@@ -469,7 +445,6 @@ const VideoGuides = () => {
     return `${m}:${s < 10 ? "0" : ""}${s}`;
   };
 
-  // Sidebar helpers
   const toggleSection = (k) => setOpenSections((p) => ({ ...p, [k]: !p[k] }));
   const filterVideos = useCallback(
     (v) => {
@@ -482,6 +457,7 @@ const VideoGuides = () => {
     },
     [debouncedSearch, showUnwatchedOnly, watchedVideos]
   );
+  
   const scrollTo = (id) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -495,6 +471,7 @@ const VideoGuides = () => {
     }
     if (isMobile) setIsSidebarOpen(false);
   };
+  
   const toggleFAQ = (i) => setFaqOpenIndex((p) => (p === i ? null : i));
 
   const handleShare = (url) => {
@@ -515,7 +492,6 @@ const VideoGuides = () => {
       .catch(() => toast.error("Error al copiar el enlace"));
   };
 
-  // Métricas
   const totalVideos = useMemo(
     () =>
       apiApps.reduce(
@@ -534,7 +510,6 @@ const VideoGuides = () => {
     [apiApps, filterVideos]
   );
 
-  // Continuar viendo
   const continueWatching = useMemo(() => {
     const items = [];
     apiApps.forEach((app, ai) => {
@@ -557,7 +532,6 @@ const VideoGuides = () => {
         });
       });
     });
-    // opcional: orden descendente por progreso
     return items.sort((a, b) => b.progressPct - a.progressPct);
   }, [apiApps, videoProgress]);
 
@@ -589,9 +563,6 @@ const VideoGuides = () => {
         theme="dark"
       />
 
-      {/* SIN header móvil adicional (se elimina la barra superior con "Tutoriales GB97" y búsqueda) */}
-
-      {/* Overlay índice móvil */}
       {isMobile && isSidebarOpen && (
         <div
           onClick={() => setIsSidebarOpen(false)}
@@ -604,7 +575,6 @@ const VideoGuides = () => {
         />
       )}
 
-      {/* ÍNDICE (sheet) móvil con color #231F8C */}
       <aside
         ref={sidebarRef}
         className={styles.videoGuidesSidebar}
@@ -780,7 +750,6 @@ const VideoGuides = () => {
                 </div>
               ))}
 
-              {/* Track */}
               <div
                 style={{
                   background: "rgba(255,255,255,0.06)",
@@ -849,7 +818,6 @@ const VideoGuides = () => {
                 </Collapse>
               </div>
 
-              {/* FAQ */}
               <div style={{ marginTop: 12 }}>
                 <button
                   type="button"
@@ -879,7 +847,6 @@ const VideoGuides = () => {
             <div style={{ height: "calc(env(safe-area-inset-bottom, 0px) + 72px)" }} />
           </>
         ) : (
-          // Desktop sidebar
           <div className={styles.videoGuidesSidebar}>
             <div className={styles.sidebarHeaderContainer}>
               <h4 className={styles.sidebarHeader}>Índice de Contenido</h4>
@@ -971,47 +938,30 @@ const VideoGuides = () => {
         )}
       </aside>
 
-      {/* MAIN */}
       <main className={styles.videoGuidesMain}>
-        {/* Encabezado */}
         <div className={styles.headerContainer}>
           <div className={styles.headerContent}>
             <div className={styles.headerText}>
               <h1 className={styles.mainHeader}>
                 <FaPlayCircle className={styles.headerIcon} />
-                Portal de Tutoriales - GB97
+                Tutoriales GB97
               </h1>
               <p className={styles.subHeader}>Aprende con nuestros tutoriales paso a paso</p>
             </div>
             <HeaderStats totalVideos={totalVideos} totalModules={totalModules} />
           </div>
-          <div className={styles.headerGradient}></div>
         </div>
 
-        {/* Buscador: en móvil se muestra aquí, en blanco */}
-        <div className={styles.searchUploadContainer} style={isMobile ? { marginTop: 10 } : undefined}>
+        <div className={styles.searchUploadContainer}>
           <div className={styles.searchUploadBar}>
-            <div
-              className={styles.searchBar}
-              onClick={() => searchInputRef.current?.focus()}
-              style={
-                isMobile
-                  ? {
-                      background: "#fff",
-                      border: "1px solid rgba(0,0,0,0.12)",
-                      borderRadius: 14,
-                    }
-                  : undefined
-              }
-            >
+            <div className={styles.searchBar} onClick={() => searchInputRef.current?.focus()}>
               <Input
                 innerRef={searchInputRef}
-                placeholder="Buscar vídeos por descripción..."
+                placeholder="Buscar vídeos por título o descripción..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 aria-label="Buscar videos"
                 className={styles.searchInput}
-                style={isMobile ? { color: "#0a0e19" } : undefined}
                 inputMode="search"
                 enterKeyHint="search"
               />
@@ -1024,7 +974,6 @@ const VideoGuides = () => {
           </div>
         </div>
 
-        {/* Continuar viendo: Solo móvil (en desktop se oculta). */}
         {isMobile && continueWatching.length > 0 && (
           <ContinueWatching
             isMobile={isMobile}
@@ -1035,7 +984,6 @@ const VideoGuides = () => {
           />
         )}
 
-        {/* GRID/LIST DE VIDEOS */}
         <section className={styles.videosGrid}>
           {apiApps.map((app, appIndex) => (
             <div key={`app-content-${appIndex}`}>
@@ -1050,7 +998,7 @@ const VideoGuides = () => {
                 return (
                   <div key={`module-content-${i}`}>
                     <h3 id={`modulo-${m._id}`} className={styles.moduleTitle} ref={(el) => (refs.current[`modulo-${m._id}`] = el)}>
-                      <span className={styles.moduleNumber}>{i + 1}.</span>
+                      <span className={styles.moduleNumber}>{i + 1}</span>
                       {m.name}
                       <span className={styles.moduleCount}>{filtered.length} videos</span>
                     </h3>
@@ -1065,7 +1013,7 @@ const VideoGuides = () => {
 
                         return (
                           <Col md="4" sm="6" xs="12" key={`video-card-${j}`} id={`video-${v._id}`} ref={(el) => (refs.current[`video-${v._id}`] = el)}>
-                            <Card className={styles.videoCard} onClick={() => openVideoModal(v, appIndex, i, j)} style={{ cursor: "pointer" }}>
+                            <Card className={styles.videoCard} onClick={() => openVideoModal(v, appIndex, i, j)}>
                               <div
                                 className={styles.videoThumb}
                                 onMouseEnter={() => {
@@ -1089,7 +1037,7 @@ const VideoGuides = () => {
                                 {loadingPreview === v._id && (
                                   <div className={styles.loadingOverlay}>
                                     <Spinner size="sm" color="light" />
-                                    <span className={styles.loadingText}>Cargando vista previa...</span>
+                                    <span className={styles.loadingText}>Cargando...</span>
                                   </div>
                                 )}
 
@@ -1100,7 +1048,7 @@ const VideoGuides = () => {
                                 )}
 
                                 {external ? (
-                                  <img src={thumb} alt={`Miniatura de ${v.title}`} className={styles.videoThumbImage} loading="lazy" />
+                                  <img src={thumb} alt={v.title} className={styles.videoThumbImage} loading="lazy" />
                                 ) : (
                                   <video
                                     ref={(el) => (videoRefs.current[v._id] = el)}
@@ -1111,55 +1059,28 @@ const VideoGuides = () => {
                                     preload="metadata"
                                     playsInline
                                     onCanPlay={() => setLoadingPreview(null)}
-                                    aria-label={`Vista previa de ${v.title}`}
                                   />
                                 )}
 
-                                {/* Share */}
                                 <button
                                   onClick={(e) => {
                                     e.stopPropagation();
                                     handleShare(v.videoUrl);
                                   }}
-                                  aria-label="Compartir video"
-                                  style={{
-                                    position: "absolute",
-                                    top: 8,
-                                    right: 8,
-                                    background: "rgba(0,0,0,0.55)",
-                                    border: "none",
-                                    color: "white",
-                                    padding: 8,
-                                    borderRadius: 8,
-                                  }}
+                                  className={styles.shareButton}
+                                  aria-label="Compartir"
                                 >
                                   <FaShareAlt />
                                 </button>
 
-                                <div className={styles.playIcon} role="button" tabIndex={0} aria-hidden>
-                                  <FaPlayCircle size={isMobile ? 36 : 48} />
+                                <div className={styles.playIcon}>
+                                  <FaPlayCircle size={isMobile ? 40 : 50} />
                                 </div>
                                 <div className={styles.videoOverlay}></div>
 
-                                {/* Progreso */}
                                 {pct > 0 && (
-                                  <div
-                                    style={{
-                                      position: "absolute",
-                                      left: 0,
-                                      right: 0,
-                                      bottom: 0,
-                                      height: 4,
-                                      background: "rgba(255,255,255,0.15)",
-                                    }}
-                                  >
-                                    <div
-                                      style={{
-                                        width: `${pct}%`,
-                                        height: "100%",
-                                        background: "linear-gradient(90deg, rgba(0,200,120,0.95), rgba(0,180,255,0.95))",
-                                      }}
-                                    />
+                                  <div className={styles.progressBarContainer}>
+                                    <div className={styles.progressFill} style={{ width: `${pct}%` }} />
                                   </div>
                                 )}
 
@@ -1173,14 +1094,14 @@ const VideoGuides = () => {
                                   {external && <span className={styles.externalBadge}>{yt ? "YouTube" : "Ext"}</span>}
                                 </div>
                               </div>
-                              <CardBody>
+                              <div className={styles.videoInfo}>
                                 <p className={styles.videoTitle}>
                                   <span className={styles.videoNumber}>{i + 1}.{j + 1}</span>
                                   {v.title}
                                   {watchedVideos[v._id] && <FaCheckCircle className={styles.watchedIconSmall} />}
                                 </p>
                                 <p className={styles.videoDescription}>{v.description}</p>
-                              </CardBody>
+                              </div>
                             </Card>
                           </Col>
                         );
@@ -1193,26 +1114,12 @@ const VideoGuides = () => {
           ))}
         </section>
 
-        {/* EMPTY STATE */}
         {noResults && (
-          <div
-            style={{
-              marginTop: 24,
-              padding: 18,
-              borderRadius: 12,
-              border: "1px solid rgba(255,255,255,0.08)",
-              background: "rgba(255,255,255,0.02)",
-              textAlign: "center",
-            }}
-          >
-            <p style={{ marginBottom: 6, fontWeight: 700 }}>Sin resultados</p>
-            <p style={{ marginBottom: 10, color: "rgba(255,255,255,0.75)" }}>
-              Intenta con otra palabra clave o desactiva filtros.
-            </p>
-            <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" }}>
-              <Button size="sm" onClick={() => setSearchTerm("")}>
-                Limpiar búsqueda
-              </Button>
+          <div className={styles.emptyState}>
+            <p>Sin resultados</p>
+            <p>Intenta con otra palabra clave o desactiva los filtros</p>
+            <div className={styles.emptyStateButtons}>
+              <Button size="sm" onClick={() => setSearchTerm("")}>Limpiar búsqueda</Button>
               {showUnwatchedOnly && (
                 <Button size="sm" onClick={() => setShowUnwatchedOnly(false)} color="secondary">
                   Mostrar todos
@@ -1222,23 +1129,7 @@ const VideoGuides = () => {
           </div>
         )}
 
-        {/* Paginación */}
-        <div
-          className={styles.paginationControls}
-          style={
-            isMobile
-              ? {
-                  position: "sticky",
-                  bottom: 56 + 8,
-                  zIndex: 5,
-                  background: "rgba(10,14,25,0.9)",
-                  backdropFilter: "blur(6px)",
-                  padding: "10px 12px",
-                  borderTop: "1px solid rgba(255,255,255,0.08)",
-                }
-              : undefined
-          }
-        >
+        <div className={styles.paginationControls}>
           <Button disabled={currentPage === 1} onClick={() => setCurrentPage((p) => p - 1)} className={styles.paginationButton}>
             Anterior
           </Button>
@@ -1248,15 +1139,14 @@ const VideoGuides = () => {
           </Button>
         </div>
 
-        {/* FAQ */}
         {openFAQ && (
-          <section id="FAQ" ref={(el) => (refs.current.FAQ = el)} className={styles.faqSection} aria-labelledby="faq-heading">
+          <section id="FAQ" ref={(el) => (refs.current.FAQ = el)} className={styles.faqSection}>
             <div className={styles.faqHeader}>
-              <h2 id="faq-heading">
+              <h2>
                 <FaQuestionCircle className={styles.faqHeaderIcon} />
                 Preguntas Frecuentes
               </h2>
-              <p>Encuentra respuestas a las preguntas más comunes sobre nuestro portal de videos</p>
+              <p>Encuentra respuestas a las preguntas más comunes</p>
             </div>
             <div className={styles.faqGrid}>
               {FAQ.map((q, k) => (
@@ -1267,13 +1157,12 @@ const VideoGuides = () => {
                     role="button"
                     tabIndex={0}
                     onKeyDown={(e) => e.key === "Enter" && toggleFAQ(k)}
-                    aria-expanded={faqOpenIndex === k}
                   >
                     <h5>
-                      <span className={styles.faqNumber}>{k + 1}.</span>
+                      <span className={styles.faqNumber}>{k + 1}</span>
                       {q.question}
                     </h5>
-                    <FaChevronDown className={`${styles.faqChevron} ${faqOpenIndex === k ? "open" : ""}`} />
+                    <FaChevronDown className={`${styles.faqChevron} ${faqOpenIndex === k ? styles.open : ""}`} />
                   </div>
                   <Collapse isOpen={faqOpenIndex === k}>
                     <div className={styles.faqAnswer}>
@@ -1284,341 +1173,166 @@ const VideoGuides = () => {
                 </div>
               ))}
             </div>
-
-            <div className={styles.questionFormSection}>
-              <div className={styles.formContainer}>
-                <h3 className={styles.formTitle}>
-                  <FaEnvelope className={styles.formIcon} />
-                  ¿Tienes otra pregunta?
-                </h3>
-                <p className={styles.formDescription}>
-                  Si no encontraste respuesta a tu pregunta, envíanos un mensaje y nuestro equipo te responderá a la brevedad.
-                </p>
-
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    if (!question.trim()) {
-                      toast.error("Por favor, escribe tu pregunta");
-                      return;
-                    }
-                    setIsSubmitting(true);
-                    setTimeout(() => {
-                      const mailtoLink = `mailto:info@gb97.com?subject=Nueva pregunta sobre GB97&body=${encodeURIComponent(question)}`;
-                      window.location.href = mailtoLink;
-                      setIsSubmitting(false);
-                      setQuestion("");
-                      toast.success("Tu pregunta ha sido enviada");
-                    }, 1200);
-                  }}
-                >
-                  <div className={styles.formGroup}>
-                    <Input
-                      type="textarea"
-                      name="question"
-                      placeholder="Escribe tu pregunta aquí..."
-                      value={question}
-                      onChange={(e) => setQuestion(e.target.value)}
-                      required
-                      rows={5}
-                      className={styles.questionInput}
-                      disabled={isSubmitting}
-                    />
-                  </div>
-
-                  <Button type="submit" color="primary" className={styles.submitButton} disabled={isSubmitting}>
-                    {isSubmitting ? (
-                      <>
-                        <Spinner size="sm" /> Enviando...
-                      </>
-                    ) : (
-                      "Enviar pregunta a info@gb97.com"
-                    )}
-                  </Button>
-                </form>
-              </div>
-            </div>
           </section>
         )}
 
         <UpButton />
 
-        {/* Footer móvil con color #231F8C */}
         {isMobile && (
-          <nav
-            aria-label="Navegación inferior"
-            style={{
-              position: "fixed",
-              left: 0,
-              right: 0,
-              bottom: 0,
-              zIndex: 30,
-              background: NAV_PURPLE,
-              borderTop: "1px solid rgba(255,255,255,0.15)",
-              paddingBottom: "env(safe-area-inset-bottom, 0px)",
-            }}
-          >
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr 1fr",
-                alignItems: "center",
-                textAlign: "center",
-                height: 56,
-              }}
-            >
-              <button
-                onClick={() => setIsSidebarOpen(true)}
-                style={{
-                  background: "transparent",
-                  border: "none",
-                  color: "#fff",
-                  display: "grid",
-                  placeItems: "center",
-                  gap: 2,
-                  fontSize: 12,
-                }}
-              >
-                <FaBook />
-                Índice
-              </button>
-              <button
-                onClick={() => setShowUnwatchedOnly((p) => !p)}
-                aria-pressed={showUnwatchedOnly}
-                style={{
-                  background: showUnwatchedOnly ? "#fff" : "transparent",
-                  border: "none",
-                  color: showUnwatchedOnly ? NAV_PURPLE : "#fff",
-                  display: "grid",
-                  placeItems: "center",
-                  gap: 2,
-                  fontSize: 12,
-                  borderRadius: showUnwatchedOnly ? 16 : 0,
-                  padding: showUnwatchedOnly ? "6px 10px" : 0,
-                  margin: showUnwatchedOnly ? "0 6px" : 0,
-                }}
-              >
-                <FaEyeSlash />
-                {showUnwatchedOnly ? "No vistos" : "Todos"}
-              </button>
-              <button
-                onClick={() => {
-                  setOpenFAQ(true);
-                  setTimeout(() => scrollTo("FAQ"), 100);
-                }}
-                style={{
-                  background: "transparent",
-                  border: "none",
-                  color: "#fff",
-                  display: "grid",
-                  placeItems: "center",
-                  gap: 2,
-                  fontSize: 12,
-                }}
-              >
-                <FaQuestionCircle />
-                FAQ
-              </button>
-            </div>
+          <nav className={styles.mobileFooter}>
+            <button onClick={() => setIsSidebarOpen(true)}>
+              <FaBook /> Índice
+            </button>
+            <button onClick={() => setShowUnwatchedOnly((p) => !p)} data-active={showUnwatchedOnly}>
+              <FaEyeSlash /> {showUnwatchedOnly ? "No vistos" : "Todos"}
+            </button>
+            <button onClick={() => { setOpenFAQ(true); setTimeout(() => scrollTo("FAQ"), 100); }}>
+              <FaQuestionCircle /> FAQ
+            </button>
           </nav>
         )}
 
-        {/* MODAL VIDEO: ratio normal 16:9, fullscreen con contain (video y YouTube) */}
+        {/* MODAL VIDEO - ESTILO YOUTUBE */}
         <Modal
           isOpen={modalVideoOpen}
           toggle={() => setModalVideoOpen(false)}
-          className={`${styles.videoModal} ${styles.fullscreenModal}`}
+          className={styles.videoModal}
           size="xl"
           centered
           backdrop="static"
+          modalClassName={styles.modalFullscreen}
         >
           <ModalHeader toggle={() => setModalVideoOpen(false)} className={styles.modalVideoHeader}>
-            <div className={styles.modalHeaderContent} style={{ gap: 8 }}>
-              <h3 className={styles.truncateTitle} style={{ fontSize: isMobile ? 16 : undefined }}>
-                {modalVideoData.title}
-              </h3>
-              <div className={styles.moduleTag} style={isMobile ? { fontSize: 12, padding: "4px 8px" } : undefined}>
+            <div className={styles.modalHeaderContent}>
+              <h3 className={styles.truncateTitle}>{modalVideoData.title}</h3>
+              <div className={styles.moduleTag}>
                 {modalVideoData.module}
                 {watchedVideos[modalVideoData.key] && <FaCheckCircle className={styles.watchedIconModal} />}
               </div>
             </div>
           </ModalHeader>
-          <ModalBody>
+          <ModalBody className={styles.modalBody}>
             <div className={styles.youtubeStyleModal}>
-              <div
-                ref={videoContainerRef}
-                style={{
-                  position: "relative",
-                  width: "100%",
-                  background: "#000",
-                  borderRadius: 12,
-                  overflow: "hidden",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                }}
+              <div 
+                ref={videoContainerRef} 
+                className={`${styles.videoContainer} ${isFullscreen ? styles.fullscreen : ""}`}
+                onMouseMove={!modalVideoData.isExternal ? handleMouseMove : undefined}
               >
-                {/* Normal: caja 16:9 */}
-                {!isFullscreen && (
-                  <div style={{ position: "relative", width: "100%", paddingTop: "56.25%" }}>
-                    {modalVideoData.isExternal ? (
-                      <div style={{ position: "absolute", inset: 0 }}>
-                        {!externalLoaded && (
-                          <div
-                            style={{
-                              position: "absolute",
-                              inset: 0,
-                              display: "grid",
-                              placeItems: "center",
-                              background: "#000",
-                            }}
-                          >
-                            <Spinner color="light" />
-                          </div>
-                        )}
-                        <iframe
-                          src={getYouTubeEmbedUrl(modalVideoData.path)}
-                          style={{
-                            position: "absolute",
-                            inset: 0,
-                            width: "100%",
-                            height: "100%",
-                            border: 0,
-                            background: "#000",
-                          }}
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
-                          allowFullScreen
-                          title={modalVideoData.title}
-                          referrerPolicy="strict-origin-when-cross-origin"
-                          onLoad={() => setExternalLoaded(true)}
-                        />
-                      </div>
-                    ) : (
-                      <video
-                        ref={modalVideoRef}
-                        src={modalVideoData.path}
-                        onClick={togglePlayPause}
-                        style={{
-                          position: "absolute",
-                          inset: 0,
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "contain",
-                          backgroundColor: "#000",
-                        }}
-                        playsInline
-                        controls={isMobile}
-                      >
-                        Tu navegador no soporta la reproducción de videos.
-                      </video>
-                    )}
-                  </div>
-                )}
-
-                {/* Fullscreen: contenedor a pantalla completa y contenido con contain */}
-                {isFullscreen && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      display: "grid",
-                      placeItems: "center",
-                      background: "#000",
-                    }}
-                  >
-                    {modalVideoData.isExternal ? (
+                <div className={styles.videoWrapper}>
+                  {modalVideoData.isExternal ? (
+                    <>
+                      {!externalLoaded && (
+                        <div className={styles.videoLoader}>
+                          <Spinner color="light" />
+                        </div>
+                      )}
                       <iframe
                         src={getYouTubeEmbedUrl(modalVideoData.path)}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          border: 0,
-                          background: "#000",
-                        }}
+                        className={styles.videoIframe}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
                         allowFullScreen
                         title={modalVideoData.title}
+                        onLoad={() => setExternalLoaded(true)}
                       />
-                    ) : (
-                      <video
-                        ref={modalVideoRef}
-                        src={modalVideoData.path}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          maxWidth: "100%",
-                          maxHeight: "100%",
-                          objectFit: "contain",
-                          backgroundColor: "#000",
-                        }}
-                        playsInline
-                        controls
-                        autoPlay
-                      />
-                    )}
+                    </>
+                  ) : (
+                    <video
+                      ref={modalVideoRef}
+                      src={modalVideoData.path}
+                      className={styles.videoPlayer}
+                      onClick={togglePlayPause}
+                      playsInline
+                    />
+                  )}
+                </div>
+
+                {/* Controles personalizados (solo para videos internos en desktop) */}
+                {!modalVideoData.isExternal && !isMobile && (
+                  <div className={`${styles.videoControlsOverlay} ${showControls ? styles.visible : ""}`}>
+                    <div className={styles.controlsTop}>
+                      <div className={styles.videoTitleControl}>{modalVideoData.title}</div>
+                    </div>
+                    
+                    <div className={styles.controlsBottom}>
+                      <div className={styles.progressBarContainer} onClick={seekVideo} onMouseMove={updateHoverTime}>
+                        <div className={styles.progressBarTrack}>
+                          <div className={styles.progressBarFill} style={{ width: `${progress}%` }} />
+                          {hoverTime !== null && (
+                            <div className={styles.hoverTimeIndicator} style={{ left: `${(hoverTime / duration) * 100}%` }}>
+                              {formatTime(hoverTime)}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      
+                      <div className={styles.controlsRow}>
+                        <div className={styles.controlsLeft}>
+                          <button className={styles.controlBtn} onClick={togglePlayPause}>
+                            {isPlaying ? <FaPause /> : <FaPlay />}
+                          </button>
+                          <button className={styles.controlBtn} onClick={() => {
+                            const { appIndex, moduleIndex, videoIndex } = modalVideoData;
+                            const app = apiApps[appIndex];
+                            const module = app.modules[moduleIndex];
+                            const prevIndex = (videoIndex - 1 + module.videos.length) % module.videos.length;
+                            const prevVideo = module.videos[prevIndex];
+                            openVideoModal(prevVideo, appIndex, moduleIndex, prevIndex);
+                          }}>
+                            <FaStepBackward />
+                          </button>
+                          <button className={styles.controlBtn} onClick={() => {
+                            const { appIndex, moduleIndex, videoIndex } = modalVideoData;
+                            const app = apiApps[appIndex];
+                            const module = app.modules[moduleIndex];
+                            const nextIndex = (videoIndex + 1) % module.videos.length;
+                            const nextVideo = module.videos[nextIndex];
+                            openVideoModal(nextVideo, appIndex, moduleIndex, nextIndex);
+                          }}>
+                            <FaStepForward />
+                          </button>
+                          <div className={styles.timeDisplay}>
+                            {formatTime(currentTime)} / {formatTime(duration)}
+                          </div>
+                        </div>
+                        
+                        <div className={styles.controlsRight}>
+                          <div className={styles.volumeControl}>
+                            <button className={styles.controlBtn} onClick={() => setIsMuted(!isMuted)}>
+                              {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
+                            </button>
+                            <input
+                              type="range"
+                              min="0"
+                              max="1"
+                              step="0.01"
+                              value={isMuted ? 0 : volume}
+                              onChange={(e) => {
+                                const val = parseFloat(e.target.value);
+                                setVolume(val);
+                                if (val > 0 && isMuted) setIsMuted(false);
+                              }}
+                              className={styles.volumeSlider}
+                            />
+                          </div>
+                          <button className={styles.controlBtn} onClick={toggleFullscreen}>
+                            {isFullscreen ? <FaCompress /> : <FaExpand />}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 )}
 
-                {/* Botón fullscreen */}
-                <button
-                  onClick={toggleFullscreen}
-                  aria-label={isFullscreen ? "Salir de pantalla completa" : "Pantalla completa"}
-                  style={{
-                    position: "absolute",
-                    right: 10,
-                    bottom: 10,
-                    background: "rgba(0,0,0,0.55)",
-                    color: "white",
-                    border: "1px solid rgba(255,255,255,0.2)",
-                    borderRadius: 999,
-                    padding: "8px 10px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 6,
-                    fontSize: 13,
-                    zIndex: 2,
-                  }}
-                >
-                  {isFullscreen ? <FaCompress /> : <FaExpand />}
-                  {isFullscreen ? "Salir" : "Pantalla completa"}
-                </button>
+                {/* Botón flotante de fullscreen para móvil */}
+                {isMobile && !modalVideoData.isExternal && (
+                  <button className={styles.mobileFullscreenBtn} onClick={toggleFullscreen}>
+                    {isFullscreen ? <FaCompress /> : <FaExpand />}
+                  </button>
+                )}
               </div>
 
-              {/* Controles personalizados (desktop) */}
-              {!modalVideoData.isExternal && !isMobile && (
-                <DesktopControls
-                  progress={progress}
-                  currentTime={currentTime}
-                  duration={duration}
-                  seekVideo={seekVideo}
-                  updateHoverTime={updateHoverTime}
-                  hoverTime={hoverTime}
-                  formatTime={formatTime}
-                  isPlaying={isPlaying}
-                  togglePlayPause={togglePlayPause}
-                  navigateVideo={(dir) => {
-                    const { appIndex, moduleIndex, videoIndex } = modalVideoData;
-                    const app = apiApps[appIndex];
-                    const module = app.modules[moduleIndex];
-                    const nIndex =
-                      dir === "prev"
-                        ? (videoIndex - 1 + module.videos.length) % module.videos.length
-                        : (videoIndex + 1) % module.videos.length;
-                    const nv = module.videos[nIndex];
-                    openVideoModal(nv, appIndex, moduleIndex, nIndex);
-                  }}
-                  isMuted={isMuted}
-                  setIsMuted={setIsMuted}
-                  volume={volume}
-                  setVolume={setVolume}
-                  isFullscreen={isFullscreen}
-                  toggleFullscreen={toggleFullscreen}
-                />
-              )}
-
-              {/* Relacionados */}
-              <div className={styles.relatedVideosContainer} style={{ marginTop: 12 }}>
-                <h4 className={styles.relatedTitle} style={isMobile ? { fontSize: 16 } : undefined}>
-                  Más videos de {modalVideoData.module}
-                </h4>
+              <div className={styles.relatedVideosContainer}>
+                <h4 className={styles.relatedTitle}>Más videos de este módulo</h4>
                 <div className={styles.relatedVideosList}>
                   {relatedVideos.map((video, idx) => {
                     const external = isExternalVideo(video.videoUrl);
@@ -1637,40 +1351,20 @@ const VideoGuides = () => {
                         }}
                       >
                         <div className={styles.relatedThumb}>
-                          <div className={styles.thumbnailContainer}>
-                            {external ? (
-                              <img src={thumb} alt={`Miniatura de ${video.title}`} className={styles.relatedThumbImage} loading="lazy" />
-                            ) : (
-                              <Image
-                                src={Thumbnail}
-                                alt={`Miniatura de ${video.title}`}
-                                fill
-                                sizes="(max-width: 768px) 100vw, 300px"
-                                style={{ objectFit: "cover", borderRadius: "8px" }}
-                                priority={false}
-                              />
-                            )}
-                          </div>
-
-                          <span className={styles.relatedDuration}>{video.duration}</span>
+                          {external ? (
+                            <img src={thumb} alt={video.title} className={styles.relatedThumbImage} />
+                          ) : (
+                            <Image src={Thumbnail} alt={video.title} fill className={styles.relatedThumbImage} />
+                          )}
+                          <div className={styles.relatedPlayIcon}><FaPlayCircle /></div>
                           {watchedVideos[video._id] && <FaCheckCircle className={styles.watchedBadgeRelated} />}
-
-                          <div className={styles.relatedPlayIcon}>
-                            <FaPlayCircle />
-                          </div>
-
-                          <div className={styles.relatedOverlay}></div>
+                          <span className={styles.relatedDuration}>{video.duration}</span>
                         </div>
-
                         <div className={styles.relatedInfo}>
                           <h5 className={styles.relatedTitleText}>{video.title}</h5>
                           <div className={styles.relatedMeta}>
-                            <span>
-                              <FaEye /> {video.views || 0} visualizaciones
-                            </span>
-                            <span>
-                              <FaClock /> {video.duration || "--:--"}
-                            </span>
+                            <span><FaEye /> {video.views || 0}</span>
+                            <span><FaClock /> {video.duration || "--:--"}</span>
                             {external && <span className={styles.relatedExternalBadge}>{yt ? "YouTube" : "Ext"}</span>}
                           </div>
                         </div>
@@ -1687,8 +1381,6 @@ const VideoGuides = () => {
   );
 };
 
-/* ========== Componentes Auxiliares ========== */
-
 const HeaderStats = ({ totalVideos, totalModules }) => (
   <div className={styles.headerStats}>
     <div className={styles.statItem}>
@@ -1702,109 +1394,31 @@ const HeaderStats = ({ totalVideos, totalModules }) => (
   </div>
 );
 
-/**
- * Continuar viendo:
- * - Mobile: carrusel horizontal de tarjetas 16:9.
- * - Desktop: sección full-bleed (100vw) y altura completa (100vh) con grid de tarjetas grandes.
- *   Usa técnica de "full-bleed": width 100vw y margin-left calc(50% - 50vw).
- */
 const ContinueWatching = ({ isMobile, items, openVideoModal, isExternalVideo, getYouTubeThumbnail }) => {
+  if (!items.length) return null;
+
   if (isMobile) {
     return (
-      <section id="continuar" style={{ marginBottom: 18, padding: "8px 0" }}>
-        <h3 style={{ fontSize: 18, marginBottom: 8, display: "flex", alignItems: "center", gap: 8 }}>
-          <FaRedo /> Continuar viendo
-        </h3>
-        <div
-          style={{
-            display: "grid",
-            gap: 12,
-            gridAutoFlow: "column",
-            gridAutoColumns: "75%",
-            overflowX: "auto",
-            paddingBottom: 6,
-            scrollSnapType: "x mandatory",
-          }}
-        >
+      <section className={styles.continueWatchingMobile}>
+        <h3><FaRedo /> Continuar viendo</h3>
+        <div className={styles.continueSlider}>
           {items.map((v) => {
             const external = isExternalVideo(v.videoUrl);
             const yt = external && (v.videoUrl.includes("youtube.com") || v.videoUrl.includes("youtu.be"));
             const thumb = yt ? getYouTubeThumbnail(v.videoUrl) : Thumbnail.src;
 
             return (
-              <div
-                key={`cont-${v._id}`}
-                onClick={() => openVideoModal(v, v.appIndex, v.moduleIndex, v.videoIndex)}
-                style={{
-                  position: "relative",
-                  borderRadius: 12,
-                  overflow: "hidden",
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  scrollSnapAlign: "start",
-                  cursor: "pointer",
-                }}
-              >
-                <div style={{ position: "relative", width: "100%", paddingTop: "56.25%", background: "#0a0e19" }}>
-                  <img
-                    src={thumb}
-                    alt={`Miniatura de ${v.title}`}
-                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
-                    loading="lazy"
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      background: "linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.55) 100%)",
-                    }}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      left: 8,
-                      right: 8,
-                      bottom: 8,
-                      color: "white",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      gap: 8,
-                    }}
-                  >
-                    <div style={{ fontWeight: 700, fontSize: 14, lineHeight: 1.15 }}>{v.title}</div>
-                    <span
-                      style={{
-                        fontSize: 12,
-                        background: "rgba(0,0,0,0.45)",
-                        border: "1px solid rgba(255,255,255,0.15)",
-                        padding: "2px 6px",
-                        borderRadius: 8,
-                      }}
-                    >
-                      {v.duration || "--:--"}
-                    </span>
+              <div key={v._id} className={styles.continueCard} onClick={() => openVideoModal(v, v.appIndex, v.moduleIndex, v.videoIndex)}>
+                <div className={styles.continueThumb}>
+                  <img src={thumb} alt={v.title} />
+                  <div className={styles.progressBarContainer}>
+                    <div className={styles.progressFill} style={{ width: `${v.progressPct}%` }} />
                   </div>
-
-                  {/* Barra de progreso */}
-                  <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: 4, background: "rgba(255,255,255,0.15)" }}>
-                    <div
-                      style={{
-                        width: `${v.progressPct}%`,
-                        height: "100%",
-                        background: "linear-gradient(90deg, rgba(0,200,120,0.95), rgba(0,180,255,0.95))",
-                      }}
-                    />
-                  </div>
+                  <span className={styles.continueDuration}>{v.duration}</span>
                 </div>
-                <div style={{ padding: 10 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, color: "rgba(255,255,255,0.75)", fontSize: 12 }}>
-                    <span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{v.moduleName}</span>
-                    <span>•</span>
-                    <span>
-                      <FaClock /> {v.progressPct}% visto
-                    </span>
-                  </div>
+                <div className={styles.continueInfo}>
+                  <p className={styles.continueTitle}>{v.title}</p>
+                  <span className={styles.continueProgress}>{v.progressPct}% visto</span>
                 </div>
               </div>
             );
@@ -1814,250 +1428,7 @@ const ContinueWatching = ({ isMobile, items, openVideoModal, isExternalVideo, ge
     );
   }
 
-  // Desktop full-bleed (no se mostrará porque el render se condiciona por isMobile)
-  return (
-    <section
-      id="continuar"
-      style={{
-        width: "100vw",
-        marginLeft: "calc(50% - 50vw)", // full-bleed
-        background:
-          "linear-gradient(180deg, rgba(10,14,25,0.35) 0%, rgba(10,14,25,0.65) 40%, rgba(10,14,25,0.9) 100%)",
-        padding: "42px 6vw",
-        minHeight: "100vh", // ocupa toda la pantalla
-        display: "flex",
-        flexDirection: "column",
-        gap: 18,
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-        <h2 style={{ margin: 0, fontWeight: 800, letterSpacing: 0.2 }}>Continuar viendo</h2>
-        <span style={{ opacity: 0.7 }}>{items.length} videos</span>
-      </div>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(auto-fit, minmax(${ContinueGridMin}px, 1fr))`,
-          gap: 24,
-          alignItems: "stretch",
-        }}
-      >
-        {items.map((v) => {
-          const external = isExternalVideo(v.videoUrl);
-          const yt = external && (v.videoUrl.includes("youtube.com") || v.videoUrl.includes("youtu.be"));
-          const thumb = yt ? getYouTubeThumbnail(v.videoUrl) : Thumbnail.src;
-
-          return (
-            <div
-              key={`cont-${v._id}`}
-              onClick={() => openVideoModal(v, v.appIndex, v.moduleIndex, v.videoIndex)}
-              style={{
-                position: "relative",
-                borderRadius: 14,
-                overflow: "hidden",
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.08)",
-                cursor: "pointer",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <div style={{ position: "relative", width: "100%", paddingTop: "56.25%" }}>
-                <img
-                  src={thumb}
-                  alt={`Miniatura de ${v.title}`}
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                  loading="lazy"
-                />
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    background:
-                      "radial-gradient(ellipse at 70% 20%, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.65) 55%, rgba(0,0,0,0.85) 100%)",
-                  }}
-                />
-                <div style={{ position: "absolute", left: 12, right: 12, bottom: 12, color: "white" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
-                    <strong style={{ fontSize: 18, lineHeight: 1.15, letterSpacing: 0.2 }}>{v.title}</strong>
-                    <span
-                      style={{
-                        fontSize: 12,
-                        background: "rgba(0,0,0,0.45)",
-                        border: "1px solid rgba(255,255,255,0.15)",
-                        padding: "2px 6px",
-                        borderRadius: 8,
-                      }}
-                    >
-                      {v.duration || "--:--"}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Progreso */}
-                <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: 4, background: "rgba(255,255,255,0.15)" }}>
-                  <div
-                    style={{
-                      width: `${v.progressPct}%`,
-                      height: "100%",
-                      background: "linear-gradient(90deg, rgba(0,200,120,0.95), rgba(0,180,255,0.95))",
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div style={{ padding: 12, display: "flex", gap: 12, alignItems: "center", color: "rgba(255,255,255,0.8)" }}>
-                <span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{v.moduleName}</span>
-                <span>•</span>
-                <span>
-                  <FaClock /> {v.progressPct}% visto
-                </span>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </section>
-  );
+  return null;
 };
-
-const ThumbOverlays = ({ watched, duration, views, isExternal, isYouTube, onShare }) => (
-  <>
-    <div
-      style={{
-        position: "absolute",
-        right: 8,
-        top: 8,
-        display: "flex",
-        gap: 6,
-        alignItems: "center",
-      }}
-    >
-      {watched && (
-        <span
-          title="Visto"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: 26,
-            height: 26,
-            borderRadius: 8,
-            background: "rgba(0,200,120,0.18)",
-            border: "1px solid rgba(0,200,120,0.45)",
-            color: "rgb(0,200,120)",
-          }}
-        >
-          <FaCheckCircle />
-        </span>
-      )}
-      <button
-        onClick={onShare}
-        aria-label="Compartir video"
-        style={{
-          width: 26,
-          height: 26,
-          borderRadius: 8,
-          border: "1px solid rgba(255,255,255,0.2)",
-          background: "rgba(0,0,0,0.45)",
-          color: "white",
-          display: "inline-flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <FaShareAlt />
-      </button>
-    </div>
-
-    <div className={styles.videoOverlay}></div>
-    <div className={styles.videoMeta} style={{ left: 8, right: 8, bottom: 8, display: "flex", gap: 10 }}>
-      <span className={styles.metaItem}>
-        <FaClock /> {duration || "--:--"}
-      </span>
-      <span className={styles.metaItem}>
-        <FaEye /> {views || 0}
-      </span>
-      {isExternal && <span className={styles.externalBadge}>{isYouTube ? "YouTube" : "Ext"}</span>}
-    </div>
-  </>
-);
-
-const DesktopControls = ({
-  progress,
-  currentTime,
-  duration,
-  seekVideo,
-  updateHoverTime,
-  hoverTime,
-  formatTime,
-  isPlaying,
-  togglePlayPause,
-  navigateVideo,
-  isMuted,
-  setIsMuted,
-  volume,
-  setVolume,
-  isFullscreen,
-  toggleFullscreen,
-}) => (
-  <div className={`${styles.videoControls} visible`} style={{ marginTop: 10 }}>
-    <div className={styles.progressBar} onClick={seekVideo} onMouseMove={updateHoverTime} onMouseLeave={() => {}}>
-      <div className={styles.progress} style={{ width: `${progress}%` }}>
-        <div className={styles.progressHandle}></div>
-      </div>
-      {hoverTime !== null && <div className={styles.hoverTime}>{formatTime(hoverTime)}</div>}
-      <div className={styles.progressTime}>
-        <span className={styles.currentTime}>{formatTime(currentTime)}</span>
-        <span className={styles.totalTime}>{formatTime(duration)}</span>
-      </div>
-    </div>
-
-    <div className={styles.controlButtons}>
-      <button className={styles.controlBtn} onClick={() => navigateVideo("prev")} aria-label="Video anterior">
-        <FaStepBackward />
-      </button>
-
-      <button className={styles.controlBtn} onClick={togglePlayPause} aria-label={isPlaying ? "Pausar" : "Reproducir"}>
-        {isPlaying ? <FaPause /> : <FaPlay />}
-      </button>
-
-      <button className={styles.controlBtn} onClick={() => navigateVideo("next")} aria-label="Siguiente video">
-        <FaStepForward />
-      </button>
-
-      <div className={styles.timeDisplay} aria-label="Tiempo de reproducción">
-        {formatTime(currentTime)} / {formatTime(duration)}
-      </div>
-
-      <div className={styles.volumeControl}>
-        <button className={styles.controlBtn} onClick={() => setIsMuted((m) => !m)} aria-label={isMuted ? "Activar sonido" : "Silenciar"}>
-          {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
-        </button>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.01"
-          value={volume}
-          onChange={(e) => setVolume(parseFloat(e.target.value))}
-          className={styles.volumeSlider}
-          aria-label="Control de volumen"
-        />
-      </div>
-
-      <button className={`${styles.controlBtn} ${styles.fullscreenBtn}`} onClick={toggleFullscreen} aria-label={isFullscreen ? "Salir de pantalla completa" : "Pantalla completa"}>
-        {isFullscreen ? <FaCompress /> : <FaExpand />}
-      </button>
-    </div>
-  </div>
-);
 
 export default VideoGuides;
